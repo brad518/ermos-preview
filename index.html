@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ermos Dominion: sovereign AI on your premises</title>
+<meta name="description" content="Ermos Dominion is a sovereign AI system that lives on your premises. Frontier-class intelligence on your matters, your files, your clients. None of it ever touches the cloud.">
+<meta name="theme-color" content="#0B0F14">
+<meta property="og:title" content="ChatGPT for firms that can't use ChatGPT.">
+<meta property="og:description" content="A sovereign AI system that lives in your building. Your data never touches the cloud.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Hero poster is the LCP element (shows instantly, before the rotating video loads) -->
+<link rel="preload" as="image" href="assets/opt/hero-1200.webp" type="image/webp" fetchpriority="high">
+<style>
+  :root{
+    /* palette — carried from the existing brand (electric blue / midnight) */
+    --bg:#0B0F14; --bg-2:#0d131c; --atmos:#141d30;
+    --accent:#2563FF; --accent-rgb:37,99,255; --accent-hi:#3b74ff;
+    --ink:#F2F5F9; --ink-2:#E8ECF2; --muted:#9aa3b2; --muted-2:#7f8a9b; --eyebrow:#5f7ec2;
+    --line:rgba(255,255,255,0.09); --line-soft:rgba(255,255,255,0.06);
+    --card:rgba(255,255,255,0.015); --card-2:rgba(255,255,255,0.02);
+    /* type scale */
+    --f-display:'Sora',system-ui,sans-serif; --f-body:'Inter',system-ui,sans-serif;
+    --fs-hero:clamp(2.4rem, 4.6vw, 3.75rem);
+    --fs-h2:clamp(1.75rem, 3.2vw, 2.625rem);
+    --fs-h3:1.375rem;
+    --fs-lead:clamp(1.06rem, 1.3vw, 1.175rem);
+    --fs-body:0.975rem;
+    --fs-sm:0.9rem;
+    --fs-label:0.75rem;
+    /* rhythm */
+    --maxw:1240px; --pad:48px; --sec:clamp(84px,10vw,130px);
+    --radius:6px;
+    /* depth & lighting */
+    --glass:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.012));
+    --glass-hi:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    --edge:inset 0 1px 0 rgba(255,255,255,0.06);
+    --elev:0 22px 44px -24px rgba(0,0,0,0.75);
+    --elev-hi:0 34px 60px -22px rgba(0,0,0,0.85);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:rgba(var(--accent-rgb),0.32)}
+  :focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px;border-radius:3px}
+
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  .section{padding:var(--sec) 0}
+  .section--alt{background:linear-gradient(180deg,#0c111a,#0a0e15 60%,#0c111a);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  /* ambient lighting — a soft accent glow bleeding into a section */
+  .lit{position:relative;isolation:isolate;overflow:hidden}
+  .lit::before{content:"";position:absolute;pointer-events:none;z-index:0;left:50%;top:-160px;transform:translateX(-50%);
+    width:min(1200px,92%);height:560px;
+    background:radial-gradient(50% 60% at 50% 0%, rgba(var(--accent-rgb),0.13), rgba(var(--accent-rgb),0.04) 42%, transparent 72%);
+    filter:blur(26px)}
+  .lit--left::before{left:14%;transform:none;background:radial-gradient(48% 60% at 30% 20%, rgba(var(--accent-rgb),0.12), transparent 68%)}
+  .lit > *{position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;font-family:var(--f-body);
+    font-weight:600;font-size:var(--fs-label);letter-spacing:0.28em;text-transform:uppercase;color:var(--eyebrow)}
+  .eyebrow .tick{width:24px;height:1px;background:var(--accent)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h2.h2{font-family:var(--f-display);font-weight:300;font-size:var(--fs-h2);line-height:1.14;letter-spacing:-0.01em;color:var(--ink)}
+  .h2 b{font-weight:600}
+  .lead{margin-top:26px;font-size:var(--fs-lead);line-height:1.7;color:var(--muted);max-width:640px}
+
+  /* buttons — accent is spent ONLY here and on the Dominion column */
+  .btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--f-body);font-weight:600;
+    font-size:0.925rem;padding:15px 26px;border-radius:3px;border:1px solid transparent;cursor:pointer;transition:background .2s,border-color .2s,transform .05s}
+  .btn:active{transform:translateY(1px)}
+  .btn--primary{background:var(--accent);color:#fff;box-shadow:0 8px 26px rgba(var(--accent-rgb),0.34)}
+  .btn--primary:hover{background:var(--accent-hi)}
+  .btn--ghost{background:transparent;border-color:#2a3650;color:#cdd4df;font-weight:500}
+  .btn--ghost:hover{border-color:#3a4a6a;color:var(--ink)}
+
+  /* nav */
+  .nav{position:fixed;inset:0 0 auto 0;height:70px;z-index:50;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+  .nav.is-solid{background:rgba(11,15,20,0.82);backdrop-filter:blur(12px);border-bottom-color:var(--line-soft)}
+  .nav__row{display:flex;align-items:center;justify-content:space-between;height:100%}
+  .brand{font-family:var(--f-display);font-weight:600;font-size:1.2rem;letter-spacing:0.42em;color:#EAEEF4}
+  .nav__links{display:flex;align-items:center;gap:32px;font-weight:500;font-size:0.85rem;color:var(--muted)}
+  .nav__links a:hover{color:var(--ink)}
+  .nav__cta{display:flex;align-items:center;gap:18px}
+  .nav__phone{font-weight:500;font-size:0.82rem;letter-spacing:0.02em;color:#AEB6C2}
+  .nav__book{padding:10px 18px;border:1px solid #2c3a57;border-radius:3px;font-weight:600;font-size:0.8rem;color:#EAEEF4;background:rgba(var(--accent-rgb),0.08)}
+  .nav__book:hover{background:rgba(var(--accent-rgb),0.16)}
+
+  /* ===== HERO — full-bleed, box composited onto the page's own dark field ===== */
+  .hero{position:relative;min-height:clamp(620px,90vh,880px);display:flex;align-items:center;overflow:hidden}
+  .hero__bg{position:absolute;inset:0;background:radial-gradient(90% 100% at 78% 48%, var(--atmos) 0%, #0b1018 54%, #07090d 100%);z-index:0}
+  .hero__line{position:absolute;left:0;right:0;top:70px;height:1px;z-index:1;
+    background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),0.35),transparent)}
+  .hero__glow{position:absolute;right:14%;top:52%;transform:translateY(-50%);width:600px;height:720px;z-index:1;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.18), transparent 72%);filter:blur(14px)}
+  .hero__media{position:absolute;right:0;top:0;bottom:0;width:50%;z-index:2;display:flex;align-items:center;justify-content:center}
+  .hero__media img{width:auto;height:82%;max-height:820px;object-fit:contain;object-position:center;
+    filter:drop-shadow(0 60px 110px rgba(0,0,0,0.6))}
+  .hero__media video{width:auto;height:88%;max-height:860px;object-fit:contain;object-position:center;
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 54%, transparent 77%);
+    mask-image:radial-gradient(circle at 50% 50%, #000 54%, transparent 77%)}
+  .hero__inner{position:relative;z-index:3;width:100%}
+  .hero__text{max-width:540px}
+  .hero h1{font-family:var(--f-display);font-weight:300;font-size:var(--fs-hero);line-height:1.04;letter-spacing:-0.015em;color:var(--ink)}
+  .hero h1 b{font-weight:600}
+  .hero__sub{margin-top:24px;font-size:var(--fs-lead);line-height:1.6;color:var(--muted);max-width:470px}
+  .hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:36px}
+  .hero__trust{display:flex;flex-wrap:wrap;gap:24px;margin-top:44px;font-weight:500;font-size:0.8rem;color:var(--muted-2)}
+  .hero__trust span{display:flex;align-items:center;gap:9px}
+  .hero__trust i{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+
+  /* one page-load moment: headline block fades/rises over the still image */
+  .rise{opacity:0;transform:translateY(14px);animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards}
+  .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}.rise.d4{animation-delay:.32s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* trust strip */
+  .strip{border-bottom:1px solid var(--line-soft);background:#0a0e15}
+  .strip__row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 34px;padding:16px 0;
+    font-weight:500;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-2)}
+  .strip__row .sep{width:4px;height:4px;border-radius:50%;background:#39435a}
+
+  /* generic cards / grids */
+  .grid{display:grid;gap:24px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--glass);padding:34px 36px;
+    box-shadow:var(--elev),var(--edge);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s}
+  .card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:var(--elev-hi),var(--edge)}
+  .card .k{font-weight:500;font-size:0.8rem;letter-spacing:0.04em;text-transform:uppercase;color:#8a93a3;margin-bottom:14px}
+  .card .t{font-family:var(--f-display);font-weight:500;font-size:1.375rem;line-height:1.3;color:var(--ink-2);margin-bottom:14px}
+  .card .d{font-size:0.97rem;line-height:1.65;color:var(--muted)}
+
+  /* reusable breakout-number badge (used by the bind + how-it-works) */
+  .n{width:46px;height:46px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--f-display);font-weight:500;font-size:1.1rem;color:#cfe0ff;margin-bottom:24px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.22), rgba(var(--accent-rgb),0.05));
+    border:1px solid rgba(var(--accent-rgb),0.38);
+    box-shadow:0 0 22px rgba(var(--accent-rgb),0.22), inset 0 1px 0 rgba(255,255,255,0.12)}
+
+  /* the bind — three vertical options (cloud = ?, ban = X, third = tick) + a vault visual */
+  .bind-grid{display:grid;grid-template-columns:1fr 1.02fr;gap:34px;margin-top:46px;align-items:stretch}
+  .bind-list{display:flex;flex-direction:column;gap:18px}
+  .bind-row{display:flex;align-items:center;gap:22px;padding:32px 30px;border:1px solid var(--line);border-radius:12px;
+    background:var(--glass);box-shadow:var(--elev),var(--edge)}
+  .bind-row--yes{background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.05));
+    border-color:rgba(var(--accent-rgb),0.5);
+    box-shadow:0 0 60px -10px rgba(var(--accent-rgb),0.55), 0 0 0 1px rgba(var(--accent-rgb),0.18), var(--edge)}
+  .bind-row .n{margin-bottom:0;flex:none}
+  .bind-sym{flex:none;width:30px;text-align:center;font-family:var(--f-display);font-weight:700;font-size:1.5rem;line-height:1}
+  .bind-sym--q{color:#c9a24b}
+  .bind-sym--x{color:#5f6b7e}
+  .bind-sym--tick{color:var(--accent-hi)}
+  .bind-txt{flex:1}
+  .bind-txt .t{font-family:var(--f-display);font-weight:500;font-size:1.15rem;color:var(--ink-2);margin-bottom:5px}
+  .bind-row--yes .bind-txt .t{color:var(--ink)}
+  .bind-txt .d{font-size:0.94rem;line-height:1.6;color:var(--muted)}
+
+  /* vault — the appliance in a secure chamber (nothing in, nothing out) */
+  .vault{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+    background:radial-gradient(120% 80% at 50% 14%, #141d30 0%, #0c111a 54%, #05080e 100%);
+    box-shadow:var(--elev),var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:38px 34px 30px;min-height:100%}
+  /* floor: grounds the appliance in the chamber */
+  .vault::after{content:"";position:absolute;left:5%;right:5%;bottom:0;height:34%;z-index:0;pointer-events:none;
+    background:linear-gradient(to top, #04060b 0%, rgba(4,6,11,0) 100%)}
+  .vault__glow{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:360px;height:412px;z-index:0;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.34), transparent 68%);filter:blur(30px)}
+  .vault__unit{position:relative;z-index:1;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;width:100%}
+  .vault__unit img{height:100%;max-height:432px;width:auto;object-fit:contain;filter:drop-shadow(0 48px 74px rgba(0,0,0,0.78))}
+  /* vault door: concentric rings + locking bolts behind the appliance */
+  .vault__door{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(94%,452px);height:min(94%,452px);z-index:0;pointer-events:none}
+  .vault__door .vd-ring{fill:none;stroke:rgba(var(--accent-rgb),0.20);stroke-width:1.2}
+  .vault__door .vd-ring--in{stroke:rgba(255,255,255,0.055)}
+  .vault__door .vd-bolts circle{fill:rgba(var(--accent-rgb),0.6)}
+  /* sealed / locked status chip */
+  .vault__seal{position:absolute;top:18px;left:18px;z-index:3;display:inline-flex;align-items:center;gap:7px;
+    padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),0.12);border:1px solid rgba(var(--accent-rgb),0.35);
+    font-weight:600;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:#cfe0ff}
+  .vault__seal svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .vault__cap{position:relative;z-index:1;margin-top:18px;display:flex;align-items:center;gap:12px;
+    font-weight:600;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-2)}
+  .vault__cap::before,.vault__cap::after{content:"";width:22px;height:1px;background:rgba(var(--accent-rgb),0.45)}
+
+  /* ===== comparison table ===== */
+  .compare{width:100%;border-collapse:separate;border-spacing:0;margin-top:60px}
+  .compare th,.compare td{text-align:left;padding:19px 22px;font-size:0.95rem;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+  .compare thead th{font-family:var(--f-display);font-weight:500;font-size:1.02rem;color:var(--ink-2);border-bottom:1px solid var(--line)}
+  .compare .rowlabel{font-weight:500;color:#aab2c0;width:22%}
+  .compare td{color:var(--muted)}
+  /* status glyphs make pass/fail scannable at a glance */
+  .gl{display:inline-block;width:1.15em;margin-right:9px;font-weight:700;text-align:center}
+  .gl-pass{color:var(--accent-hi)}.gl-pass::before{content:"✓"}
+  .gl-neutral{color:#8a93a3}.gl-neutral::before{content:"✓"}
+  .gl-fail{color:#5f6b7e}.gl-fail::before{content:"✕"}
+  /* the winning column, lifted and lit */
+  .compare .col-dom{background:linear-gradient(180deg, rgba(var(--accent-rgb),0.16), rgba(var(--accent-rgb),0.05));
+    border-left:1px solid rgba(var(--accent-rgb),0.45);border-right:1px solid rgba(var(--accent-rgb),0.45)}
+  .compare thead .col-dom{color:#fff;border-top:1px solid rgba(var(--accent-rgb),0.55);border-bottom:1px solid rgba(var(--accent-rgb),0.45);
+    border-radius:12px 12px 0 0;box-shadow:0 -14px 40px -12px rgba(var(--accent-rgb),0.5)}
+  .compare tbody tr:last-child .col-dom{border-bottom:1px solid rgba(var(--accent-rgb),0.45);border-radius:0 0 12px 12px}
+  .compare .col-dom .v{color:var(--ink);font-weight:500}
+  .compare .col-dom .gl-pass{color:#7ea6ff}
+  .dom-badge{display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:5px 11px;border-radius:999px;
+    font-family:var(--f-body);font-weight:600;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:#cfe0ff;background:rgba(var(--accent-rgb),0.18);border:1px solid rgba(var(--accent-rgb),0.4)}
+  .dom-badge::before{content:"✓";font-size:0.8rem}
+  .compare__note{max-width:820px;margin:44px auto 0;text-align:center;font-size:0.97rem;line-height:1.7;color:var(--muted-2)}
+
+  /* mobile-only verdict cards (desktop uses the full table above) */
+  .compare-cards{display:none;margin-top:44px}
+  .vcard{border:1px solid var(--line);border-radius:14px;background:var(--glass);box-shadow:var(--elev),var(--edge);padding:22px 22px;margin-bottom:16px}
+  .vcard.is-dom{background:linear-gradient(180deg,rgba(var(--accent-rgb),0.16),rgba(var(--accent-rgb),0.05));
+    border-color:rgba(var(--accent-rgb),0.45);box-shadow:0 0 46px -10px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .vcard__badge{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;padding:5px 11px;border-radius:999px;
+    font:600 0.66rem var(--f-body);letter-spacing:0.14em;text-transform:uppercase;color:#cfe0ff;
+    background:rgba(var(--accent-rgb),0.2);border:1px solid rgba(var(--accent-rgb),0.4)}
+  .vcard__head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .vcard__name{font-family:var(--f-display);font-weight:500;font-size:1.15rem;color:var(--ink-2)}
+  .vcard__name small{display:block;font-family:var(--f-body);font-weight:400;font-size:0.78rem;color:var(--muted-2);margin-top:2px}
+  .vcard__verdict{font-size:1.3rem;font-weight:700;flex:none}
+  .vcard__verdict.is-fail{color:#5f6b7e}.vcard__verdict.is-pass{color:var(--accent-hi)}
+  .vcard__body{font-size:0.95rem;line-height:1.6;color:var(--muted)}
+  .vcard.is-dom .vcard__body{color:var(--ink-2)}
+
+  /* how it works — boxed steps with a lit breakout number */
+  .step{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--glass);padding:34px 32px;
+    box-shadow:var(--elev),var(--edge);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s}
+  .step:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:var(--elev-hi),var(--edge)}
+  .step .t{font-family:var(--f-display);font-weight:500;font-size:1.25rem;line-height:1.3;color:var(--ink-2);margin-bottom:13px}
+  .step .d{font-size:0.97rem;line-height:1.65;color:var(--muted)}
+
+  /* founders */
+  .who__intro{max-width:760px;margin:0 0 56px}
+  .founders{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+  .fcard__photo{aspect-ratio:4/5;max-width:80%;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    background:linear-gradient(160deg,#12192a,#0b0f16);margin-bottom:24px;box-shadow:var(--elev),var(--edge)}
+  .fcard__photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+  .fcard__id{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+  .fcard__name{font-family:var(--f-display);font-weight:600;font-size:1.25rem;color:var(--ink);margin:0}
+  .fcard__ln{flex:none;display:inline-flex;align-items:center;justify-content:center;color:var(--muted-2);
+    transition:color .3s ease,transform .3s ease}
+  .fcard__ln svg{width:17px;height:17px}
+  .fcard__ln:hover{color:var(--accent-hi);transform:translateY(-1px)}
+  .fcard__ln:focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px;border-radius:3px}
+  .fcard__role{font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--eyebrow);margin:0 0 16px}
+  .fcard__bio{font-size:0.97rem;line-height:1.72;color:var(--muted)}
+
+  /* ===== three ways: interactive decision columns ===== */
+  .tways__intro{max-width:820px;margin:0 auto;text-align:center}
+  .tways__options{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px;align-items:stretch}
+  .opt{position:relative;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:16px;font-family:inherit;
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
+    padding:28px 26px;box-shadow:var(--elev),var(--edge);opacity:0.6;filter:saturate(0.7);
+    transition:opacity .55s ease,filter .55s ease,border-color .5s,box-shadow .6s}
+  .opt:hover{opacity:0.85}
+  .opt.is-active{opacity:1;filter:none}
+  .opt:focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px}
+  .opt__head{display:flex;align-items:center;gap:13px}
+  .opt__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:3px;
+    font-family:var(--f-display);font-weight:500;font-size:1rem;color:#8fa9d8;background:rgba(255,255,255,0.04);border:1px solid var(--line)}
+  .opt__t{font-family:var(--f-display);font-weight:600;font-size:1.3rem;color:var(--ink-2);margin:0;line-height:1.12}
+  .opt__pos{margin:14px 0 0;font-size:0.9rem;font-weight:500;color:var(--muted-2)}
+  .opt__body{margin-top:22px}
+  .opt__label{display:block;font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-2);margin:0 0 10px}
+  .opt__group + .opt__group{margin-top:18px}
+  .opt__li{display:flex;gap:10px;align-items:flex-start;font-size:0.92rem;line-height:1.45;color:var(--muted);margin-bottom:7px}
+  .opt__li::before{flex:none;font-family:var(--f-display);font-weight:700;font-size:0.85rem;line-height:1.5}
+  .opt__li--pro{color:#cfd8e6}
+  .opt__li--pro::before{content:"\2713";color:var(--accent-hi)}
+  .opt__li--con::before{content:"\2715";color:#6a7488}
+  .opt--dom.is-active{border-color:rgba(var(--accent-rgb),0.55);
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.04));
+    box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge)}
+  .opt--dom.is-active .opt__n{color:#cfe0ff;background:rgba(var(--accent-rgb),0.18);border-color:rgba(var(--accent-rgb),0.4)}
+  .opt--dom.is-active .opt__t{color:var(--ink)}
+  .opt--dom.is-active .opt__pos{color:#9db8ff}
+  /* CTA */
+  .tways__cta{text-align:center;margin-top:54px}
+  .tways__cta-line{max-width:620px;margin:0 auto 22px;font-size:var(--fs-lead);line-height:1.6;color:var(--muted)}
+
+  /* ===== the turn — statement band bridging into why-ermos ===== */
+  .turn{position:relative;padding:clamp(96px,15vh,168px) 0;text-align:center;overflow:hidden}
+  .turn__glow{position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);width:min(760px,86%);height:300px;z-index:0;pointer-events:none;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.12), transparent 72%);filter:blur(34px)}
+  .turn__inner{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 var(--pad)}
+  .turn__l{font-family:var(--f-display);font-size:clamp(1.85rem,4.6vw,3.35rem);line-height:1.16;letter-spacing:-0.018em;margin:0;text-wrap:balance}
+  .turn__l--1{font-weight:400;color:var(--muted-2)}
+  .turn__l--2{font-weight:500;color:var(--ink);margin-top:10px}
+  .turn__l--2 b{color:var(--accent-hi);font-weight:600}
+
+  /* ===== why businesses choose ermos — appliance centrepiece (3 top + 2 bottom) ===== */
+  .wb__intro{max-width:720px;margin:0 auto 8px;text-align:center}
+  .wb__sub{max-width:620px;margin:18px auto 0;font-size:var(--fs-lead);line-height:1.6;color:var(--muted)}
+  .wb__stage{position:relative;max-width:1220px;margin:56px auto 0;display:grid;
+    grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;
+    column-gap:clamp(20px,3vw,56px);row-gap:clamp(150px,18vw,250px);align-items:stretch}
+  /* central appliance — dominant focal point, rises up from the bottom row */
+  .wb__core{grid-column:2;grid-row:2;position:relative;overflow:visible;pointer-events:none;min-height:0;z-index:0}
+  .wb__glow{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);width:360px;height:360px;border-radius:50%;z-index:0;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.34), transparent 70%);filter:blur(30px)}
+  .wb__base{position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:236px;height:70px;z-index:1;
+    background:radial-gradient(62% 100% at 50% 0%, rgba(var(--accent-rgb),0.6), transparent 72%);filter:blur(12px);animation:wbpower 4s ease-in-out infinite}
+  .wb__ring{position:absolute;left:50%;bottom:2px;width:216px;height:54px;margin-left:-108px;border-radius:50%;z-index:1;pointer-events:none;
+    border:1px solid rgba(var(--accent-rgb),0.5);opacity:0;animation:wbring 5s ease-out infinite}
+  .wb__ring--2{animation-delay:2.5s}
+  @keyframes wbring{0%{opacity:0.5;transform:scale(0.42)}78%{opacity:0}100%{opacity:0;transform:scale(1.75)}}
+  @keyframes wbpower{0%,100%{opacity:0.82}50%{opacity:1}}
+  .wb__unit{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:2;height:clamp(470px,54vh,600px);display:flex;align-items:flex-end}
+  .wb__unit picture{display:contents}
+  .wb__unit img{height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 42px 62px rgba(0,0,0,0.72))}
+  /* outcome cards */
+  .wb-card{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--glass);
+    box-shadow:var(--elev),var(--edge);padding:22px 22px;cursor:pointer;font-family:inherit;text-align:left;z-index:2;
+    --len:clamp(18px,3vw,52px);--vlen:clamp(56px,10vw,140px);--cr:37,99,255;
+    transition:border-color .5s,box-shadow .6s,background .5s}
+  .wb-card--t1{grid-column:1;grid-row:1;order:1}.wb-card--t2{grid-column:2;grid-row:1;order:2}.wb-card--t3{grid-column:3;grid-row:1;order:3}
+  .wb-card--b1{grid-column:1;grid-row:2;order:4}.wb-card--b3{grid-column:3;grid-row:2;order:5}
+  .wb-card:hover{border-color:rgba(var(--cr),0.45)}
+  .wb-card:focus-visible{outline:2px solid rgb(var(--cr));outline-offset:3px}
+  .wb-card.is-active{border-color:rgba(var(--cr),0.55);
+    background:linear-gradient(180deg, rgba(var(--cr),0.1), rgba(var(--cr),0.025));
+    box-shadow:0 0 54px -16px rgba(var(--cr),0.6),inset 0 0 0 1px rgba(var(--cr),0.28),var(--edge);
+    animation:wbcard 3.6s ease-in-out infinite}
+  .wb-card__head{display:flex;align-items:center;margin-bottom:12px;min-height:48px;padding-right:54px}
+  .wb-card__i{position:absolute;top:22px;right:22px;z-index:3;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;
+    background:radial-gradient(circle at 50% 36%, rgba(var(--cr),0.24), rgba(var(--cr),0.05));border:1px solid rgba(var(--cr),0.34);
+    box-shadow:0 0 22px -7px rgba(var(--cr),0.55)}
+  .wb-card__i svg{width:22px;height:22px;color:rgb(var(--cr));stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .wb-card__ht{display:flex;align-items:flex-start;gap:9px;flex:1}
+  .wb-card__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;margin-top:2px;
+    font-family:var(--f-display);font-weight:600;font-size:0.76rem;color:rgb(var(--cr));
+    border:1.5px solid rgba(var(--cr),0.65);box-shadow:0 0 12px -3px rgba(var(--cr),0.6)}
+  .wb-card__t{font-family:var(--f-display);font-weight:600;font-size:1.12rem;color:var(--ink);margin:0;line-height:1.24}
+  .wb-card__d{font-size:0.9rem;line-height:1.5;color:var(--muted);margin:0 0 16px}
+  .wb-card__list{border-top:1px solid var(--line-soft);padding-top:15px}
+  .wb-li{display:flex;gap:10px;align-items:center;font-size:0.9rem;line-height:1.4;color:var(--muted);margin-top:11px}
+  .wb-li:first-child{margin-top:0}
+  .wb-li__c{flex:none;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    color:rgb(var(--cr));background:rgba(var(--cr),0.14);border:1px solid rgba(var(--cr),0.42)}
+  .wb-li__c svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .wb-card.is-active .wb-li{animation:wbli .55s ease both}
+  .wb-card.is-active .wb-li:nth-child(1){animation-delay:.10s}
+  .wb-card.is-active .wb-li:nth-child(2){animation-delay:.20s}
+  .wb-card.is-active .wb-li:nth-child(3){animation-delay:.30s}
+  .wb-card.is-active .wb-li:nth-child(4){animation-delay:.40s}
+  .wb-card.is-active .wb-li:nth-child(5){animation-delay:.50s}
+  @keyframes wbli{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* connectors — thin blue beams into the appliance (top row beams down, bottom row beams inward) */
+  .wb-card::after{content:"";position:absolute;pointer-events:none;opacity:.5;transition:opacity .5s}
+  .wb-card::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;
+    background:rgba(var(--accent-rgb),0.85);box-shadow:0 0 12px rgba(var(--accent-rgb),0.75);opacity:.5;pointer-events:none;transition:opacity .5s}
+  .wb-card--t1::after,.wb-card--t2::after,.wb-card--t3::after{left:50%;top:100%;width:1.5px;height:var(--vlen);margin-left:-0.75px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.9), transparent)}
+  .wb-card--t1::after{transform-origin:top center;transform:rotate(-32deg);height:calc(var(--vlen)*1.55)}
+  .wb-card--t3::after{transform-origin:top center;transform:rotate(32deg);height:calc(var(--vlen)*1.55)}
+  .wb-card--t1::before,.wb-card--t2::before,.wb-card--t3::before{left:50%;bottom:-4px;margin-left:-4.5px}
+  .wb-card--b1::after{left:100%;top:50%;height:1.5px;width:var(--len);margin-top:-0.75px;background:linear-gradient(90deg, rgba(var(--accent-rgb),0.9), transparent)}
+  .wb-card--b1::before{right:-4px;top:50%;margin-top:-4.5px}
+  .wb-card--b3::after{right:100%;top:50%;height:1.5px;width:var(--len);margin-top:-0.75px;background:linear-gradient(270deg, rgba(var(--accent-rgb),0.9), transparent)}
+  .wb-card--b3::before{left:-4px;top:50%;margin-top:-4.5px}
+  .wb-card.is-active::after{opacity:1;animation:wbbeam 2.8s ease-in-out infinite}
+  .wb-card.is-active::before{opacity:1;animation:wbnode 2.8s ease-in-out infinite}
+  @keyframes wbbeam{0%,100%{filter:brightness(1)}50%{filter:brightness(2)}}
+  @keyframes wbnode{0%,100%{box-shadow:0 0 12px rgba(var(--accent-rgb),0.75)}50%{box-shadow:0 0 20px 2px rgba(var(--accent-rgb),1)}}
+  @keyframes wbcard{0%,100%{box-shadow:0 0 54px -16px rgba(var(--cr),0.55),inset 0 0 0 1px rgba(var(--cr),0.24),var(--edge)}
+    50%{box-shadow:0 0 84px -8px rgba(var(--cr),0.82),inset 0 0 0 1px rgba(var(--cr),0.42),var(--edge)}}
+  /* footer */
+  .wb__foot{max-width:680px;margin:clamp(40px,6vw,76px) auto 0;text-align:center}
+  .wb__foot-lead{font-family:var(--f-display);font-weight:500;font-size:clamp(1.15rem,2.3vw,1.6rem);line-height:1.3;color:var(--ink-2);margin:0}
+  .wb__foot-lead b{color:var(--accent-hi);font-weight:500}
+  .wb__foot-btn{margin-top:26px}
+  .wb__foot-note{display:inline-flex;align-items:center;gap:8px;margin:24px 0 0;font-size:0.9rem;color:var(--muted);letter-spacing:0.02em}
+  .wb__foot-note svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ===== what you walk away with — editorial rows ===== */
+  .walk{position:relative}
+  .walk__glow{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:min(680px,88%);height:300px;z-index:0;pointer-events:none;
+    background:radial-gradient(58% 60% at 50% 40%, rgba(var(--accent-rgb),0.09), transparent 70%);filter:blur(30px)}
+  .walk .container{position:relative;z-index:1}
+  .walk__intro{max-width:760px;margin:0 auto;text-align:center}
+  .walk__sub{max-width:640px;margin:20px auto 0;font-size:var(--fs-lead);line-height:1.62;color:var(--muted)}
+  .walk__rows{max-width:1060px;margin:60px auto 0}
+  .walk-row{display:grid;grid-template-columns:clamp(72px,8vw,116px) 1fr;gap:clamp(24px,4.5vw,64px);align-items:start;
+    padding:clamp(34px,4vw,52px) 0;border-top:1px solid var(--line-soft)}
+  .walk-row:last-child{border-bottom:1px solid var(--line-soft)}
+  .walk-row__num{font-family:var(--f-display);font-weight:300;font-size:clamp(2.4rem,4.4vw,3.4rem);line-height:0.9;
+    letter-spacing:-0.02em;color:var(--muted-2);opacity:0.42}
+  .walk-row__label{display:block;font-weight:600;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent-hi);margin-bottom:16px}
+  .walk-row__t{font-family:var(--f-display);font-weight:500;font-size:clamp(1.3rem,2.3vw,1.62rem);line-height:1.24;letter-spacing:-0.01em;color:var(--ink);margin:0 0 15px}
+  .walk-row__d{font-size:1.02rem;line-height:1.7;color:var(--muted);margin:0;max-width:640px}
+  .walk-row__why{margin:20px 0 0;font-size:0.94rem;line-height:1.6;color:var(--muted-2);max-width:640px}
+  .walk-row__why b{color:var(--accent-hi);font-weight:600;letter-spacing:0.01em}
+
+  /* ===== who it's for — sensitive-firm cards ===== */
+  .whofor__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+  .whofor-card{border:1px solid var(--line);border-radius:12px;background:var(--glass);box-shadow:var(--edge);
+    padding:26px 22px;transition:border-color .3s,box-shadow .3s}
+  .whofor-card:hover{border-color:rgba(var(--accent-rgb),0.3);box-shadow:0 0 32px -14px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .whofor-card__t{font-family:var(--f-display);font-weight:600;font-size:1.06rem;color:var(--ink-2);margin-bottom:10px}
+  .whofor-card__d{font-size:0.9rem;line-height:1.55;color:var(--muted)}
+
+  /* ===== which dominion fits — deployment options ===== */
+  .dep__intro{max-width:780px;margin:0 auto;text-align:center}
+  .dep__sub{max-width:600px;margin:18px auto 0;font-size:var(--fs-lead);line-height:1.6;color:var(--muted)}
+  .dep__stage{position:relative;max-width:920px;margin:54px auto 0;display:grid;
+    grid-template-columns:1fr 1fr;column-gap:clamp(18px,3vw,36px);align-items:stretch}
+  /* cards */
+  .dep-card{position:relative;z-index:2;border:1px solid var(--line);border-radius:20px;background:var(--glass);
+    box-shadow:var(--elev),var(--edge);padding:30px 30px 32px;display:flex;flex-direction:column;--cr:59,130,246;
+    transition:border-color .4s,box-shadow .5s,transform .5s}
+  .dep-card--core{grid-column:1}
+  .dep-card--growth{grid-column:2;--cr:167,139,250}
+  .dep-card:hover{transform:translateY(-4px);border-color:rgba(var(--cr),0.5);box-shadow:0 0 58px -16px rgba(var(--cr),0.6),var(--edge)}
+  .dep-card__pill{align-self:flex-start;display:inline-flex;align-items:center;font-family:var(--f-display);font-weight:600;font-size:0.74rem;
+    letter-spacing:0.16em;text-transform:uppercase;color:rgb(var(--cr));padding:8px 16px;border-radius:999px;
+    border:1px solid rgba(var(--cr),0.5);background:rgba(var(--cr),0.08);margin-bottom:26px}
+  .dep-stat{display:flex;align-items:center;gap:14px;padding:15px 0;border-top:1px solid var(--line-soft)}
+  .dep-stat:first-of-type{border-top:none;padding-top:0}
+  .dep-stat__i{flex:none;width:36px;height:36px;color:rgb(var(--cr));stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .dep-stat__lab{font-size:0.88rem;color:var(--muted);line-height:1.3}
+  .dep-stat__val{font-family:var(--f-display);font-weight:600;font-size:1.22rem;color:var(--ink);line-height:1.15}
+  .dep-inc{border-top:1px solid var(--line-soft);padding-top:18px;margin-top:15px}
+  .dep-inc__h{font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:13px}
+  .dep-li{display:flex;gap:10px;align-items:center;font-size:0.92rem;line-height:1.4;color:var(--muted);margin-top:9px}
+  .dep-li:first-of-type{margin-top:0}
+  .dep-li__c{flex:none;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    color:rgb(var(--cr));background:rgba(var(--cr),0.14);border:1px solid rgba(var(--cr),0.4)}
+  .dep-li__c svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  .dep-price{border-top:1px solid var(--line-soft);margin-top:22px;padding-top:20px}
+  .dep-price__row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:14px}
+  .dep-price__row:first-child{margin-top:0}
+  .dep-price__lab{font-size:0.9rem;color:var(--muted)}
+  .dep-price__val{font-family:var(--f-display);font-weight:600;font-size:1.5rem;color:var(--ink);white-space:nowrap}
+  .dep-price__val--mo{color:rgb(var(--cr))}
+  .dep-price__val small{font-size:0.86rem;font-weight:500;color:var(--muted)}
+  .dep-note{margin:16px 0 0;font-size:0.82rem;color:var(--muted-2)}
+  .dep-card__cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:auto;
+    padding:15px 20px;border-radius:12px;font-family:var(--f-body);font-weight:600;font-size:0.98rem;cursor:pointer;
+    color:rgb(var(--cr));border:1px solid rgba(var(--cr),0.5);background:rgba(var(--cr),0.07);
+    transition:background .3s,border-color .3s,transform .3s}
+  .dep-card__cta::after{content:"\2192";font-size:1.05rem}
+  .dep-card__cta:hover{background:rgba(var(--cr),0.15);border-color:rgba(var(--cr),0.85);transform:translateY(-1px)}
+  .dep-card__cta:focus-visible{outline:2px solid rgb(var(--cr));outline-offset:3px}
+  .dep-card__ctawrap{margin-top:26px}
+  /* supporting panel */
+  .dep__panel{position:relative;z-index:2;max-width:1100px;margin:32px auto 0;border:1px solid var(--line);border-radius:18px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.05), rgba(255,255,255,0.012));box-shadow:var(--elev),var(--edge);padding:clamp(28px,3.4vw,44px)}
+  .dep__panel h3{font-family:var(--f-display);font-weight:500;font-size:clamp(1.18rem,2vw,1.5rem);line-height:1.3;color:var(--ink);margin:0 0 14px;max-width:840px}
+  .dep__panel p{font-size:1rem;line-height:1.7;color:var(--muted);margin:0;max-width:920px}
+  .dep__foot{display:flex;align-items:center;justify-content:center;gap:9px;margin:30px 0 0;font-size:0.86rem;color:var(--muted-2)}
+  .dep__foot svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ===== ai delivers value — executive briefing ===== */
+  .val{--gr:52,199,120}
+  .val__intro{max-width:860px;margin:0 auto;text-align:center}
+  .val__sub{max-width:600px;margin:18px auto 0;font-size:var(--fs-lead);line-height:1.6;color:var(--muted)}
+  /* part 1 — comparison */
+  .vm{max-width:1000px;margin:52px auto 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--glass);box-shadow:var(--elev),var(--edge)}
+  .vm__row{display:grid;grid-template-columns:1.4fr 1fr 1fr;border-top:1px solid var(--line-soft)}
+  .vm__row:first-child{border-top:none}
+  .vm__metric{padding:20px 26px;display:flex;flex-direction:column;justify-content:center}
+  .vm__mlabel{font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--ink-2)}
+  .vm__mdesc{font-size:0.84rem;line-height:1.4;color:var(--muted-2);margin-top:3px}
+  .vm__cell{padding:18px 24px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+  .vm__cell--dom{background:rgba(var(--accent-rgb),0.05);border-left:1px solid var(--line-soft)}
+  .vm__val{font-family:var(--f-display);font-weight:600;font-size:1.5rem;line-height:1.1;color:var(--ink)}
+  .vm__cell--scat .vm__val{color:var(--muted)}
+  .vm__cell--dom .vm__val{color:var(--accent-hi)}
+  .vm__vsub{font-size:0.82rem;line-height:1.4;color:var(--muted-2)}
+  .vm__colh{padding:16px 24px;text-align:center}
+  .vm__colh--scat{background:rgba(255,255,255,0.028)}
+  .vm__colh--dom{background:rgba(var(--accent-rgb),0.12);border-left:1px solid rgba(var(--accent-rgb),0.2)}
+  .vm__colh-t{font-family:var(--f-display);font-weight:600;font-size:0.9rem;color:var(--ink-2)}
+  .vm__colh--dom .vm__colh-t{color:var(--accent-hi)}
+  .vm__colh-s{font-size:0.77rem;color:var(--muted-2);margin-top:2px}
+  .vm__row--head .vm__metric{padding:16px 26px}
+  .vm__row--head .vm__mlabel{font-weight:600;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-2)}
+  .vm__mark{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:600;font-size:1.15rem}
+  .vm__ic{flex:none;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
+  .vm__ic svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .vm__cell--scat .vm__ic{color:var(--muted-2);background:rgba(255,255,255,0.05);border:1px solid var(--line)}
+  .vm__cell--scat .vm__mark{color:var(--muted)}
+  .vm__cell--dom .vm__ic{color:var(--accent-hi);background:rgba(var(--accent-rgb),0.16);border:1px solid rgba(var(--accent-rgb),0.44)}
+  .vm__cell--dom .vm__mark{color:var(--accent-hi)}
+  .vm__note{max-width:1000px;margin:16px auto 0;font-size:0.82rem;color:var(--muted-2);text-align:center}
+  /* part 2 — productivity impact */
+  .vi{margin-top:clamp(72px,9vw,112px)}
+  .vi__head{text-align:center;font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-0.01em;color:var(--ink);margin:0}
+  .vi__sub{text-align:center;max-width:660px;margin:14px auto 0;font-size:0.98rem;line-height:1.6;color:var(--muted)}
+  .vi__cards{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;max-width:1080px;margin:44px auto 0}
+  .vi__op{align-self:center;color:var(--muted-2);font-size:1.5rem;padding:0 clamp(6px,1.3vw,18px)}
+  .vi__card{border:1px solid var(--line);border-radius:18px;background:var(--glass);box-shadow:var(--elev),var(--edge);padding:28px 26px;display:flex;flex-direction:column;text-align:center}
+  .vi__card--dom{border-color:rgba(var(--accent-rgb),0.4);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent-rgb),0.02))}
+  .vi__card--unlock{border-color:rgba(var(--gr),0.5);background:linear-gradient(180deg, rgba(var(--gr),0.1), rgba(var(--gr),0.03));box-shadow:0 0 62px -16px rgba(var(--gr),0.55),var(--edge)}
+  .vi__label{font-family:var(--f-display);font-weight:600;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px}
+  .vi__card--dom .vi__label{color:var(--accent-hi)}
+  .vi__card--unlock .vi__label{color:rgb(var(--gr))}
+  .vi__labsub{font-size:0.8rem;color:var(--muted-2);margin-bottom:22px}
+  .vi__hero{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3vw,2.2rem);line-height:1;color:var(--ink)}
+  .vi__herolab{font-size:0.82rem;color:var(--muted);margin-top:6px}
+  .vi__stat{padding-top:20px;margin-top:20px;border-top:1px solid var(--line-soft)}
+  .vi__num{font-family:var(--f-display);font-weight:600;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1;color:var(--ink);letter-spacing:-0.01em}
+  .vi__card--dom .vi__num{color:var(--accent-hi)}
+  .vi__card--unlock .vi__hero,.vi__card--unlock .vi__num{color:rgb(var(--gr))}
+  .vi__numlab{font-size:0.8rem;color:var(--muted-2);margin-top:7px}
+  /* part 3 — compounding */
+  .vc{margin-top:clamp(72px,9vw,112px)}
+  .vc__head{text-align:center;max-width:820px;margin:0 auto;font-family:var(--f-display);font-weight:600;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.25;letter-spacing:-0.01em;color:var(--ink)}
+  .vc__panels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1040px;margin:44px auto 0}
+  .vc__panel{border:1px solid var(--line);border-radius:16px;background:var(--glass);box-shadow:var(--elev),var(--edge);padding:28px 26px}
+  .vc__i{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin-bottom:18px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));border:1px solid rgba(var(--accent-rgb),0.3)}
+  .vc__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .vc__h{font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--ink-2);margin-bottom:9px}
+  .vc__d{font-size:0.94rem;line-height:1.6;color:var(--muted)}
+  .val__strip{max-width:1040px;margin:clamp(46px,6vw,74px) auto 0;border-radius:16px;padding:clamp(26px,3.4vw,42px);text-align:center;
+    background:linear-gradient(180deg,#0c1322,#0a0e16);border:1px solid var(--line);box-shadow:0 0 64px -22px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .val__strip-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);line-height:1.3;color:var(--ink);margin:0}
+  .val__strip-t b{color:var(--accent-hi);font-weight:600}
+
+  /* security / capability shared feature cards */
+  .feat{border:1px solid var(--line);border-radius:12px;background:var(--glass);padding:30px 32px;
+    box-shadow:var(--elev),var(--edge);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s}
+  .feat:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:var(--elev-hi),var(--edge)}
+  .feat .t{font-family:var(--f-display);font-weight:500;font-size:1.125rem;color:var(--ink-2);margin-bottom:11px}
+  .feat .d{font-size:0.95rem;line-height:1.65;color:var(--muted)}
+  .capgrid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:72px;align-items:start}
+  .captiles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--elev),var(--edge)}
+  .captiles .tile{background:linear-gradient(180deg,#0e141e,#0b0f16);padding:30px;transition:background .25s}
+  .captiles .tile:hover{background:linear-gradient(180deg,#111925,#0d1119)}
+  .captiles .tile .t{font-family:var(--f-display);font-weight:500;font-size:1.06rem;color:var(--ink-2);margin-bottom:10px}
+  .captiles .tile .d{font-size:0.9rem;line-height:1.6;color:var(--muted)}
+  .note{max-width:820px;margin:46px auto 0;text-align:center;font-size:0.9rem;line-height:1.7;color:var(--muted-2)}
+
+  /* faq (native details/summary) */
+  .faq{max-width:920px}
+  .faq details{border-top:1px solid rgba(255,255,255,0.1)}
+  .faq details:last-child{border-bottom:1px solid rgba(255,255,255,0.1)}
+  .faq summary{list-style:none;cursor:pointer;padding:26px 4px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+    font-family:var(--f-display);font-weight:500;font-size:1.175rem;color:var(--ink-2)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";flex:none;color:#6f8fd6;font-family:var(--f-display);font-weight:300;font-size:1.6rem;transition:transform .25s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .a{padding:0 4px 28px;max-width:760px;font-size:1rem;line-height:1.7;color:var(--muted)}
+
+  /* contact / final cta */
+  .contact{background:radial-gradient(110% 90% at 50% 0%, var(--atmos) 0%, var(--bg) 55%);border-top:1px solid var(--line-soft)}
+  .contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+  .form{display:flex;flex-direction:column;gap:18px;max-width:440px}
+  .form label{display:block;font-weight:500;font-size:0.75rem;letter-spacing:0.04em;text-transform:uppercase;color:#8a93a3;margin-bottom:8px}
+  .form input{width:100%;background:rgba(255,255,255,0.03);border:1px solid #2a3650;border-radius:3px;padding:12px 14px;
+    font-family:var(--f-body);font-size:0.925rem;color:var(--ink-2)}
+  .form input:focus{outline:none;border-color:var(--accent)}
+  .form .ok{display:none;padding:22px 24px;border:1px solid rgba(var(--accent-rgb),0.4);border-radius:5px;background:rgba(var(--accent-rgb),0.06);
+    font-size:0.95rem;line-height:1.6;color:var(--muted)}
+  .form.sent .fields{display:none}.form.sent .ok{display:block}
+
+  /* footer */
+  .foot{padding:64px 0 48px;border-top:1px solid rgba(255,255,255,0.07)}
+  .foot__row{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+  .foot__links{display:flex;flex-wrap:wrap;gap:20px;font-size:0.85rem;color:var(--muted)}
+  .foot__links a:hover{color:var(--ink)}
+  .foot__meta{margin-top:34px;font-size:0.78rem;color:var(--muted-2)}
+
+  /* scroll reveal (subtle, disciplined — not scroll-jacking) */
+  [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  [data-reveal].in{opacity:1;transform:none}
+
+  /* ===== responsive ===== */
+  @media (max-width:960px){
+    :root{--pad:28px}
+    .whofor__grid{grid-template-columns:repeat(3,1fr)}
+    .dep-card{padding:26px 24px 28px}
+    .g3{grid-template-columns:1fr}
+    .capgrid{grid-template-columns:1fr;gap:40px}
+    .founders{grid-template-columns:1fr;gap:40px}
+    .fcard__photo{max-width:272px}
+    .contact__grid{grid-template-columns:1fr;gap:44px}
+    .nav__links{display:none}
+    .tways__options{gap:14px}
+    /* why-ermos: appliance on top, cards stacked below */
+    .wb__stage{grid-template-columns:1fr;row-gap:16px;margin-top:36px}
+    .wb__core{grid-column:1;grid-row:auto;min-height:auto;margin-bottom:10px}
+    .wb__unit{position:static;transform:none;height:auto;margin:0 auto}
+    .wb__unit img{height:min(330px,60vw)}
+    .wb__glow{width:250px;height:250px}
+    .wb__base{bottom:4%;width:180px;height:48px}
+    .wb-card{grid-column:1;grid-row:auto;opacity:1;transform:none}
+    .wb-card.is-active{transform:none}
+    .wb-card::after,.wb-card::before{display:none}
+  }
+  @media (max-width:768px){
+    /* what you walk away with → number stacked above the copy */
+    .whofor__grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    /* deployment: two cards stack */
+    .dep__stage{grid-template-columns:1fr;row-gap:18px;margin-top:36px}
+    .dep-card--core,.dep-card--growth{grid-column:1}
+    /* value: comparison stacks (metric on top, two values below); cards/panels stack */
+    .vm__row{grid-template-columns:1fr 1fr}
+    .vm__metric{grid-column:1 / -1;padding:15px 18px 3px}
+    .vm__cell,.vm__colh{padding:13px 12px}
+    .vm__val{font-size:1.3rem}
+    .vm__row--head .vm__metric{display:none}
+    .vi__cards{grid-template-columns:1fr;gap:16px;max-width:440px}
+    .vi__op{display:none}
+    .vc__panels{grid-template-columns:1fr;gap:14px}
+    .walk__rows{margin-top:40px}
+    .walk-row{grid-template-columns:1fr;gap:12px;padding:30px 0}
+    .walk-row__num{font-size:2.1rem}
+    /* HERO → image-led stacked; the box is an isolated object, never cropped */
+    .hero{min-height:auto;padding:104px 0 56px;flex-direction:column;align-items:stretch}
+    .hero__inner{order:1}
+    .hero__inner .hero__text{max-width:none}
+    .hero__media{position:relative;width:100%;justify-content:center;margin:36px 0 4px;order:2}
+    .hero__media img{height:auto;width:min(72vw,340px);max-height:none;object-position:center}
+    .hero__media video{height:auto;width:min(80vw,380px);max-height:none;object-position:center}
+    .hero__glow{right:50%;transform:translate(50%,-50%);top:60%}
+    .hero__cta .btn{flex:1 1 auto}
+    .g2{grid-template-columns:1fr}
+    .captiles{grid-template-columns:1fr}
+    /* three ways: option cards stack, all fully readable */
+    .tways__options{grid-template-columns:1fr;gap:14px;margin-top:36px}
+    .opt{opacity:1;filter:none;padding:24px 22px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .rise{animation:none;opacity:1;transform:none}
+    [data-reveal]{transition:none;opacity:1;transform:none}
+    .pio-chip.is-active{animation:none}
+    .wb__base,.wb__ring,.wb-card.is-active,.wb-card.is-active::after,.wb-card.is-active::before{animation:none}
+    .wb__ring{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="container nav__row">
+    <a href="#top" class="brand" aria-label="Ermos home">ERMOS</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#bind">The bind</a>
+      <a href="#how">How it works</a>
+      <a href="#security">Security</a>
+      <a href="#deploy">Plans</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav__cta">
+      <span class="nav__phone">1300 ERMOS</span>
+      <a href="#contact" class="nav__book">Book a consultation</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO (full-bleed) ================= -->
+  <section class="hero" aria-label="Ermos Dominion">
+    <div class="hero__bg"></div>
+    <div class="hero__line"></div>
+    <div class="hero__glow"></div>
+    <div class="hero__media">
+      <!-- rotating unit; the still poster shows instantly and is the reduced-motion fallback -->
+      <video class="hero__vid" autoplay muted playsinline preload="auto" poster="assets/opt/hero-1200.webp"
+        aria-label="The Ermos Dominion unit, slowly rotating">
+        <source src="assets/video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <div class="eyebrow rise"><span class="dot"></span>Sovereign AI, on your premises</div>
+        <h1 class="rise d1">ChatGPT for firms that <b>can't use ChatGPT.</b></h1>
+        <p class="hero__sub rise d2">Ermos Dominion is a sovereign AI system that lives on your premises. Your team gets frontier-class intelligence on your matters, your files, your clients. None of it ever touches the cloud.</p>
+        <div class="hero__cta rise d3">
+          <a href="#contact" class="btn btn--primary">Book a confidential consultation</a>
+          <a href="security-brief.html" class="btn btn--ghost">Get the security brief</a>
+        </div>
+        <div class="hero__trust rise d4">
+          <span><i></i>Air-gapped</span>
+          <span><i></i>Onshore in Australia</span>
+          <span><i></i>You own your data</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <div class="strip">
+    <div class="container strip__row">
+      <span>ABN&nbsp;51&nbsp;699&nbsp;709&nbsp;709</span>
+      <span class="sep"></span>
+      <span>1300&nbsp;ERMOS</span>
+      <span class="sep"></span>
+      <span>Australian owned and built</span>
+    </div>
+  </div>
+
+  <!-- ================= THREE WAYS (interactive decision) ================= -->
+  <section class="section lit tways" id="bind" data-reveal>
+    <div class="container">
+      <div class="tways__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The decision</div>
+        <h2 class="h2">Three ways to handle AI. <b>Only one keeps your business protected, productive and in control.</b></h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">Every business faces the same decision: use public AI, ban AI, or bring enterprise AI into your own custody. Only one protects your data while giving your team the full power of AI.</p>
+      </div>
+      <div class="tways__options">
+        <div class="opt opt--cloud" data-i="0" role="button" tabindex="0" aria-pressed="false" aria-label="Use public AI">
+          <div class="opt__head">
+            <span class="opt__n">1</span>
+            <h3 class="opt__t">Use public AI</h3>
+          </div>
+          <p class="opt__pos">Useful, but exposed.</p>
+          <div class="opt__body">
+            <div class="opt__group"><div class="opt__label">The upside</div>
+            <div class="opt__li opt__li--pro">Fast to start</div>
+            <div class="opt__li opt__li--pro">Powerful tools</div>
+            <div class="opt__li opt__li--pro">Easy for staff to access</div>
+            </div>
+            <div class="opt__group"><div class="opt__label">The cost</div>
+            <div class="opt__li opt__li--con">Data leaves your control</div>
+            <div class="opt__li opt__li--con">Client confidentiality risk</div>
+            <div class="opt__li opt__li--con">IP may be exposed</div>
+            <div class="opt__li opt__li--con">Ongoing per-seat fees</div>
+            </div>
+          </div>
+        </div>
+        <div class="opt opt--ban" data-i="1" role="button" tabindex="0" aria-pressed="false" aria-label="Ban AI">
+          <div class="opt__head">
+            <span class="opt__n">2</span>
+            <h3 class="opt__t">Ban AI</h3>
+          </div>
+          <p class="opt__pos">Safe, but unrealistic.</p>
+          <div class="opt__body">
+            <div class="opt__group"><div class="opt__label">The upside</div>
+            <div class="opt__li opt__li--pro">Feels safe on paper</div>
+            <div class="opt__li opt__li--pro">Simple internal policy</div>
+            <div class="opt__li opt__li--pro">Reduces official AI risk</div>
+            </div>
+            <div class="opt__group"><div class="opt__label">The cost</div>
+            <div class="opt__li opt__li--con">Staff fall behind</div>
+            <div class="opt__li opt__li--con">Shadow AI appears anyway</div>
+            <div class="opt__li opt__li--con">Productivity is lost</div>
+            <div class="opt__li opt__li--con">Sensitive work may move into personal tools</div>
+            </div>
+          </div>
+        </div>
+        <div class="opt opt--dom is-active" data-i="2" role="button" tabindex="0" aria-pressed="true" aria-label="Ermos Dominion">
+          <div class="opt__head">
+            <span class="opt__n">3</span>
+            <h3 class="opt__t">Ermos Dominion</h3>
+          </div>
+          <p class="opt__pos">Protected, productive and in control.</p>
+          <div class="opt__body">
+            <div class="opt__group"><div class="opt__label">The upside</div>
+            <div class="opt__li opt__li--pro">Private AI inside your building</div>
+            <div class="opt__li opt__li--pro">Sensitive data stays under your control</div>
+            <div class="opt__li opt__li--pro">Every employee gets AI capability</div>
+            <div class="opt__li opt__li--pro">No per-seat AI licences</div>
+            </div>
+            <div class="opt__group"><div class="opt__label">The cost</div>
+            <div class="opt__li opt__li--con">Requires upfront setup</div>
+            <div class="opt__li opt__li--con">Needs managed deployment</div>
+            <div class="opt__li opt__li--con">Not a casual plug-and-play toy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tways__cta">
+        <p class="tways__cta-line">Choose the path that gives your team AI capability without giving away your data.</p>
+        <a href="#contact" class="btn btn--primary">Book a private AI consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE TURN (statement band) ================= -->
+  <section class="turn" data-reveal aria-label="Individual AI makes people faster. Dominion makes businesses smarter.">
+    <div class="turn__glow" aria-hidden="true"></div>
+    <div class="turn__inner">
+      <p class="turn__l turn__l--1">Individual AI makes people faster.</p>
+      <p class="turn__l turn__l--2">Dominion makes businesses <b>smarter.</b></p>
+    </div>
+  </section>
+
+  <!-- ================= AI DELIVERS VALUE ================= -->
+  <section class="section val" id="value" data-reveal>
+    <div class="container">
+      <div class="val__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The value case</div>
+        <h2 class="h2">AI delivers value. The way you use it determines <b>the outcome.</b></h2>
+        <p class="val__sub">Individual AI saves time. Organisational AI compounds it.</p>
+      </div>
+
+      <div class="vm">
+        <div class="vm__row vm__row--head">
+          <div class="vm__metric"><span class="vm__mlabel">Core metrics</span></div>
+          <div class="vm__colh vm__colh--scat"><div class="vm__colh-t">AI scattered</div><div class="vm__colh-s">Individual tools. No connection.</div></div>
+          <div class="vm__colh vm__colh--dom"><div class="vm__colh-t">AI consolidated (Dominion)</div><div class="vm__colh-s">One system. Shared intelligence.</div></div>
+        </div>
+        <div class="vm__row">
+          <div class="vm__metric"><span class="vm__mlabel">AI adoption</span><span class="vm__mdesc">Australian SMEs using AI in some form</span></div>
+          <div class="vm__cell vm__cell--scat"><div class="vm__val">92%</div><div class="vm__vsub">Industry reality</div></div>
+          <div class="vm__cell vm__cell--dom"><div class="vm__val">92%</div><div class="vm__vsub">Same starting point</div></div>
+        </div>
+        <div class="vm__row">
+          <div class="vm__metric"><span class="vm__mlabel">Knowledge retained</span><span class="vm__mdesc">Answers captured and reused</span></div>
+          <div class="vm__cell vm__cell--scat"><div class="vm__val">5&ndash;10%</div><div class="vm__vsub">Most walks out the door</div></div>
+          <div class="vm__cell vm__cell--dom"><div class="vm__val">80&ndash;95%</div><div class="vm__vsub">Captured, organised, reused</div></div>
+        </div>
+        <div class="vm__row">
+          <div class="vm__metric"><span class="vm__mlabel">Weekly productivity gain</span><span class="vm__mdesc">Time saved per employee</span></div>
+          <div class="vm__cell vm__cell--scat"><div class="vm__val">&#8776; 5 hrs</div><div class="vm__vsub">&#8776; 1 hour a day</div></div>
+          <div class="vm__cell vm__cell--dom"><div class="vm__val">&#8776; 15 hrs</div><div class="vm__vsub">&#8776; 3 hours a day</div></div>
+        </div>
+        <div class="vm__row">
+          <div class="vm__metric"><span class="vm__mlabel">Business gets smarter?</span><span class="vm__mdesc">Does it improve over time</span></div>
+          <div class="vm__cell vm__cell--scat"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>No</div><div class="vm__vsub">Starts over daily</div></div>
+          <div class="vm__cell vm__cell--dom"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l2.8 2.8L12.5 5"/></svg></span>Yes</div><div class="vm__vsub">Compounds every day</div></div>
+        </div>
+        <div class="vm__row">
+          <div class="vm__metric"><span class="vm__mlabel">Business asset created?</span><span class="vm__mdesc">Does it build lasting value</span></div>
+          <div class="vm__cell vm__cell--scat"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>No</div><div class="vm__vsub">Just another tool</div></div>
+          <div class="vm__cell vm__cell--dom"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l2.8 2.8L12.5 5"/></svg></span>Yes</div><div class="vm__vsub">Becomes your IP</div></div>
+        </div>
+      </div>
+      <p class="vm__note">Planning model based on Australian AI usage research combined with organisational knowledge reuse.</p>
+
+      <div class="vi">
+        <h3 class="vi__head">The productivity impact</h3>
+        <p class="vi__sub">A 15-person firm, valued at $250 per productive hour across 48 working weeks. A planning model, not a quote.</p>
+        <div class="vi__cards">
+          <div class="vi__card vi__card--scat">
+            <div class="vi__label">AI scattered</div>
+            <div class="vi__labsub">Individual tools.</div>
+            <div class="vi__hero">&#8776; 1 hr/day</div>
+            <div class="vi__herolab">per employee</div>
+            <div class="vi__stat"><div class="vi__num">3,600</div><div class="vi__numlab">Annual productive hours</div></div>
+            <div class="vi__stat"><div class="vi__num">$900,000</div><div class="vi__numlab">Productive capacity a year</div></div>
+          </div>
+          <div class="vi__op" aria-hidden="true">&rarr;</div>
+          <div class="vi__card vi__card--dom">
+            <div class="vi__label">AI consolidated (Dominion)</div>
+            <div class="vi__labsub">One shared intelligence.</div>
+            <div class="vi__hero">&#8776; 3 hrs/day</div>
+            <div class="vi__herolab">per employee</div>
+            <div class="vi__stat"><div class="vi__num">10,800</div><div class="vi__numlab">Annual productive hours</div></div>
+            <div class="vi__stat"><div class="vi__num">$2,700,000</div><div class="vi__numlab">Productive capacity a year</div></div>
+          </div>
+          <div class="vi__op" aria-hidden="true">=</div>
+          <div class="vi__card vi__card--unlock">
+            <div class="vi__label">The unlock</div>
+            <div class="vi__labsub">Value left on the table.</div>
+            <div class="vi__hero">+7,200</div>
+            <div class="vi__herolab">hours unlocked a year</div>
+            <div class="vi__stat"><div class="vi__num">+$1,800,000</div><div class="vi__numlab">Added productive capacity a year</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vc">
+        <h3 class="vc__head">The AI gets better because your business gets smarter.</h3>
+        <div class="vc__panels">
+          <div class="vc__panel">
+            <span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg></span>
+            <div class="vc__h">Every employee contributes.</div>
+            <div class="vc__d">Each useful interaction strengthens the knowledge everyone else can draw on.</div>
+          </div>
+          <div class="vc__panel">
+            <span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3L5.6 5.6"/></svg></span>
+            <div class="vc__h">Ermos manages the technology.</div>
+            <div class="vc__d">Models evolve, infrastructure changes and security stays current. You never touch it.</div>
+          </div>
+          <div class="vc__panel">
+            <span class="vc__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+            <div class="vc__h">You keep the knowledge.</div>
+            <div class="vc__d">Your prompts, processes and expertise become a compounding company asset.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="val__strip">
+        <p class="val__strip-t">Ermos turns AI usage into business intelligence. <b>More value. Every day.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY BUSINESSES CHOOSE ERMOS (appliance centrepiece) ================= -->
+  <section class="section section--alt why" id="why-ermos" data-reveal>
+    <div class="container">
+      <div class="wb__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The business case</div>
+        <h2 class="h2">Why businesses choose <b>Ermos.</b></h2>
+        <p class="wb__sub">A private AI infrastructure built to protect your data, empower your teams and drive real business outcomes.</p>
+      </div>
+
+      <div class="wb__stage">
+        <div class="wb__core" aria-hidden="true">
+          <div class="wb__glow"></div>
+          <div class="wb__base"></div>
+          <span class="wb__ring"></span>
+          <span class="wb__ring wb__ring--2"></span>
+          <div class="wb__unit"><picture><source type="image/avif" sizes="600px" srcset="assets/opt/hero-800.avif 800w, assets/opt/hero-1200.avif 1200w, assets/opt/hero-1600.avif 1600w"><source type="image/webp" sizes="600px" srcset="assets/opt/hero-800.webp 800w, assets/opt/hero-1200.webp 1200w, assets/opt/hero-1600.webp 1600w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="The Ermos Dominion appliance" loading="lazy" decoding="async"></picture></div>
+        </div>
+
+        <div class="wb-card wb-card--t1 is-active" data-i="0" role="button" tabindex="0" aria-pressed="true" aria-label="Protect your business" style="--cr:59,130,246">
+          <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">1</span><h3 class="wb-card__t">Protect Your Business</h3></div></div>
+          <p class="wb-card__d">Keep sensitive data, IP and client information inside your control.</p>
+          <div class="wb-card__list">
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Client data never leaves your building</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Your IP stays yours</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Australian custody and sovereignty</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No third-party access</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Enterprise-grade compliance</div>
+          </div>
+        </div>
+
+        <div class="wb-card wb-card--b3" data-i="4" role="button" tabindex="0" aria-pressed="false" aria-label="Real business outcomes" style="--cr:34,211,238">
+          <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><rect x="6" y="12" width="2.6" height="5" rx="0.6"/><rect x="10.7" y="8.5" width="2.6" height="8.5" rx="0.6"/><rect x="15.4" y="5" width="2.6" height="12" rx="0.6"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">5</span><h3 class="wb-card__t">Real Business Outcomes</h3></div></div>
+          <p class="wb-card__d">Drive measurable impact where it matters most.</p>
+          <div class="wb-card__list">
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Save time and staff hours</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Reduce costs and waste</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Reduce risk and exposure</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Empower your people</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Scale smarter and faster</div>
+          </div>
+        </div>
+
+        <div class="wb-card wb-card--t2" data-i="1" role="button" tabindex="0" aria-pressed="false" aria-label="Empower every employee" style="--cr:52,211,153">
+          <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">2</span><h3 class="wb-card__t">Empower Every Employee</h3></div></div>
+          <p class="wb-card__d">Give every team member their own expert AI assistant.</p>
+          <div class="wb-card__list">
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Every employee gets AI capability</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Eliminate repetitive work</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Save hundreds of staff hours</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Scale without adding headcount</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Increase productivity across teams</div>
+          </div>
+        </div>
+
+        <div class="wb-card wb-card--b1" data-i="3" role="button" tabindex="0" aria-pressed="false" aria-label="Own your AI" style="--cr:234,179,8">
+          <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">4</span><h3 class="wb-card__t">Own Your AI</h3></div></div>
+          <p class="wb-card__d">Own your platform, your models, your data and your future.</p>
+          <div class="wb-card__list">
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Own your data, models and prompts</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No per-seat fees, ever</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Full control, always</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Future-proof your investment</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Upgrade and evolve on your terms</div>
+          </div>
+        </div>
+
+        <div class="wb-card wb-card--t3" data-i="2" role="button" tabindex="0" aria-pressed="false" aria-label="Instant business intelligence for your IP" style="--cr:167,139,250">
+          <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="10" height="13" rx="1.5"/><path d="M8 7h4M8 10h3"/><circle cx="14.5" cy="14.5" r="3"/><path d="M16.7 16.7L19.5 19.5"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">3</span><h3 class="wb-card__t">Instant Business Intelligence for your IP</h3></div></div>
+          <p class="wb-card__d">Turn your documents and knowledge into instant, trusted answers.</p>
+          <div class="wb-card__list">
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Find answers across every document</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Ask your business anything</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Document intelligence and insights</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Automate workflows and tasks</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Trusted answers in seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wb__foot">
+        <p class="wb__foot-lead">One private AI infrastructure. <b>Complete control.</b></p>
+        <a href="#contact" class="btn btn--primary wb__foot-btn">Book a private AI consultation</a>
+        <p class="wb__foot-note"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Private. Secure. Australian.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT YOU WALK AWAY WITH ================= -->
+  <section class="section walk" id="walk" data-reveal>
+    <div class="walk__glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="walk__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>What you walk away with</div>
+        <h2 class="h2">Everything handled. <b>Nothing on your plate.</b></h2>
+        <p class="walk__sub">A capability your whole team uses: set up, run and kept sharp by us. You own the outcome; we own the work.</p>
+      </div>
+      <div class="walk__rows">
+        <div class="walk-row">
+          <div class="walk-row__num">01</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">The box</span>
+            <h3 class="walk-row__t">Enterprise AI, in your own building.</h3>
+            <p class="walk-row__d">A quiet, matte appliance that sits in your office or comms cupboard. Inside: private AI trained on your firm's documents, connected to Microsoft 365, and available to every employee.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> Your team gets the power of AI while your data stays on your premises.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">02</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Stood up for you</span>
+            <h3 class="walk-row__t">Live in your office in two weeks.</h3>
+            <p class="walk-row__d">We install it on-site, onboard your documents, configure it around how your firm actually works, and train your team to use it well.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> No IT project, no internal build, no learning curve. It arrives working.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">03</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Kept sharp</span>
+            <h3 class="walk-row__t">It improves while you get on with business.</h3>
+            <p class="walk-row__d">We handle monitoring, updates, tuning and improvements. The managed relationship is the product. Your team gets the assistant, never the maintenance.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> No headcount to hire, no system to babysit, and no per-seat licences.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">04</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Always covered</span>
+            <h3 class="walk-row__t">You are never left without it.</h3>
+            <p class="walk-row__d">Ongoing support and hardware cover are included for the life of the agreement. If the box fails, we replace it.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> Less downtime risk, no surprise bills, and infrastructure you can forget about.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section lit lit--left" id="how" data-reveal>
+    <div class="container">
+      <div class="eyebrow"><span class="tick"></span>How it works</div>
+      <h2 class="h2" style="max-width:680px;margin-bottom:60px">Three steps. <b>Then it's simply there.</b></h2>
+      <div class="grid g3">
+        <div class="step">
+          <div class="n">1</div>
+          <div class="t">Scope call.</div>
+          <div class="d">We map your firm's files, workflows and obligations. One call, no pitch deck.</div>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <div class="t">Install on site.</div>
+          <div class="d">We bring the box to your office and set it up on your network. A single quiet unit; we handle everything.</div>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <div class="t">Team onboarded.</div>
+          <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHICH DOMINION FITS ================= -->
+  <section class="section dep" id="deploy" data-reveal>
+    <div class="container">
+      <div class="dep__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Simple investment. Total control.</div>
+        <h2 class="h2">Choose the Dominion that's <b>right for your business.</b></h2>
+        <p class="dep__sub">We deploy it. We manage it. We continually improve it.</p>
+      </div>
+
+      <div class="dep__stage">
+        <div class="dep-card dep-card--core">
+          <span class="dep-card__pill">Dominion Core</span>
+          <div class="dep-stat">
+            <svg class="dep-stat__i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg>
+            <div><div class="dep-stat__lab">Ideal for teams</div><div class="dep-stat__val">Up to 15 staff</div></div>
+          </div>
+          <div class="dep-stat">
+            <svg class="dep-stat__i" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg>
+            <div><div class="dep-stat__lab">AI knowledge capacity</div><div class="dep-stat__val">2 TB</div></div>
+          </div>
+          <div class="dep-inc">
+            <div class="dep-inc__h">Everything included</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Unlimited users</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Private AI</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Knowledge management</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>AI model updates</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Monitoring</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Support</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Quarterly optimisation</div>
+          </div>
+          <div class="dep-price">
+            <div class="dep-price__row"><span class="dep-price__lab">One-time implementation</span><span class="dep-price__val">$6,500</span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">Managed AI platform</span><span class="dep-price__val dep-price__val--mo">$2,499 <small>/month</small></span></div>
+          </div>
+          <p class="dep-note">Minimum 12-month agreement.</p>
+          <a href="#contact" class="dep-card__cta">Book your private AI consultation</a>
+        </div>
+
+        <div class="dep-card dep-card--growth">
+          <span class="dep-card__pill">Dominion Growth</span>
+          <div class="dep-stat">
+            <svg class="dep-stat__i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg>
+            <div><div class="dep-stat__lab">Ideal for teams</div><div class="dep-stat__val">15&ndash;30 staff</div></div>
+          </div>
+          <div class="dep-stat">
+            <svg class="dep-stat__i" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg>
+            <div><div class="dep-stat__lab">AI knowledge capacity</div><div class="dep-stat__val">4 TB</div></div>
+          </div>
+          <div class="dep-inc">
+            <div class="dep-inc__h">Everything included</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Unlimited users</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Private AI</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Knowledge management</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>AI model updates</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Monitoring</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Support</div>
+            <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Quarterly optimisation</div>
+          </div>
+          <div class="dep-price">
+            <div class="dep-price__row"><span class="dep-price__lab">One-time implementation</span><span class="dep-price__val">$7,995</span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">Managed AI platform</span><span class="dep-price__val dep-price__val--mo">$3,999 <small>/month</small></span></div>
+          </div>
+          <p class="dep-note">Minimum 12-month agreement.</p>
+          <a href="#contact" class="dep-card__cta">Book your private AI consultation</a>
+        </div>
+      </div>
+
+      <div class="dep__panel">
+        <h3>You're buying a managed AI capability, not simply a server.</h3>
+        <p>Every Dominion deployment includes secure installation, AI configuration, knowledge ingestion, onboarding, support, monitoring and continuous optimisation. We deploy it, manage it and continually improve it while your team focuses on running the business.</p>
+      </div>
+
+      <p class="dep__foot"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Minimum 12-month term. All prices exclude GST.</p>
+    </div>
+  </section>
+
+  <!-- ================= WHO IT'S FOR ================= -->
+  <section class="section section--alt" id="who-for" data-reveal>
+    <div class="container">
+      <div class="eyebrow"><span class="tick"></span>Who it's for</div>
+      <h2 class="h2" style="max-width:720px;margin-bottom:8px">For firms that <b>sit on confidential data.</b></h2>
+      <div class="whofor__grid">
+        <div class="whofor-card"><div class="whofor-card__t">Law</div><div class="whofor-card__d">Privileged matters and client files.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Medical</div><div class="whofor-card__d">Clinical and allied-health records.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Accounting</div><div class="whofor-card__d">Client financials and tax affairs.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Financial advice</div><div class="whofor-card__d">Personal wealth and planning data.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Any sensitive firm</div><div class="whofor-card__d">Anyone trusted with data they can't risk.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECURITY DEEP-DIVE ================= -->
+  <section class="section lit" id="security" data-reveal>
+    <div class="container">
+      <div style="text-align:center;max-width:760px;margin:0 auto 60px">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Security &amp; sovereignty</div>
+        <h2 class="h2">Your data is as safe as <b>your building.</b></h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">It stays on a box in your office, under your control, and no one else's. No cloud, no telemetry, no remote path out.</p>
+      </div>
+      <div class="grid g2" style="max-width:980px;margin:0 auto">
+        <div class="feat"><div class="t">Air-gapped by design</div><div class="d">No internet path for your data. The box does its work without sending anything out.</div></div>
+        <div class="feat"><div class="t">Onshore in Australia</div><div class="d">Your data never leaves the country, because it never leaves the building.</div></div>
+        <div class="feat"><div class="t">Nothing to leak</div><div class="d">No cloud account to breach, no API to intercept, no vendor holding a copy. The attack surface is a locked room.</div></div>
+        <div class="feat"><div class="t">No third-party access</div><div class="d">Not us, not a vendor. There is no remote backdoor into your files.</div></div>
+      </div>
+      <p class="note">Built to sit comfortably alongside the obligations you already carry: the Privacy Act and APPs, legal professional privilege, My Health Record rules and financial-services data requirements. Offered as context, not legal advice.</p>
+    </div>
+  </section>
+
+  <!-- ================= CAPABILITY, HONESTLY ================= -->
+  <section class="section" id="capability" data-reveal>
+    <div class="container capgrid">
+      <div>
+        <div class="eyebrow"><span class="tick"></span>Capability, honestly</div>
+        <h2 class="h2">A private assistant, <b>grounded in your files.</b></h2>
+        <p class="lead">Your team uses it like a private ChatGPT, except it reads your firm's own documents and answers from them.</p>
+        <p style="margin-top:24px;font-size:0.97rem;line-height:1.7;color:var(--muted-2)">It's a capable assistant over your own knowledge, not a claim to beat frontier models. What it is, is yours.</p>
+      </div>
+      <div class="captiles">
+        <div class="tile"><div class="t">Search everything</div><div class="d">Find anything across every matter, file and record your firm holds.</div></div>
+        <div class="tile"><div class="t">Summarise instantly</div><div class="d">Condense long files, matters and records into a brief in seconds.</div></div>
+        <div class="tile"><div class="t">Draft in your style</div><div class="d">Letters, file notes and reports, written the way your firm writes them.</div></div>
+        <div class="tile"><div class="t">Answers, cited</div><div class="d">Ask a question, get an answer grounded in your own documents, and pointed back to them.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHO'S BEHIND THIS (new) ================= -->
+  <section class="section section--alt" id="who" data-reveal>
+    <div class="container">
+      <div class="who__intro">
+        <div class="eyebrow"><span class="tick"></span>Who's behind this</div>
+        <h2 class="h2">The people <b>behind the box.</b></h2>
+        <p class="lead">Ermos brings together deep software engineering and applied AI to turn complexity into practical intelligence. The aim is plain: help a firm do far more with what it already knows, and keep that knowledge entirely its own.</p>
+      </div>
+      <div class="founders">
+        <article class="fcard">
+          <div class="fcard__photo">
+            <picture>
+              <source type="image/avif" sizes="(max-width:960px) 90vw, 40vw" srcset="assets/opt/will-320.avif 320w, assets/opt/will-640.avif 640w">
+              <source type="image/webp" sizes="(max-width:960px) 90vw, 40vw" srcset="assets/opt/will-320.webp 320w, assets/opt/will-640.webp 640w">
+              <img src="assets/opt/will-640.jpg" width="640" height="800" alt="Will Bakhos" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="fcard__id">
+            <p class="fcard__name">Will Bakhos</p>
+            <a class="fcard__ln" href="https://www.linkedin.com/in/william-bakhos-5bb5a841/" target="_blank" rel="noopener noreferrer" aria-label="Will Bakhos on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.2.79 24 1.77 24h20.45c.98 0 1.78-.8 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+          </div>
+          <p class="fcard__role">Founder</p>
+          <p class="fcard__bio">With a career spanning software engineering, consulting, and AI systems, Will specialises in designing secure, scalable infrastructure that makes advanced AI practical for business. His focus is building reliable technology that transforms complex AI capabilities into production-ready solutions.</p>
+        </article>
+        <article class="fcard">
+          <div class="fcard__photo">
+            <picture>
+              <source type="image/avif" sizes="(max-width:960px) 90vw, 40vw" srcset="assets/opt/brad-320.avif 320w, assets/opt/brad-640.avif 640w">
+              <source type="image/webp" sizes="(max-width:960px) 90vw, 40vw" srcset="assets/opt/brad-320.webp 320w, assets/opt/brad-640.webp 640w">
+              <img src="assets/opt/brad-640.jpg" width="640" height="800" alt="Brad Pickett" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="fcard__id">
+            <p class="fcard__name">Brad Pickett</p>
+            <a class="fcard__ln" href="https://www.linkedin.com/in/brad-pickett/" target="_blank" rel="noopener noreferrer" aria-label="Brad Pickett on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.2.79 24 1.77 24h20.45c.98 0 1.78-.8 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+          </div>
+          <p class="fcard__role">Co-founder</p>
+          <p class="fcard__bio">With more than 20 years of business leadership and five years immersed in AI, Brad specialises in helping organisations implement practical, secure AI that delivers real business outcomes. His focus is turning emerging technology into systems businesses can trust, adopt, and scale.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="faq" data-reveal>
+    <div class="container faq">
+      <div class="eyebrow"><span class="tick"></span>Straight answers</div>
+      <h2 class="h2" style="margin-bottom:50px">The questions <b>we know you're asking.</b></h2>
+      <details>
+        <summary>Is our data really safe?</summary>
+        <div class="a">It stays on a box in your office, with no internet path out. The honest answer: your data is as safe as your building, because that's where it lives. We don't claim it's "unhackable". We make it physically unable to leave.</div>
+      </details>
+      <details>
+        <summary>Is it as smart as ChatGPT?</summary>
+        <div class="a">For open-ended general knowledge, a frontier cloud model may edge it. For your work, your matters, your files, your house style, it's grounded in knowledge those models will never see. We'd rather be honest about that than oversell it.</div>
+      </details>
+      <details>
+        <summary>How fast is it?</summary>
+        <div class="a">Fast enough to feel immediate for everyday search and drafting. It runs on dedicated hardware that does nothing else but serve your firm.</div>
+      </details>
+      <details>
+        <summary>What if it breaks?</summary>
+        <div class="a">It's a managed service. If something goes wrong, it's our problem to fix, not yours. That's the whole point of the relationship.</div>
+      </details>
+      <details>
+        <summary>Do we need IT staff?</summary>
+        <div class="a">No. There's nothing for your team to run or maintain. You never touch the technical side. We do.</div>
+      </details>
+      <details>
+        <summary>What does it cost?</summary>
+        <div class="a">Two managed options: Dominion Core from $6,500 one-time then $2,499 a month, and Dominion Growth from $7,995 then $3,999 a month. Both cover your whole firm with unlimited users and a minimum 12-month term. The deployment section above lists exactly what's included, and your precise scope is confirmed in the consultation.</div>
+      </details>
+      <details>
+        <summary>What happens after 12 months?</summary>
+        <div class="a">The 12-month minimum covers the initial deployment and settling-in period. After that it simply continues on the same managed terms. Most firms stay because the assistant keeps getting more useful, not because they're locked in.</div>
+      </details>
+      <details>
+        <summary>Can we upgrade to Dominion Growth?</summary>
+        <div class="a">Yes. If your team or knowledge base outgrows Core, we upgrade you to Growth in place. Your data, configuration and history carry across. There's no rebuild and no starting again.</div>
+      </details>
+      <details>
+        <summary>Can storage be expanded?</summary>
+        <div class="a">Yes. Knowledge capacity can be increased as your document base grows. We size it with you up front and scale it later if you need more room.</div>
+      </details>
+      <details>
+        <summary>How long does installation take?</summary>
+        <div class="a">Typically your Dominion is live in your office within about two weeks. We install on site, ingest your documents, configure it around how your firm works, and train your team, so it arrives working.</div>
+      </details>
+      <details>
+        <summary>Does Dominion replace our existing IT?</summary>
+        <div class="a">No. Dominion sits alongside your existing systems as a private AI layer. It doesn't replace your IT, your files or your tools; it makes them far more useful. We handle the AI side, and your IT stays as it is.</div>
+      </details>
+      <details>
+        <summary>Can Dominion work with Microsoft 365?</summary>
+        <div class="a">Yes. Dominion connects to Microsoft 365 and your existing document stores, so your team works with the files they already use, without moving anything to the cloud.</div>
+      </details>
+      <details>
+        <summary>Do we own our data?</summary>
+        <div class="a">Completely. Your data, your models and your prompts stay on your premises and belong to you. Nothing is sent out, and there's no lock-in. If the agreement ever ends, what's yours stays with you.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA / CONTACT ================= -->
+  <section class="section contact" id="contact" data-reveal>
+    <div class="container contact__grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>The next step</div>
+        <h2 class="h2">Ready to put AI <b>inside your business?</b></h2>
+        <p class="lead">Book a private consultation and discover how Dominion can securely transform the way your team works. We'll answer your questions plainly. No pitch deck, no hype, no obligation.</p>
+        <div class="hero__cta" style="margin-top:32px">
+          <a href="#contact-form" class="btn btn--primary">Book your private AI consultation</a>
+          <a href="security-brief.html" class="btn btn--ghost">Get the security brief</a>
+        </div>
+      </div>
+      <!-- NOTE(pre-deploy): form has no backend endpoint yet — submit currently shows a success state only. -->
+      <form class="form" id="contact-form" novalidate>
+        <div class="fields" style="display:flex;flex-direction:column;gap:18px">
+          <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+          <div><label for="f-firm">Firm</label><input id="f-firm" name="firm" type="text" autocomplete="organization" required></div>
+          <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div><label for="f-phone">Phone <span style="color:#5d6675">(optional)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <button type="submit" class="btn btn--primary" style="margin-top:4px;width:100%">Request a confidential consultation</button>
+        </div>
+        <div class="ok" role="status">We've received your request and will reach out within one business day to arrange a confidential consultation.</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="container">
+    <div class="foot__row">
+      <div class="brand">ERMOS</div>
+      <div class="foot__links">
+        <a href="#how">How it works</a>
+        <a href="#security">Security</a>
+        <a href="#deploy">Plans</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:hello@ermos.com.au">hello@ermos.com.au</a>
+        <a href="#contact">Book a consultation</a>
+      </div>
+    </div>
+    <div class="foot__meta">© 2026 Ermos Pty Ltd · ABN 51 699 709 709 · Australian owned and built</div>
+  </div>
+</footer>
+
+<script>
+  // nav solidify on scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('is-solid', window.scrollY > 10); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // subtle scroll reveal (skipped under reduced-motion via CSS)
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -10% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  // hero unit rotation: the clip isn't a seamless loop, so ping-pong it
+  // (play forward, then scrub back) instead of looping, which would snap.
+  (function(){
+    var v = document.querySelector('.hero__vid');
+    if (!v) return;
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); v.currentTime = 0; return; }
+    v.loop = false;
+    var raf = null, prev = 0;
+    function reverse(ts){
+      if (!prev) prev = ts;
+      var t = v.currentTime - (ts - prev) / 1000; prev = ts;
+      if (t <= 0){ raf = null; v.currentTime = 0; v.play().catch(function(){}); return; }
+      v.currentTime = t;
+      raf = requestAnimationFrame(reverse);
+    }
+    v.addEventListener('ended', function(){ prev = 0; raf = requestAnimationFrame(reverse); });
+    var kick = function(){ if (v.paused && v.currentTime === 0) v.play().catch(function(){}); };
+    if (v.readyState >= 2) kick(); else v.addEventListener('loadeddata', kick, { once: true });
+  })();
+
+  // form: show success state (no backend yet — see build notes)
+  var form = document.getElementById('contact-form');
+  if (form) form.addEventListener('submit', function(e){ e.preventDefault(); form.classList.add('sent'); });
+
+  // three ways: click / auto-cycle the decision options (Ermos is the default + preferred state)
+  (function(){
+    var opts = Array.prototype.slice.call(document.querySelectorAll('.opt'));
+    if (!opts.length) return;
+    var order = [2, 0, 1], dwell = { 0: 5200, 1: 5200, 2: 9000 };
+    var pos = 1, timer = null, resumeT = null;
+    function activate(i){ opts.forEach(function(o, k){ var on = (k === i); o.classList.toggle('is-active', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
+    function step(){ var i = order[pos]; activate(i); pos = (pos + 1) % order.length; timer = setTimeout(step, dwell[i]); }
+    function runFromErmos(){ clearTimeout(timer); activate(2); pos = 1; timer = setTimeout(step, dwell[2]); }
+    opts.forEach(function(o){
+      function pick(){ activate(parseInt(o.getAttribute('data-i'), 10)); clearTimeout(timer); clearTimeout(resumeT); if (!reduce) resumeT = setTimeout(runFromErmos, 14000); }
+      o.addEventListener('click', pick);
+      o.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
+    });
+    activate(2);
+    if (!reduce) runFromErmos();
+  })();
+
+  // why-ermos: rotate the active outcome card around the appliance (AI Workforce leads)
+  (function(){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.wb-card'));
+    if (!cards.length) return;
+    var n = cards.length, cur = 0, timer = null, resumeT = null;
+    function activate(i){ cur = i; cards.forEach(function(c, k){ var on = (k === i); c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
+    function step(){ activate((cur + 1) % n); timer = setTimeout(step, 5600); }
+    function run(){ clearTimeout(timer); if (!reduce) timer = setTimeout(step, 5600); }
+    cards.forEach(function(c, k){
+      function pick(){ activate(k); clearTimeout(timer); clearTimeout(resumeT); if (!reduce) resumeT = setTimeout(run, 12000); }
+      c.addEventListener('click', pick);
+      c.addEventListener('mouseenter', function(){ clearTimeout(timer); clearTimeout(resumeT); });
+      c.addEventListener('mouseleave', function(){ if (!reduce){ clearTimeout(resumeT); resumeT = setTimeout(run, 700); } });
+      c.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
+    });
+    activate(0);
+    run();
+  })();
+</script>
+</body>
+</html>
