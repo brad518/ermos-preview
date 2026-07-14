@@ -411,10 +411,9 @@
   .walk-row__why{margin:20px 0 0;font-size:0.94rem;line-height:1.6;color:var(--muted-2);max-width:640px}
   .walk-row__why b{color:var(--accent-hi);font-weight:600;letter-spacing:0.01em}
 
-  /* ===== how it works — unit shot + CTA ===== */
-  .how__unit{display:flex;justify-content:center;margin-top:54px}
-  .how__unit img{width:min(64vw,440px);height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.5))}
-  .how__cta{text-align:center;margin-top:36px}
+  /* ===== how it works — merged who-for block + CTA ===== */
+  .how__who{margin-top:clamp(56px,7vw,84px)}
+  .how__cta{text-align:center;margin-top:clamp(44px,5vw,60px)}
   .btn--big{font-size:1.02rem;padding:17px 40px;letter-spacing:0.02em}
 
   /* ===== who it's for — sensitive-firm cards ===== */
@@ -427,12 +426,12 @@
     0%,26%,100%{border-color:var(--line);box-shadow:var(--edge)}
     10%{border-color:rgba(var(--accent-rgb),0.8);box-shadow:0 0 44px -10px rgba(var(--accent-rgb),0.6),var(--edge)}
   }
-  #who-for.in .whofor-card{animation:whoWave 4.6s ease-in-out infinite}
-  #who-for.in .whofor-card:nth-child(2){animation-delay:.45s}
-  #who-for.in .whofor-card:nth-child(3){animation-delay:.9s}
-  #who-for.in .whofor-card:nth-child(4){animation-delay:1.35s}
-  #who-for.in .whofor-card:nth-child(5){animation-delay:1.8s}
-  @media(prefers-reduced-motion:reduce){#who-for.in .whofor-card{animation:none}}
+  #how.in .whofor-card{animation:whoWave 9.2s ease-in-out infinite}
+  #how.in .whofor-card:nth-child(2){animation-delay:.9s}
+  #how.in .whofor-card:nth-child(3){animation-delay:1.8s}
+  #how.in .whofor-card:nth-child(4){animation-delay:2.7s}
+  #how.in .whofor-card:nth-child(5){animation-delay:3.6s}
+  @media(prefers-reduced-motion:reduce){#how.in .whofor-card{animation:none}}
   .whofor-card__t{font-family:var(--f-display);font-weight:600;font-size:1.06rem;color:var(--ink-2);margin-bottom:10px}
   .whofor-card__d{font-size:0.9rem;line-height:1.55;color:var(--muted)}
 
@@ -933,22 +932,8 @@
           <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
         </div>
       </div>
-      <div class="how__unit" aria-hidden="true">
-        <picture>
-          <source type="image/webp" sizes="440px" srcset="assets/opt/hero-800.webp 800w, assets/opt/hero-1200.webp 1200w">
-          <img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="" loading="lazy" decoding="async">
-        </picture>
-      </div>
-      <div class="how__cta">
-        <a href="#contact" class="btn btn--primary btn--big">Enquire today</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= WHO IT'S FOR ================= -->
-  <section class="section section--alt" id="who-for" data-reveal>
-    <div class="container">
-      <div class="eyebrow"><span class="tick"></span>Who it's for</div>
+      <div class="how__who" id="who-for">
+        <div class="eyebrow"><span class="tick"></span>Who it's for</div>
       <h2 class="h2" style="max-width:720px;margin-bottom:8px">For firms that <b>sit on confidential data.</b></h2>
       <div class="whofor__grid">
         <div class="whofor-card"><div class="whofor-card__t">Law</div><div class="whofor-card__d">Privileged matters and client files.</div></div>
@@ -957,58 +942,15 @@
         <div class="whofor-card"><div class="whofor-card__t">Financial advice</div><div class="whofor-card__d">Personal wealth and planning data.</div></div>
         <div class="whofor-card"><div class="whofor-card__t">Any sensitive firm</div><div class="whofor-card__d">Anyone trusted with data they can't risk.</div></div>
       </div>
+      </div>
+      <div class="how__cta">
+        <a href="#contact" class="btn btn--primary btn--big">Enquire today</a>
+      </div>
     </div>
   </section>
 
-  <!-- ================= WHAT YOU WALK AWAY WITH ================= -->
-  <section class="section walk" id="walk" data-reveal>
-    <div class="walk__glow" aria-hidden="true"></div>
-    <div class="container">
-      <div class="walk__intro">
-        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>What you walk away with</div>
-        <h2 class="h2">Everything handled. <b>Nothing on your plate.</b></h2>
-        <p class="walk__sub">A capability your whole team uses: set up, run and kept sharp by us. You own the outcome; we own the work.</p>
-      </div>
-      <div class="walk__rows">
-        <div class="walk-row">
-          <div class="walk-row__num">01</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">The box</span>
-            <h3 class="walk-row__t">Enterprise AI, in your own building.</h3>
-            <p class="walk-row__d">A quiet, matte appliance that sits in your office or comms cupboard. Inside: private AI trained on your firm's documents, connected to Microsoft 365, and available to every employee.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> Your team gets the power of AI while your data stays on your premises.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">02</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Stood up for you</span>
-            <h3 class="walk-row__t">Live in your office in two weeks.</h3>
-            <p class="walk-row__d">We install it on-site, onboard your documents, configure it around how your firm actually works, and train your team to use it well.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> No IT project, no internal build, no learning curve. It arrives working.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">03</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Kept sharp</span>
-            <h3 class="walk-row__t">It improves while you get on with business.</h3>
-            <p class="walk-row__d">We handle monitoring, updates, tuning and improvements. The managed relationship is the product. Your team gets the assistant, never the maintenance.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> No headcount to hire, no system to babysit, and no per-seat licences.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">04</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Always covered</span>
-            <h3 class="walk-row__t">You are never left without it.</h3>
-            <p class="walk-row__d">Ongoing support and hardware cover are included for the life of the agreement. If the box fails, we replace it.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> Less downtime risk, no surprise bills, and infrastructure you can forget about.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ================= WHO IT'S FOR ================= -->
+
 
 
   <!-- ================= WHICH DOMINION FITS ================= -->
@@ -1090,6 +1032,56 @@
       </div>
 
       <p class="dep__foot"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Minimum 12-month term. All prices exclude GST.</p>
+    </div>
+  </section>
+
+  <!-- ================= WHAT YOU WALK AWAY WITH ================= -->
+  <section class="section walk" id="walk" data-reveal>
+    <div class="walk__glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="walk__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>What you walk away with</div>
+        <h2 class="h2">Everything handled. <b>Nothing on your plate.</b></h2>
+        <p class="walk__sub">A capability your whole team uses: set up, run and kept sharp by us. You own the outcome; we own the work.</p>
+      </div>
+      <div class="walk__rows">
+        <div class="walk-row">
+          <div class="walk-row__num">01</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">The box</span>
+            <h3 class="walk-row__t">Enterprise AI, in your own building.</h3>
+            <p class="walk-row__d">A quiet, matte appliance that sits in your office or comms cupboard. Inside: private AI trained on your firm's documents, connected to Microsoft 365, and available to every employee.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> Your team gets the power of AI while your data stays on your premises.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">02</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Stood up for you</span>
+            <h3 class="walk-row__t">Live in your office in two weeks.</h3>
+            <p class="walk-row__d">We install it on-site, onboard your documents, configure it around how your firm actually works, and train your team to use it well.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> No IT project, no internal build, no learning curve. It arrives working.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">03</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Kept sharp</span>
+            <h3 class="walk-row__t">It improves while you get on with business.</h3>
+            <p class="walk-row__d">We handle monitoring, updates, tuning and improvements. The managed relationship is the product. Your team gets the assistant, never the maintenance.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> No headcount to hire, no system to babysit, and no per-seat licences.</p>
+          </div>
+        </div>
+        <div class="walk-row">
+          <div class="walk-row__num">04</div>
+          <div class="walk-row__body">
+            <span class="walk-row__label">Always covered</span>
+            <h3 class="walk-row__t">You are never left without it.</h3>
+            <p class="walk-row__d">Ongoing support and hardware cover are included for the life of the agreement. If the box fails, we replace it.</p>
+            <p class="walk-row__why"><b>Why it matters:</b> Less downtime risk, no surprise bills, and infrastructure you can forget about.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
