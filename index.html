@@ -261,22 +261,28 @@
     background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
     padding:28px 26px;box-shadow:var(--elev),var(--edge)}
   .opt--grey{opacity:0.48;filter:saturate(0.35) grayscale(0.5)}
-  /* on reveal: each rejected option lights briefly, then greys out in turn */
+  /* on reveal: option 1 glows grey and blacks out, option 2 follows, then Dominion lights up blue and stays */
   @keyframes optIntro{
-    0%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.4)}
-    55%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.4)}
-    100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line)}
+    0%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+    35%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
+    60%{opacity:0.9;filter:saturate(0.55) grayscale(0.25);border-color:rgba(255,255,255,0.3);box-shadow:0 0 38px -12px rgba(255,255,255,0.22),var(--elev),var(--edge)}
+    100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
   }
-  .tways.in .opt--grey{animation:optIntro 1.5s ease both}
-  .tways.in .opt--cloud.opt--grey{animation-delay:.25s}
-  .tways.in .opt--ban.opt--grey{animation-delay:1.35s}
-  @media(prefers-reduced-motion:reduce){.tways.in .opt--grey{animation:none}}
+  .tways.in .opt--cloud.opt--grey{animation:optIntro 1.6s ease both .2s}
+  .tways.in .opt--ban.opt--grey{animation:optIntro 1.6s ease both 1.6s}
+  @keyframes domIntro{
+    0%{opacity:0.5;filter:saturate(0.4) grayscale(0.4);border-color:var(--line);box-shadow:var(--elev),var(--edge);
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008))}
+    100%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.55);box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge);
+      background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.04))}
+  }
+  .tways.in .opt--dom.is-active{animation:domIntro .9s ease 3.2s both,domPulse 3.2s ease-in-out 4.1s infinite}
+  @media(prefers-reduced-motion:reduce){.tways.in .opt--grey,.tways.in .opt--dom.is-active{animation:none}}
   .opt.is-active{opacity:1;filter:none}
   @keyframes domPulse{
     0%,100%{border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 44px -16px rgba(var(--accent-rgb),0.35),var(--edge)}
     50%{border-color:rgba(var(--accent-rgb),0.85);box-shadow:0 0 84px -10px rgba(var(--accent-rgb),0.7),var(--edge)}
   }
-  .opt--dom.is-active{animation:domPulse 3.2s ease-in-out infinite}
   @media(prefers-reduced-motion:reduce){.opt--dom.is-active{animation:none}}
   .opt__head{display:flex;align-items:center;gap:13px}
   .opt__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:3px;
@@ -615,7 +621,8 @@
   .vc__d{font-size:0.94rem;line-height:1.6;color:var(--muted)}
   .val__strip{max-width:1040px;margin:clamp(46px,6vw,74px) auto 0;border-radius:16px;padding:clamp(26px,3.4vw,42px);text-align:center;
     background:linear-gradient(180deg,#0c1322,#0a0e16);border:1px solid var(--line);box-shadow:0 0 64px -22px rgba(var(--accent-rgb),0.5),var(--edge)}
-  .val__strip-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);line-height:1.3;color:var(--ink);margin:0}
+  .val__strip-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.02rem,1.75vw,1.32rem);line-height:1.35;color:var(--ink);margin:0}
+  @media(min-width:981px){.val__strip-t{white-space:nowrap}}
   .val__strip-t b{color:var(--accent-hi);font-weight:600}
 
   /* security / capability shared feature cards */
@@ -875,7 +882,7 @@
       </div>
 
       <div class="val__strip">
-        <p class="val__strip-t">Ermos turns AI usage into business intelligence. <b>More value. Every day.</b></p>
+        <p class="val__strip-t">Dominion turns your AI usage into business intelligence, <b>creating more value every day.</b></p>
       </div>
     </div>
   </section>
@@ -902,11 +909,10 @@
           <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">1</span><h3 class="wb-card__t">Protect Your Business</h3></div></div>
           <p class="wb-card__d">Keep sensitive data, IP and client information inside your control.</p>
           <div class="wb-card__list">
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Client data never leaves your building</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Your IP stays yours</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Australian custody and sovereignty</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Air-gapped</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No external links</div>
             <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No third-party access</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Enterprise-grade compliance</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Your IP is protected</div>
           </div>
         </div>
 
@@ -914,11 +920,10 @@
           <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><rect x="6" y="12" width="2.6" height="5" rx="0.6"/><rect x="10.7" y="8.5" width="2.6" height="8.5" rx="0.6"/><rect x="15.4" y="5" width="2.6" height="12" rx="0.6"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">5</span><h3 class="wb-card__t">Real Business Outcomes</h3></div></div>
           <p class="wb-card__d">Drive measurable impact where it matters most.</p>
           <div class="wb-card__list">
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Save time and staff hours</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Reduce costs and waste</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Reduce risk and exposure</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Empower your people</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Scale smarter and faster</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Reduce errors</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Save time</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Produce more with less</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Scale into sustainable growth</div>
           </div>
         </div>
 
@@ -926,11 +931,10 @@
           <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">2</span><h3 class="wb-card__t">Empower Every Employee</h3></div></div>
           <p class="wb-card__d">Give every team member their own expert AI assistant.</p>
           <div class="wb-card__list">
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Every employee gets AI capability</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Every employee has access to AI</div>
             <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Eliminate repetitive work</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Save hundreds of staff hours</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Scale without adding headcount</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Increase productivity across teams</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Learning compounds</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Quality compounds</div>
           </div>
         </div>
 
@@ -938,11 +942,10 @@
           <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">4</span><h3 class="wb-card__t">Own Your AI</h3></div></div>
           <p class="wb-card__d">Own your platform, your models, your data and your future.</p>
           <div class="wb-card__list">
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Own your data, models and prompts</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No per-seat fees, ever</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Full control, always</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Future-proof your investment</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Upgrade and evolve on your terms</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Sovereign data matters</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Your way of working matters</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Full control over your team</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Full control over your data</div>
           </div>
         </div>
 
@@ -950,11 +953,10 @@
           <div class="wb-card__head"><span class="wb-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="10" height="13" rx="1.5"/><path d="M8 7h4M8 10h3"/><circle cx="14.5" cy="14.5" r="3"/><path d="M16.7 16.7L19.5 19.5"/></svg></span><div class="wb-card__ht"><span class="wb-card__n" aria-hidden="true">3</span><h3 class="wb-card__t">Instant Business Intelligence for your IP</h3></div></div>
           <p class="wb-card__d">Turn your documents and knowledge into instant, trusted answers.</p>
           <div class="wb-card__list">
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Find answers across every document</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Ask your business anything</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Document intelligence and insights</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Automate workflows and tasks</div>
-            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Trusted answers in seconds</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Search everything</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Summarise instantly</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Draft in your style</div>
+            <div class="wb-li"><span class="wb-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Answer anything</div>
           </div>
         </div>
       </div>
@@ -1254,8 +1256,8 @@
         <div class="a">Two managed options: Dominion Core from $3,995 one-time then $2,499 a month, and Dominion Growth from $4,995 then $3,999 a month. Both cover your whole firm with unlimited users on a simple month-to-month basis. The deployment section above lists exactly what's included, and your precise scope is confirmed in the consultation.</div>
       </details>
       <details>
-        <summary>What happens after 12 months?</summary>
-        <div class="a">The 12-month minimum covers the initial deployment and settling-in period. After that it simply continues on the same managed terms. Most firms stay because the assistant keeps getting more useful, not because they're locked in.</div>
+        <summary>Are we locked in?</summary>
+        <div class="a">No. Dominion is month-to-month. You stay because it delivers value, not because you're locked in. If it ever stops being the right fit, you can leave, or purchase the appliance for a fixed price and continue running it independently. Either way, your data and knowledge remain yours.</div>
       </details>
       <details>
         <summary>Can we upgrade to Dominion Growth?</summary>
