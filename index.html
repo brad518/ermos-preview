@@ -414,29 +414,39 @@
   .walk-row__why{margin:20px 0 0;font-size:0.94rem;line-height:1.6;color:var(--muted-2);max-width:640px}
   .walk-row__why b{color:var(--accent-hi);font-weight:600;letter-spacing:0.01em}
 
+  /* pricing cards — ideal-for chips */
+  .dep-ideal{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .dep-ideal__h{font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px}
+  .dep-ideal__tags{display:flex;flex-wrap:wrap;gap:7px}
+  .dep-ideal__tags span{font-size:0.78rem;line-height:1;color:#cfd8e6;padding:7px 12px;border-radius:999px;
+    border:1px solid rgba(var(--cr),0.28);background:rgba(var(--cr),0.06)}
+
+  /* what your business gains */
+  .gains__intro{max-width:760px;margin:0 auto;text-align:center}
+  .gains__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px;align-items:stretch}
+  .gain-card{border:1px solid var(--line);border-radius:16px;background:var(--glass);box-shadow:var(--elev),var(--edge);
+    padding:28px 24px;transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .4s}
+  .gain-card:hover{transform:translateY(-4px);border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 48px -16px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .gain-card__i{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin-bottom:18px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));border:1px solid rgba(var(--accent-rgb),0.3)}
+  .gain-card__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .gain-card__t{font-family:var(--f-display);font-weight:600;font-size:1.08rem;line-height:1.3;color:var(--ink-2);margin-bottom:10px}
+  .gain-card__d{margin:0;font-size:0.92rem;line-height:1.62;color:var(--muted)}
+
+  /* compounding pause — quiet, spacious beat before pricing */
+  .pause{padding:clamp(110px,14vw,190px) 0;text-align:center}
+  .pause__inner{max-width:760px}
+  .pause__t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.15;color:var(--ink);margin:0}
+  .pause__t b{color:var(--accent-hi)}
+  .pause__lines{margin:30px 0 0;font-size:clamp(1rem,1.8vw,1.2rem);line-height:1.7;color:var(--muted)}
+  .pause__mark{margin:14px 0 0;font-family:var(--f-display);font-weight:600;font-size:clamp(1.1rem,2vw,1.4rem);color:var(--ink-2)}
+  .pause__mark b{color:var(--accent-hi)}
+  .pause__note{margin:34px auto 0;max-width:540px;font-size:0.95rem;line-height:1.7;color:var(--muted-2)}
+
   /* ===== how it works — merged who-for block + CTA ===== */
-  .how__who{margin-top:clamp(56px,7vw,84px)}
   .how__cta{text-align:center;margin-top:clamp(44px,5vw,60px)}
   .btn--big{font-size:1.02rem;padding:17px 40px;letter-spacing:0.02em}
 
-  /* ===== who it's for — sensitive-firm cards ===== */
-  .whofor__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
-  .whofor-card{border:1px solid var(--line);border-radius:12px;background:var(--glass);box-shadow:var(--edge);
-    padding:26px 22px;transition:border-color .3s,box-shadow .3s}
-  .whofor-card:hover{border-color:rgba(var(--accent-rgb),0.3);box-shadow:0 0 32px -14px rgba(var(--accent-rgb),0.5),var(--edge)}
-  /* blue pulse sweeping across the cards, left to right */
-  @keyframes whoWave{
-    0%,26%,100%{border-color:var(--line);box-shadow:var(--edge)}
-    10%{border-color:rgba(var(--accent-rgb),0.8);box-shadow:0 0 44px -10px rgba(var(--accent-rgb),0.6),var(--edge)}
-  }
-  #how.in .whofor-card{animation:whoWave 9.2s ease-in-out infinite}
-  #how.in .whofor-card:nth-child(2){animation-delay:.9s}
-  #how.in .whofor-card:nth-child(3){animation-delay:1.8s}
-  #how.in .whofor-card:nth-child(4){animation-delay:2.7s}
-  #how.in .whofor-card:nth-child(5){animation-delay:3.6s}
-  @media(prefers-reduced-motion:reduce){#how.in .whofor-card{animation:none}}
-  .whofor-card__t{font-family:var(--f-display);font-weight:600;font-size:1.06rem;color:var(--ink-2);margin-bottom:10px}
-  .whofor-card__d{font-size:0.9rem;line-height:1.55;color:var(--muted)}
 
   /* ===== which dominion fits — deployment options ===== */
   .dep__intro{max-width:780px;margin:0 auto;text-align:center}
@@ -659,8 +669,8 @@
   /* ===== responsive ===== */
   @media (max-width:960px){
     :root{--pad:28px}
-    .whofor__grid{grid-template-columns:repeat(3,1fr)}
     .dep__stage{grid-template-columns:1fr minmax(140px,200px) 1fr;column-gap:10px}
+    .gains__grid{grid-template-columns:1fr 1fr}
     .dep-card{padding:26px 24px 28px}
     .g3{grid-template-columns:1fr}
     .capgrid{grid-template-columns:1fr;gap:40px}
@@ -682,13 +692,13 @@
   }
   @media (max-width:768px){
     /* what you walk away with → number stacked above the copy */
-    .whofor__grid{grid-template-columns:repeat(2,1fr);gap:12px}
     /* deployment: appliance on top, cards stacked */
     .dep__stage{grid-template-columns:1fr;row-gap:18px;margin-top:36px}
     .dep__core{grid-column:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;order:3}
     .dep-card--core{order:1}
     .dep-card--growth{order:2}
     .dep__cap{position:static;transform:none;margin-top:12px}
+    .gains__grid{grid-template-columns:1fr;gap:14px}
     .prom__cards{grid-template-columns:1fr}
     .prom__cta{grid-template-columns:1fr;text-align:center}
     .prom__cta-d{margin-left:auto;margin-right:auto}
@@ -976,16 +986,6 @@
           <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
         </div>
       </div>
-      <div class="how__who" id="who-for">
-        <div class="eyebrow"><span class="tick"></span>Who it's for</div>
-      <h2 class="h2" style="max-width:720px;margin-bottom:8px">For firms that <b>sit on confidential data.</b></h2>
-      <div class="whofor__grid">
-        <div class="whofor-card"><div class="whofor-card__t">Law</div><div class="whofor-card__d">Privileged matters and client files.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Medical</div><div class="whofor-card__d">Clinical and allied-health records.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Accounting</div><div class="whofor-card__d">Client financials and tax affairs.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Financial advice</div><div class="whofor-card__d">Personal wealth and planning data.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Any sensitive firm</div><div class="whofor-card__d">Anyone trusted with data they can't risk.</div></div>
-      </div>
       </div>
       <div class="how__cta">
         <a href="#contact" class="btn btn--primary btn--big">Enquire today</a>
@@ -996,6 +996,48 @@
   <!-- ================= WHO IT'S FOR ================= -->
 
 
+
+  <!-- ================= WHAT YOUR BUSINESS GAINS ================= -->
+  <section class="section section--alt gains" id="gains" data-reveal>
+    <div class="container">
+      <div class="gains__intro">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The outcomes</div>
+        <h2 class="h2">What your business <b>gains.</b></h2>
+      </div>
+      <div class="gains__grid">
+        <div class="gain-card">
+          <span class="gain-card__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.2 2.9-5.4 6.5-5.4s6.5 2.2 6.5 5.4"/><path d="M18.6 4.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3z"/></svg></span>
+          <div class="gain-card__t">Every employee gets an AI expert</div>
+          <p class="gain-card__d">No prompt engineering. No specialist training. Just ask.</p>
+        </div>
+        <div class="gain-card">
+          <span class="gain-card__i"><svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0113.7-5.7L20 9.5M20 4.5v5h-5"/><path d="M20 11a8 8 0 01-13.7 5.7L4 14.5M4 19.5v-5h5"/></svg></span>
+          <div class="gain-card__t">Every answer gets better</div>
+          <p class="gain-card__d">Your company&rsquo;s knowledge compounds over time. The next employee benefits from the previous one. Unlike public AI, knowledge isn&rsquo;t lost after every conversation.</p>
+        </div>
+        <div class="gain-card">
+          <span class="gain-card__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+          <div class="gain-card__t">Your intelligence stays yours</div>
+          <p class="gain-card__d">Client information. Policies. Processes. Experience. Everything remains inside your business. Nothing leaves your environment.</p>
+        </div>
+        <div class="gain-card">
+          <span class="gain-card__i"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.8"/><circle cx="16" cy="9" r="2.8"/><path d="M2.8 19c0-2.6 2.3-4.3 5.2-4.3 1.2 0 2.3.3 3.2.8.9-.5 2-.8 3.2-.8 2.9 0 5.2 1.7 5.2 4.3"/></svg></span>
+          <div class="gain-card__t">One investment. Unlimited staff.</div>
+          <p class="gain-card__d">No per-seat licences. No growing subscription costs. Everyone benefits from the same intelligence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPOUNDING PAUSE ================= -->
+  <section class="pause" id="compound" data-reveal>
+    <div class="container pause__inner">
+      <h2 class="pause__t">Your business gets smarter <b>every day.</b></h2>
+      <p class="pause__lines">Every document. Every policy. Every process. Every conversation.</p>
+      <p class="pause__mark">Captured. Organised. <b>Available instantly.</b></p>
+      <p class="pause__note">Unlike public AI, your company&rsquo;s intelligence doesn&rsquo;t disappear after every prompt. It compounds over time.</p>
+    </div>
+  </section>
 
   <!-- ================= WHICH DOMINION FITS ================= -->
   <section class="section dep" id="deploy" data-reveal>
@@ -1024,6 +1066,10 @@
             <svg class="dep-stat__i" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg>
             <div><div class="dep-stat__lab">AI knowledge capacity</div><div class="dep-stat__val">2 TB</div></div>
           </div>
+          <div class="dep-ideal">
+            <div class="dep-ideal__h">Ideal for</div>
+            <div class="dep-ideal__tags"><span>Law firms</span><span>Accounting firms</span><span>Financial advisers</span><span>Medical practices</span><span>Professional services</span></div>
+          </div>
           <div class="dep-inc">
             <div class="dep-inc__h">Everything included</div>
             <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Unlimited users</div>
@@ -1050,6 +1096,10 @@
           <div class="dep-stat">
             <svg class="dep-stat__i" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg>
             <div><div class="dep-stat__lab">AI knowledge capacity</div><div class="dep-stat__val">4 TB</div></div>
+          </div>
+          <div class="dep-ideal">
+            <div class="dep-ideal__h">Ideal for</div>
+            <div class="dep-ideal__tags"><span>Growing firms</span><span>Multiple offices</span><span>Larger knowledge bases</span></div>
           </div>
           <div class="dep-inc">
             <div class="dep-inc__h">Everything included</div>
@@ -1127,55 +1177,6 @@
     </div>
   </section>
 
-  <!-- ================= WHAT YOU WALK AWAY WITH ================= -->
-  <section class="section walk" id="walk" data-reveal>
-    <div class="walk__glow" aria-hidden="true"></div>
-    <div class="container">
-      <div class="walk__intro">
-        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>What you walk away with</div>
-        <h2 class="h2">Everything handled. <b>Nothing on your plate.</b></h2>
-        <p class="walk__sub">A capability your whole team uses: set up, run and kept sharp by us. You own the outcome; we own the work.</p>
-      </div>
-      <div class="walk__rows">
-        <div class="walk-row">
-          <div class="walk-row__num">01</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">The box</span>
-            <h3 class="walk-row__t">Enterprise AI, in your own building.</h3>
-            <p class="walk-row__d">A quiet, matte appliance that sits in your office or comms cupboard. Inside: private AI trained on your firm's documents, connected to Microsoft 365, and available to every employee.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> Your team gets the power of AI while your data stays on your premises.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">02</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Stood up for you</span>
-            <h3 class="walk-row__t">Live in your office in two weeks.</h3>
-            <p class="walk-row__d">We install it on-site, onboard your documents, configure it around how your firm actually works, and train your team to use it well.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> No IT project, no internal build, no learning curve. It arrives working.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">03</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Kept sharp</span>
-            <h3 class="walk-row__t">It improves while you get on with business.</h3>
-            <p class="walk-row__d">We handle monitoring, updates, tuning and improvements. The managed relationship is the product. Your team gets the assistant, never the maintenance.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> No headcount to hire, no system to babysit, and no per-seat licences.</p>
-          </div>
-        </div>
-        <div class="walk-row">
-          <div class="walk-row__num">04</div>
-          <div class="walk-row__body">
-            <span class="walk-row__label">Always covered</span>
-            <h3 class="walk-row__t">You are never left without it.</h3>
-            <p class="walk-row__d">Ongoing support and hardware cover are included for the life of the agreement. If the box fails, we replace it.</p>
-            <p class="walk-row__why"><b>Why it matters:</b> Less downtime risk, no surprise bills, and infrastructure you can forget about.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
 
