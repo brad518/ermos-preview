@@ -254,13 +254,27 @@
   /* ===== three ways: interactive decision columns ===== */
   .tways__intro{max-width:820px;margin:0 auto;text-align:center}
   .tways__options{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px;align-items:stretch}
-  .opt{position:relative;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:16px;font-family:inherit;
+  .opt{position:relative;text-align:left;border:1px solid var(--line);border-radius:16px;font-family:inherit;
     background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
-    padding:28px 26px;box-shadow:var(--elev),var(--edge);opacity:0.6;filter:saturate(0.7);
-    transition:opacity .55s ease,filter .55s ease,border-color .5s,box-shadow .6s}
-  .opt:hover{opacity:0.85}
+    padding:28px 26px;box-shadow:var(--elev),var(--edge)}
+  .opt--grey{opacity:0.48;filter:saturate(0.35) grayscale(0.5)}
+  /* on reveal: each rejected option lights briefly, then greys out in turn */
+  @keyframes optIntro{
+    0%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.4)}
+    55%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.4)}
+    100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line)}
+  }
+  .tways.in .opt--grey{animation:optIntro 1.5s ease both}
+  .tways.in .opt--cloud.opt--grey{animation-delay:.25s}
+  .tways.in .opt--ban.opt--grey{animation-delay:1.35s}
+  @media(prefers-reduced-motion:reduce){.tways.in .opt--grey{animation:none}}
   .opt.is-active{opacity:1;filter:none}
-  .opt:focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px}
+  @keyframes domPulse{
+    0%,100%{border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 44px -16px rgba(var(--accent-rgb),0.35),var(--edge)}
+    50%{border-color:rgba(var(--accent-rgb),0.85);box-shadow:0 0 84px -10px rgba(var(--accent-rgb),0.7),var(--edge)}
+  }
+  .opt--dom.is-active{animation:domPulse 3.2s ease-in-out infinite}
+  @media(prefers-reduced-motion:reduce){.opt--dom.is-active{animation:none}}
   .opt__head{display:flex;align-items:center;gap:13px}
   .opt__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:3px;
     font-family:var(--f-display);font-weight:500;font-size:1rem;color:#8fa9d8;background:rgba(255,255,255,0.04);border:1px solid var(--line)}
@@ -397,25 +411,51 @@
   .walk-row__why{margin:20px 0 0;font-size:0.94rem;line-height:1.6;color:var(--muted-2);max-width:640px}
   .walk-row__why b{color:var(--accent-hi);font-weight:600;letter-spacing:0.01em}
 
+  /* ===== how it works — unit shot + CTA ===== */
+  .how__unit{display:flex;justify-content:center;margin-top:54px}
+  .how__unit img{width:min(64vw,440px);height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.5))}
+  .how__cta{text-align:center;margin-top:36px}
+  .btn--big{font-size:1.02rem;padding:17px 40px;letter-spacing:0.02em}
+
   /* ===== who it's for — sensitive-firm cards ===== */
   .whofor__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
   .whofor-card{border:1px solid var(--line);border-radius:12px;background:var(--glass);box-shadow:var(--edge);
     padding:26px 22px;transition:border-color .3s,box-shadow .3s}
   .whofor-card:hover{border-color:rgba(var(--accent-rgb),0.3);box-shadow:0 0 32px -14px rgba(var(--accent-rgb),0.5),var(--edge)}
+  /* blue pulse sweeping across the cards, left to right */
+  @keyframes whoWave{
+    0%,26%,100%{border-color:var(--line);box-shadow:var(--edge)}
+    10%{border-color:rgba(var(--accent-rgb),0.8);box-shadow:0 0 44px -10px rgba(var(--accent-rgb),0.6),var(--edge)}
+  }
+  #who-for.in .whofor-card{animation:whoWave 4.6s ease-in-out infinite}
+  #who-for.in .whofor-card:nth-child(2){animation-delay:.45s}
+  #who-for.in .whofor-card:nth-child(3){animation-delay:.9s}
+  #who-for.in .whofor-card:nth-child(4){animation-delay:1.35s}
+  #who-for.in .whofor-card:nth-child(5){animation-delay:1.8s}
+  @media(prefers-reduced-motion:reduce){#who-for.in .whofor-card{animation:none}}
   .whofor-card__t{font-family:var(--f-display);font-weight:600;font-size:1.06rem;color:var(--ink-2);margin-bottom:10px}
   .whofor-card__d{font-size:0.9rem;line-height:1.55;color:var(--muted)}
 
   /* ===== which dominion fits — deployment options ===== */
   .dep__intro{max-width:780px;margin:0 auto;text-align:center}
   .dep__sub{max-width:600px;margin:18px auto 0;font-size:var(--fs-lead);line-height:1.6;color:var(--muted)}
-  .dep__stage{position:relative;max-width:920px;margin:54px auto 0;display:grid;
-    grid-template-columns:1fr 1fr;column-gap:clamp(18px,3vw,36px);align-items:stretch}
+  .dep__stage{position:relative;max-width:1200px;margin:54px auto 0;display:grid;
+    grid-template-columns:1fr minmax(200px,300px) 1fr;column-gap:clamp(0px,1.4vw,22px);align-items:stretch}
+  /* appliance centrepiece — shared origin behind the two cards */
+  .dep__core{grid-column:2;z-index:0;pointer-events:none}
+  .dep__glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:440px;height:440px;border-radius:50%;z-index:0;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.3), transparent 70%);filter:blur(34px)}
+  .dep__base{position:absolute;left:50%;top:66%;transform:translate(-50%,-50%);width:190px;height:52px;z-index:0;
+    background:radial-gradient(62% 100% at 50% 0%, rgba(var(--accent-rgb),0.5), transparent 72%);filter:blur(11px)}
+  .dep__unit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;height:clamp(340px,40vh,440px);display:flex;align-items:center}
+  .dep__unit picture{display:contents}
+  .dep__unit img{height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 34px 54px rgba(0,0,0,0.7))}
   /* cards */
   .dep-card{position:relative;z-index:2;border:1px solid var(--line);border-radius:20px;background:var(--glass);
     box-shadow:var(--elev),var(--edge);padding:30px 30px 32px;display:flex;flex-direction:column;--cr:59,130,246;
     transition:border-color .4s,box-shadow .5s,transform .5s}
   .dep-card--core{grid-column:1}
-  .dep-card--growth{grid-column:2;--cr:167,139,250}
+  .dep-card--growth{grid-column:3;--cr:167,139,250}
   .dep-card:hover{transform:translateY(-4px);border-color:rgba(var(--cr),0.5);box-shadow:0 0 58px -16px rgba(var(--cr),0.6),var(--edge)}
   .dep-card__pill{align-self:flex-start;display:inline-flex;align-items:center;font-family:var(--f-display);font-weight:600;font-size:0.74rem;
     letter-spacing:0.16em;text-transform:uppercase;color:rgb(var(--cr));padding:8px 16px;border-radius:999px;
@@ -517,6 +557,7 @@
   .vc__i{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin-bottom:18px;
     background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));border:1px solid rgba(var(--accent-rgb),0.3)}
   .vc__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .vc__k{font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:#8fb0ff;margin-bottom:8px}
   .vc__h{font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--ink-2);margin-bottom:9px}
   .vc__d{font-size:0.94rem;line-height:1.6;color:var(--muted)}
   .val__strip{max-width:1040px;margin:clamp(46px,6vw,74px) auto 0;border-radius:16px;padding:clamp(26px,3.4vw,42px);text-align:center;
@@ -576,6 +617,7 @@
   @media (max-width:960px){
     :root{--pad:28px}
     .whofor__grid{grid-template-columns:repeat(3,1fr)}
+    .dep__stage{grid-template-columns:1fr minmax(140px,200px) 1fr;column-gap:10px}
     .dep-card{padding:26px 24px 28px}
     .g3{grid-template-columns:1fr}
     .capgrid{grid-template-columns:1fr;gap:40px}
@@ -598,8 +640,13 @@
   @media (max-width:768px){
     /* what you walk away with → number stacked above the copy */
     .whofor__grid{grid-template-columns:repeat(2,1fr);gap:12px}
-    /* deployment: two cards stack */
+    /* deployment: appliance on top, cards stacked */
     .dep__stage{grid-template-columns:1fr;row-gap:18px;margin-top:36px}
+    .dep__core{grid-column:1;position:relative;display:flex;justify-content:center;padding:6px 0}
+    .dep__unit{position:static;transform:none;height:auto;margin:0 auto}
+    .dep__unit img{height:min(230px,56vw)}
+    .dep__glow{width:230px;height:230px;top:50%}
+    .dep__base{display:none}
     .dep-card--core,.dep-card--growth{grid-column:1}
     /* value: comparison stacks (metric on top, two values below); cards/panels stack */
     .vm__row{grid-template-columns:1fr 1fr}
@@ -624,9 +671,9 @@
     .hero__cta .btn{flex:1 1 auto}
     .g2{grid-template-columns:1fr}
     .captiles{grid-template-columns:1fr}
-    /* three ways: option cards stack, all fully readable */
+    /* three ways: option cards stack */
     .tways__options{grid-template-columns:1fr;gap:14px;margin-top:36px}
-    .opt{opacity:1;filter:none;padding:24px 22px}
+    .opt{padding:24px 22px}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -647,7 +694,7 @@
     <nav class="nav__links" aria-label="Primary">
       <a href="#bind">The bind</a>
       <a href="#how">How it works</a>
-      <a href="#security">Security</a>
+      <a href="#value">Security</a>
       <a href="#deploy">Plans</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -675,11 +722,11 @@
     <div class="container hero__inner">
       <div class="hero__text">
         <div class="eyebrow rise"><span class="dot"></span>Sovereign AI, on your premises</div>
-        <h1 class="rise d1">ChatGPT for firms that <b>can't use ChatGPT.</b></h1>
-        <p class="hero__sub rise d2">Ermos Dominion is a sovereign AI system that lives on your premises. Your team gets frontier-class intelligence on your matters, your files, your clients. None of it ever touches the cloud.</p>
+        <h1 class="rise d1">Dominion is a new way to <b>bring AI into your business.</b></h1>
+        <p class="hero__sub rise d2">Built for organisations where client confidentiality, professional compliance and patient privacy are non-negotiable.</p>
         <div class="hero__cta rise d3">
           <a href="#contact" class="btn btn--primary">Book a confidential consultation</a>
-          <a href="security-brief.html" class="btn btn--ghost">Get the security brief</a>
+          <a href="#bind" class="btn btn--ghost">Discover Dominion</a>
         </div>
         <div class="hero__trust rise d4">
           <span><i></i>Air-gapped</span>
@@ -706,69 +753,30 @@
     <div class="container">
       <div class="tways__intro">
         <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The decision</div>
-        <h2 class="h2">Three ways to handle AI. <b>Only one keeps your business protected, productive and in control.</b></h2>
-        <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">Every business faces the same decision: use public AI, ban AI, or bring enterprise AI into your own custody. Only one protects your data while giving your team the full power of AI.</p>
+        <h2 class="h2">The bind <b>you're in.</b></h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">Your team wants AI. Your obligations say the cloud is off the table. You had two options.</p>
       </div>
       <div class="tways__options">
-        <div class="opt opt--cloud" data-i="0" role="button" tabindex="0" aria-pressed="false" aria-label="Use public AI">
+        <div class="opt opt--cloud opt--grey">
           <div class="opt__head">
             <span class="opt__n">1</span>
-            <h3 class="opt__t">Use public AI</h3>
+            <h3 class="opt__t">Use the cloud and hope.</h3>
           </div>
-          <p class="opt__pos">Useful, but exposed.</p>
-          <div class="opt__body">
-            <div class="opt__group"><div class="opt__label">The upside</div>
-            <div class="opt__li opt__li--pro">Fast to start</div>
-            <div class="opt__li opt__li--pro">Powerful tools</div>
-            <div class="opt__li opt__li--pro">Easy for staff to access</div>
-            </div>
-            <div class="opt__group"><div class="opt__label">The cost</div>
-            <div class="opt__li opt__li--con">Data leaves your control</div>
-            <div class="opt__li opt__li--con">Client confidentiality risk</div>
-            <div class="opt__li opt__li--con">IP may be exposed</div>
-            <div class="opt__li opt__li--con">Ongoing per-seat fees</div>
-            </div>
-          </div>
+          <p class="opt__pos">Your clients&rsquo; data and your reputation are at risk. Everything that goes external to a cloud service is open to being compromised.</p>
         </div>
-        <div class="opt opt--ban" data-i="1" role="button" tabindex="0" aria-pressed="false" aria-label="Ban AI">
+        <div class="opt opt--ban opt--grey">
           <div class="opt__head">
             <span class="opt__n">2</span>
-            <h3 class="opt__t">Ban AI</h3>
+            <h3 class="opt__t">Ban it outright.</h3>
           </div>
-          <p class="opt__pos">Safe, but unrealistic.</p>
-          <div class="opt__body">
-            <div class="opt__group"><div class="opt__label">The upside</div>
-            <div class="opt__li opt__li--pro">Feels safe on paper</div>
-            <div class="opt__li opt__li--pro">Simple internal policy</div>
-            <div class="opt__li opt__li--pro">Reduces official AI risk</div>
-            </div>
-            <div class="opt__group"><div class="opt__label">The cost</div>
-            <div class="opt__li opt__li--con">Staff fall behind</div>
-            <div class="opt__li opt__li--con">Shadow AI appears anyway</div>
-            <div class="opt__li opt__li--con">Productivity is lost</div>
-            <div class="opt__li opt__li--con">Sensitive work may move into personal tools</div>
-            </div>
-          </div>
+          <p class="opt__pos">Not realistic. Your staff secretly use it anyway; it&rsquo;s unpredictable and compromises client data.</p>
         </div>
-        <div class="opt opt--dom is-active" data-i="2" role="button" tabindex="0" aria-pressed="true" aria-label="Ermos Dominion">
+        <div class="opt opt--dom is-active">
           <div class="opt__head">
             <span class="opt__n">3</span>
             <h3 class="opt__t">Ermos Dominion</h3>
           </div>
-          <p class="opt__pos">Protected, productive and in control.</p>
-          <div class="opt__body">
-            <div class="opt__group"><div class="opt__label">The upside</div>
-            <div class="opt__li opt__li--pro">Private AI inside your building</div>
-            <div class="opt__li opt__li--pro">Sensitive data stays under your control</div>
-            <div class="opt__li opt__li--pro">Every employee gets AI capability</div>
-            <div class="opt__li opt__li--pro">No per-seat AI licences</div>
-            </div>
-            <div class="opt__group"><div class="opt__label">The cost</div>
-            <div class="opt__li opt__li--con">Requires upfront setup</div>
-            <div class="opt__li opt__li--con">Needs managed deployment</div>
-            <div class="opt__li opt__li--con">Not a casual plug-and-play toy</div>
-            </div>
-          </div>
+          <p class="opt__pos">A new way to deliver AI into your business that protects your clients&rsquo; data and allows your team to stay productive and in control.</p>
         </div>
       </div>
       <div class="tways__cta">
@@ -779,106 +787,33 @@
   </section>
 
   <!-- ================= THE TURN (statement band) ================= -->
-  <section class="turn" data-reveal aria-label="Individual AI makes people faster. Dominion makes businesses smarter.">
-    <div class="turn__glow" aria-hidden="true"></div>
-    <div class="turn__inner">
-      <p class="turn__l turn__l--1">Individual AI makes people faster.</p>
-      <p class="turn__l turn__l--2">Dominion makes businesses <b>smarter.</b></p>
-    </div>
-  </section>
-
   <!-- ================= AI DELIVERS VALUE ================= -->
   <section class="section val" id="value" data-reveal>
     <div class="container">
       <div class="val__intro">
-        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>The value case</div>
-        <h2 class="h2">AI delivers value. The way you use it determines <b>the outcome.</b></h2>
-        <p class="val__sub">Individual AI saves time. Organisational AI compounds it.</p>
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Sovereign AI</div>
+        <h2 class="h2">The AI that never leaves <b>the building.</b></h2>
+        <p class="val__sub">Every interaction makes your organisation smarter while your knowledge, documents and data remain securely inside your business.</p>
       </div>
-
-      <div class="vm">
-        <div class="vm__row vm__row--head">
-          <div class="vm__metric"><span class="vm__mlabel">Core metrics</span></div>
-          <div class="vm__colh vm__colh--scat"><div class="vm__colh-t">AI scattered</div><div class="vm__colh-s">Individual tools. No connection.</div></div>
-          <div class="vm__colh vm__colh--dom"><div class="vm__colh-t">AI consolidated (Dominion)</div><div class="vm__colh-s">One system. Shared intelligence.</div></div>
-        </div>
-        <div class="vm__row">
-          <div class="vm__metric"><span class="vm__mlabel">AI adoption</span><span class="vm__mdesc">Australian SMEs using AI in some form</span></div>
-          <div class="vm__cell vm__cell--scat"><div class="vm__val">92%</div><div class="vm__vsub">Industry reality</div></div>
-          <div class="vm__cell vm__cell--dom"><div class="vm__val">92%</div><div class="vm__vsub">Same starting point</div></div>
-        </div>
-        <div class="vm__row">
-          <div class="vm__metric"><span class="vm__mlabel">Knowledge retained</span><span class="vm__mdesc">Answers captured and reused</span></div>
-          <div class="vm__cell vm__cell--scat"><div class="vm__val">5&ndash;10%</div><div class="vm__vsub">Most walks out the door</div></div>
-          <div class="vm__cell vm__cell--dom"><div class="vm__val">80&ndash;95%</div><div class="vm__vsub">Captured, organised, reused</div></div>
-        </div>
-        <div class="vm__row">
-          <div class="vm__metric"><span class="vm__mlabel">Weekly productivity gain</span><span class="vm__mdesc">Time saved per employee</span></div>
-          <div class="vm__cell vm__cell--scat"><div class="vm__val">&#8776; 5 hrs</div><div class="vm__vsub">&#8776; 1 hour a day</div></div>
-          <div class="vm__cell vm__cell--dom"><div class="vm__val">&#8776; 15 hrs</div><div class="vm__vsub">&#8776; 3 hours a day</div></div>
-        </div>
-        <div class="vm__row">
-          <div class="vm__metric"><span class="vm__mlabel">Business gets smarter?</span><span class="vm__mdesc">Does it improve over time</span></div>
-          <div class="vm__cell vm__cell--scat"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>No</div><div class="vm__vsub">Starts over daily</div></div>
-          <div class="vm__cell vm__cell--dom"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l2.8 2.8L12.5 5"/></svg></span>Yes</div><div class="vm__vsub">Compounds every day</div></div>
-        </div>
-        <div class="vm__row">
-          <div class="vm__metric"><span class="vm__mlabel">Business asset created?</span><span class="vm__mdesc">Does it build lasting value</span></div>
-          <div class="vm__cell vm__cell--scat"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>No</div><div class="vm__vsub">Just another tool</div></div>
-          <div class="vm__cell vm__cell--dom"><div class="vm__mark"><span class="vm__ic"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l2.8 2.8L12.5 5"/></svg></span>Yes</div><div class="vm__vsub">Becomes your IP</div></div>
-        </div>
-      </div>
-      <p class="vm__note">Planning model based on Australian AI usage research combined with organisational knowledge reuse.</p>
-
-      <div class="vi">
-        <h3 class="vi__head">The productivity impact</h3>
-        <p class="vi__sub">A 15-person firm, valued at $250 per productive hour across 48 working weeks. A planning model, not a quote.</p>
-        <div class="vi__cards">
-          <div class="vi__card vi__card--scat">
-            <div class="vi__label">AI scattered</div>
-            <div class="vi__labsub">Individual tools.</div>
-            <div class="vi__hero">&#8776; 1 hr/day</div>
-            <div class="vi__herolab">per employee</div>
-            <div class="vi__stat"><div class="vi__num">3,600</div><div class="vi__numlab">Annual productive hours</div></div>
-            <div class="vi__stat"><div class="vi__num">$900,000</div><div class="vi__numlab">Productive capacity a year</div></div>
-          </div>
-          <div class="vi__op" aria-hidden="true">&rarr;</div>
-          <div class="vi__card vi__card--dom">
-            <div class="vi__label">AI consolidated (Dominion)</div>
-            <div class="vi__labsub">One shared intelligence.</div>
-            <div class="vi__hero">&#8776; 3 hrs/day</div>
-            <div class="vi__herolab">per employee</div>
-            <div class="vi__stat"><div class="vi__num">10,800</div><div class="vi__numlab">Annual productive hours</div></div>
-            <div class="vi__stat"><div class="vi__num">$2,700,000</div><div class="vi__numlab">Productive capacity a year</div></div>
-          </div>
-          <div class="vi__op" aria-hidden="true">=</div>
-          <div class="vi__card vi__card--unlock">
-            <div class="vi__label">The unlock</div>
-            <div class="vi__labsub">Value left on the table.</div>
-            <div class="vi__hero">+7,200</div>
-            <div class="vi__herolab">hours unlocked a year</div>
-            <div class="vi__stat"><div class="vi__num">+$1,800,000</div><div class="vi__numlab">Added productive capacity a year</div></div>
-          </div>
-        </div>
-      </div>
-
       <div class="vc">
-        <h3 class="vc__head">The AI gets better because your business gets smarter.</h3>
         <div class="vc__panels">
           <div class="vc__panel">
-            <span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.1"/><path d="M3.6 19c0-3 2.4-5 5.4-5s5.4 2 5.4 5"/><path d="M16 6.6a3 3 0 010 5.3M17.6 19c0-2.2-1-4-2.7-4.7"/></svg></span>
-            <div class="vc__h">Every employee contributes.</div>
-            <div class="vc__d">Each useful interaction strengthens the knowledge everyone else can draw on.</div>
+            <span class="vc__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+            <div class="vc__k">01 &mdash; Sovereign by design</div>
+            <div class="vc__h">Keep the intelligence in-house.</div>
+            <div class="vc__d">Your knowledge, documents and business intelligence never leave your building. Dominion runs entirely on your own infrastructure.</div>
           </div>
           <div class="vc__panel">
             <span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3L5.6 5.6"/></svg></span>
-            <div class="vc__h">Ermos manages the technology.</div>
-            <div class="vc__d">Models evolve, infrastructure changes and security stays current. You never touch it.</div>
+            <div class="vc__k">02 &mdash; Always learning</div>
+            <div class="vc__h">Tuned for your business.</div>
+            <div class="vc__d">Every prompt, document and workflow improves your organisation&rsquo;s AI. The knowledge compounds over time, becoming uniquely yours.</div>
           </div>
           <div class="vc__panel">
-            <span class="vc__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
-            <div class="vc__h">You keep the knowledge.</div>
-            <div class="vc__d">Your prompts, processes and expertise become a compounding company asset.</div>
+            <span class="vc__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
+            <div class="vc__k">03 &mdash; Security &amp; control</div>
+            <div class="vc__h">Yours, and yours alone.</div>
+            <div class="vc__d">Built for organisations handling confidential information. Your files, client data and intellectual property stay under your control at all times.</div>
           </div>
         </div>
       </div>
@@ -976,6 +911,55 @@
     </div>
   </section>
 
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section lit lit--left" id="how" data-reveal>
+    <div class="container">
+      <div class="eyebrow"><span class="tick"></span>How it works</div>
+      <h2 class="h2" style="max-width:680px;margin-bottom:60px">Three steps. <b>Then it's simply there.</b></h2>
+      <div class="grid g3">
+        <div class="step">
+          <div class="n">1</div>
+          <div class="t">Scope call.</div>
+          <div class="d">We map your firm's files, workflows and obligations. One call, no pitch deck.</div>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <div class="t">Install on site.</div>
+          <div class="d">We bring the box to your office and set it up on your network. A single quiet unit; we handle everything.</div>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <div class="t">Team onboarded.</div>
+          <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
+        </div>
+      </div>
+      <div class="how__unit" aria-hidden="true">
+        <picture>
+          <source type="image/webp" sizes="440px" srcset="assets/opt/hero-800.webp 800w, assets/opt/hero-1200.webp 1200w">
+          <img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="how__cta">
+        <a href="#contact" class="btn btn--primary btn--big">Enquire today</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHO IT'S FOR ================= -->
+  <section class="section section--alt" id="who-for" data-reveal>
+    <div class="container">
+      <div class="eyebrow"><span class="tick"></span>Who it's for</div>
+      <h2 class="h2" style="max-width:720px;margin-bottom:8px">For firms that <b>sit on confidential data.</b></h2>
+      <div class="whofor__grid">
+        <div class="whofor-card"><div class="whofor-card__t">Law</div><div class="whofor-card__d">Privileged matters and client files.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Medical</div><div class="whofor-card__d">Clinical and allied-health records.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Accounting</div><div class="whofor-card__d">Client financials and tax affairs.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Financial advice</div><div class="whofor-card__d">Personal wealth and planning data.</div></div>
+        <div class="whofor-card"><div class="whofor-card__t">Any sensitive firm</div><div class="whofor-card__d">Anyone trusted with data they can't risk.</div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= WHAT YOU WALK AWAY WITH ================= -->
   <section class="section walk" id="walk" data-reveal>
     <div class="walk__glow" aria-hidden="true"></div>
@@ -1026,30 +1010,6 @@
     </div>
   </section>
 
-  <!-- ================= HOW IT WORKS ================= -->
-  <section class="section lit lit--left" id="how" data-reveal>
-    <div class="container">
-      <div class="eyebrow"><span class="tick"></span>How it works</div>
-      <h2 class="h2" style="max-width:680px;margin-bottom:60px">Three steps. <b>Then it's simply there.</b></h2>
-      <div class="grid g3">
-        <div class="step">
-          <div class="n">1</div>
-          <div class="t">Scope call.</div>
-          <div class="d">We map your firm's files, workflows and obligations. One call, no pitch deck.</div>
-        </div>
-        <div class="step">
-          <div class="n">2</div>
-          <div class="t">Install on site.</div>
-          <div class="d">We bring the box to your office and set it up on your network. A single quiet unit; we handle everything.</div>
-        </div>
-        <div class="step">
-          <div class="n">3</div>
-          <div class="t">Team onboarded.</div>
-          <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ================= WHICH DOMINION FITS ================= -->
   <section class="section dep" id="deploy" data-reveal>
@@ -1061,6 +1021,12 @@
       </div>
 
       <div class="dep__stage">
+        <div class="dep__core" aria-hidden="true">
+          <div class="dep__glow"></div>
+          <div class="dep__base"></div>
+          <div class="dep__unit"><picture><source type="image/avif" sizes="420px" srcset="assets/opt/hero-800.avif 800w, assets/opt/hero-1200.avif 1200w, assets/opt/hero-1600.avif 1600w"><source type="image/webp" sizes="420px" srcset="assets/opt/hero-800.webp 800w, assets/opt/hero-1200.webp 1200w, assets/opt/hero-1600.webp 1600w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="The Ermos Dominion appliance" loading="lazy" decoding="async"></picture></div>
+        </div>
+
         <div class="dep-card dep-card--core">
           <span class="dep-card__pill">Dominion Core</span>
           <div class="dep-stat">
@@ -1119,7 +1085,7 @@
       </div>
 
       <div class="dep__panel">
-        <h3>You're buying a managed AI capability, not simply a server.</h3>
+        <h3>You're buying a managed AI capability that makes your business smarter.</h3>
         <p>Every Dominion deployment includes secure installation, AI configuration, knowledge ingestion, onboarding, support, monitoring and continuous optimisation. We deploy it, manage it and continually improve it while your team focuses on running the business.</p>
       </div>
 
@@ -1127,56 +1093,8 @@
     </div>
   </section>
 
-  <!-- ================= WHO IT'S FOR ================= -->
-  <section class="section section--alt" id="who-for" data-reveal>
-    <div class="container">
-      <div class="eyebrow"><span class="tick"></span>Who it's for</div>
-      <h2 class="h2" style="max-width:720px;margin-bottom:8px">For firms that <b>sit on confidential data.</b></h2>
-      <div class="whofor__grid">
-        <div class="whofor-card"><div class="whofor-card__t">Law</div><div class="whofor-card__d">Privileged matters and client files.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Medical</div><div class="whofor-card__d">Clinical and allied-health records.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Accounting</div><div class="whofor-card__d">Client financials and tax affairs.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Financial advice</div><div class="whofor-card__d">Personal wealth and planning data.</div></div>
-        <div class="whofor-card"><div class="whofor-card__t">Any sensitive firm</div><div class="whofor-card__d">Anyone trusted with data they can't risk.</div></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ================= SECURITY DEEP-DIVE ================= -->
-  <section class="section lit" id="security" data-reveal>
-    <div class="container">
-      <div style="text-align:center;max-width:760px;margin:0 auto 60px">
-        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Security &amp; sovereignty</div>
-        <h2 class="h2">Your data is as safe as <b>your building.</b></h2>
-        <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center">It stays on a box in your office, under your control, and no one else's. No cloud, no telemetry, no remote path out.</p>
-      </div>
-      <div class="grid g2" style="max-width:980px;margin:0 auto">
-        <div class="feat"><div class="t">Air-gapped by design</div><div class="d">No internet path for your data. The box does its work without sending anything out.</div></div>
-        <div class="feat"><div class="t">Onshore in Australia</div><div class="d">Your data never leaves the country, because it never leaves the building.</div></div>
-        <div class="feat"><div class="t">Nothing to leak</div><div class="d">No cloud account to breach, no API to intercept, no vendor holding a copy. The attack surface is a locked room.</div></div>
-        <div class="feat"><div class="t">No third-party access</div><div class="d">Not us, not a vendor. There is no remote backdoor into your files.</div></div>
-      </div>
-      <p class="note">Built to sit comfortably alongside the obligations you already carry: the Privacy Act and APPs, legal professional privilege, My Health Record rules and financial-services data requirements. Offered as context, not legal advice.</p>
-    </div>
-  </section>
 
-  <!-- ================= CAPABILITY, HONESTLY ================= -->
-  <section class="section" id="capability" data-reveal>
-    <div class="container capgrid">
-      <div>
-        <div class="eyebrow"><span class="tick"></span>Capability, honestly</div>
-        <h2 class="h2">A private assistant, <b>grounded in your files.</b></h2>
-        <p class="lead">Your team uses it like a private ChatGPT, except it reads your firm's own documents and answers from them.</p>
-        <p style="margin-top:24px;font-size:0.97rem;line-height:1.7;color:var(--muted-2)">It's a capable assistant over your own knowledge, not a claim to beat frontier models. What it is, is yours.</p>
-      </div>
-      <div class="captiles">
-        <div class="tile"><div class="t">Search everything</div><div class="d">Find anything across every matter, file and record your firm holds.</div></div>
-        <div class="tile"><div class="t">Summarise instantly</div><div class="d">Condense long files, matters and records into a brief in seconds.</div></div>
-        <div class="tile"><div class="t">Draft in your style</div><div class="d">Letters, file notes and reports, written the way your firm writes them.</div></div>
-        <div class="tile"><div class="t">Answers, cited</div><div class="d">Ask a question, get an answer grounded in your own documents, and pointed back to them.</div></div>
-      </div>
-    </div>
-  </section>
 
   <!-- ================= WHO'S BEHIND THIS (new) ================= -->
   <section class="section section--alt" id="who" data-reveal>
@@ -1315,7 +1233,7 @@
       <div class="brand">ERMOS</div>
       <div class="foot__links">
         <a href="#how">How it works</a>
-        <a href="#security">Security</a>
+        <a href="#value">Security</a>
         <a href="#deploy">Plans</a>
         <a href="#faq">FAQ</a>
         <a href="mailto:hello@ermos.com.au">hello@ermos.com.au</a>
@@ -1368,23 +1286,7 @@
   var form = document.getElementById('contact-form');
   if (form) form.addEventListener('submit', function(e){ e.preventDefault(); form.classList.add('sent'); });
 
-  // three ways: click / auto-cycle the decision options (Ermos is the default + preferred state)
-  (function(){
-    var opts = Array.prototype.slice.call(document.querySelectorAll('.opt'));
-    if (!opts.length) return;
-    var order = [2, 0, 1], dwell = { 0: 5200, 1: 5200, 2: 9000 };
-    var pos = 1, timer = null, resumeT = null;
-    function activate(i){ opts.forEach(function(o, k){ var on = (k === i); o.classList.toggle('is-active', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
-    function step(){ var i = order[pos]; activate(i); pos = (pos + 1) % order.length; timer = setTimeout(step, dwell[i]); }
-    function runFromErmos(){ clearTimeout(timer); activate(2); pos = 1; timer = setTimeout(step, dwell[2]); }
-    opts.forEach(function(o){
-      function pick(){ activate(parseInt(o.getAttribute('data-i'), 10)); clearTimeout(timer); clearTimeout(resumeT); if (!reduce) resumeT = setTimeout(runFromErmos, 14000); }
-      o.addEventListener('click', pick);
-      o.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
-    });
-    activate(2);
-    if (!reduce) runFromErmos();
-  })();
+  // three ways: static since the two-options rewrite — greyed tiles, Dominion pulses via CSS
 
   // why-ermos: rotate the active outcome card around the appliance (AI Workforce leads)
   (function(){
