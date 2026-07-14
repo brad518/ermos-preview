@@ -500,46 +500,42 @@
   .dep__foot{display:flex;align-items:center;justify-content:center;gap:9px;margin:30px 0 0;font-size:0.86rem;color:var(--muted-2)}
   .dep__foot svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-  /* built on confidence — commercial-model panel */
-  .conf{position:relative;z-index:2;max-width:1100px;margin:clamp(40px,5vw,64px) auto 0;border:1px solid var(--line);border-radius:18px;
-    background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);padding:clamp(28px,4vw,52px)}
-  .conf__head{text-align:center;max-width:640px;margin:0 auto}
-  .conf__t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--ink);margin:0}
-  .conf__t b{color:var(--accent-hi)}
-  .conf__s{margin:10px 0 0;color:var(--muted);font-size:1rem}
-  .conf__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:clamp(30px,4vw,46px)}
-  .conf-step{position:relative;padding:0 8px}
-  .conf-step:not(:last-child)::after{content:'';position:absolute;top:24px;right:-15px;width:26px;height:1px;
-    background:linear-gradient(90deg,rgba(var(--accent-rgb),0.55),transparent)}
-  .conf-step__i{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;
-    border:1px solid rgba(var(--accent-rgb),0.35);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.16), rgba(var(--accent-rgb),0.03))}
-  .conf-step__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .conf-step__k{margin-top:14px;font-weight:600;font-size:0.66rem;letter-spacing:0.16em;color:#8fb0ff}
-  .conf-step__t{font-family:var(--f-display);font-weight:600;font-size:1.08rem;color:var(--ink-2);margin-top:6px}
-  .conf-step__d{margin-top:7px;font-size:0.93rem;line-height:1.6;color:var(--muted)}
-  .conf__own{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:clamp(26px,4vw,54px);align-items:center;
-    margin-top:clamp(32px,4vw,48px);padding-top:clamp(30px,4vw,44px);border-top:1px solid var(--line)}
-  .conf__own-vis{position:relative;display:flex;justify-content:center}
-  .conf__own-vis img{width:min(56vw,240px);height:auto;filter:drop-shadow(0 26px 44px rgba(0,0,0,0.6))}
-  .conf__own-lock{position:absolute;right:12%;bottom:4%;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;
-    border:1px solid rgba(167,139,250,0.45);background:#0c1220;box-shadow:0 0 26px -6px rgba(167,139,250,0.5)}
-  .conf__own-lock svg{width:18px;height:18px;color:#c4b5fd;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .conf__own-k{font-weight:600;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:#c4b5fd}
-  .conf__own-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.2rem,2.2vw,1.55rem);color:var(--ink);margin:10px 0 0}
-  .conf__own-d{margin:12px 0 0;max-width:560px;font-size:0.97rem;line-height:1.65;color:var(--muted)}
-  .conf__price{display:inline-block;margin-top:20px;border:1px solid rgba(var(--accent-rgb),0.35);border-radius:14px;padding:16px 26px;
-    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.08), rgba(167,139,250,0.05))}
-  .conf__price-lab{font-weight:600;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-2)}
-  .conf__price-val{font-family:var(--f-display);font-weight:600;font-size:1.7rem;color:var(--ink);margin-top:4px}
-  .conf__price-sub{font-size:0.82rem;color:var(--muted);margin-top:2px}
-  .conf__trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(32px,4vw,48px);padding-top:clamp(24px,3vw,34px);border-top:1px solid var(--line)}
-  .conf-tp{display:flex;gap:13px;align-items:flex-start;padding:0 22px}
-  .conf-tp+.conf-tp{border-left:1px solid var(--line)}
-  .conf-tp__i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;
-    border:1px solid var(--line);background:var(--glass)}
-  .conf-tp__i svg{width:17px;height:17px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .conf-tp__t{font-weight:600;font-size:0.92rem;color:var(--ink-2)}
-  .conf-tp__d{margin-top:3px;font-size:0.85rem;line-height:1.5;color:var(--muted)}
+  /* three simple promises + CTA banner */
+  .prom{position:relative;z-index:2;max-width:1100px;margin:clamp(40px,5vw,64px) auto 0}
+  .prom__head{text-align:center;max-width:640px;margin:0 auto}
+  .prom__t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ink);margin:18px 0 0}
+  .prom__t b{color:var(--accent-hi)}
+  .prom__s{margin:12px 0 0;color:var(--muted);font-size:1rem;line-height:1.6}
+  .prom__cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:clamp(30px,4vw,46px);align-items:stretch}
+  .prom-card{--cr:59,130,246;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid var(--line);border-radius:18px;
+    background:var(--glass);box-shadow:var(--elev),var(--edge);padding:30px 26px 26px;
+    transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .4s}
+  .prom-card:hover{transform:translateY(-4px);border-color:rgba(var(--cr),0.45);box-shadow:0 0 52px -16px rgba(var(--cr),0.55),var(--edge)}
+  .prom-card--violet{--cr:167,139,250}
+  .prom-card__n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+    border:1px solid rgba(var(--cr),0.5);font-family:var(--f-display);font-weight:600;font-size:0.9rem;color:rgb(var(--cr));background:rgba(var(--cr),0.08)}
+  .prom-card__i{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;margin-top:18px;
+    border:1px solid rgba(var(--cr),0.4);background:radial-gradient(closest-side, rgba(var(--cr),0.16), rgba(var(--cr),0.03));
+    box-shadow:0 0 34px -8px rgba(var(--cr),0.5)}
+  .prom-card__i svg{width:28px;height:28px;color:rgb(var(--cr));stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .prom-card__t{font-family:var(--f-display);font-weight:600;font-size:1.18rem;line-height:1.3;color:var(--ink);margin-top:18px}
+  .prom-card__d{margin:12px 0 0;font-size:0.93rem;line-height:1.62;color:var(--muted)}
+  .prom-card__list{width:100%;margin-top:auto;padding-top:20px;border-top:1px solid var(--line);margin-top:22px;text-align:left;display:grid;gap:10px}
+  .prom-li{display:flex;gap:10px;align-items:flex-start;font-size:0.9rem;line-height:1.5;color:#cfd8e6}
+  .prom-li__c{flex:none;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;margin-top:1px;
+    border:1px solid rgba(var(--cr),0.5)}
+  .prom-li__c svg{width:10px;height:10px;stroke:rgb(var(--cr));fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .prom__cta{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:clamp(24px,4vw,54px);align-items:center;margin-top:22px;
+    border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);
+    padding:clamp(26px,3.6vw,44px);transition:border-color .35s,box-shadow .4s}
+  .prom__cta:hover{border-color:rgba(var(--accent-rgb),0.35);box-shadow:0 0 58px -18px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .prom__cta-vis{position:relative;display:flex;justify-content:center}
+  .prom__cta-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.3), transparent 70%);filter:blur(30px)}
+  .prom__cta-vis img{position:relative;width:min(52vw,230px);height:auto;filter:drop-shadow(0 26px 44px rgba(0,0,0,0.65))}
+  .prom__cta-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.3rem,2.5vw,1.8rem);color:var(--ink);margin:0}
+  .prom__cta-t b{color:var(--accent-hi)}
+  .prom__cta-d{margin:12px 0 22px;max-width:520px;font-size:0.98rem;line-height:1.65;color:var(--muted)}
 
   /* ===== ai delivers value — executive briefing ===== */
   .val{--gr:52,199,120}
@@ -693,12 +689,9 @@
     .dep-card--core{order:1}
     .dep-card--growth{order:2}
     .dep__cap{position:static;transform:none;margin-top:12px}
-    .conf__steps{grid-template-columns:1fr;gap:22px}
-    .conf-step:not(:last-child)::after{display:none}
-    .conf__own{grid-template-columns:1fr}
-    .conf__trust{grid-template-columns:1fr;row-gap:16px}
-    .conf-tp{padding:0}
-    .conf-tp+.conf-tp{border-left:none;border-top:1px solid var(--line);padding-top:16px}
+    .prom__cards{grid-template-columns:1fr}
+    .prom__cta{grid-template-columns:1fr;text-align:center}
+    .prom__cta-d{margin-left:auto;margin-right:auto}
     .dep__unit{position:static;transform:none;height:auto;margin:0 auto}
     .dep__unit img{height:min(230px,56vw)}
     .dep__glow{width:230px;height:230px;top:50%}
@@ -1076,64 +1069,61 @@
         </div>
       </div>
 
-      <div class="conf">
-        <div class="conf__head">
-          <h3 class="conf__t">Built on confidence. <b>Not contracts.</b></h3>
-          <p class="conf__s">Simple, fair and flexible.</p>
+      <div class="prom">
+        <div class="prom__head">
+          <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Simple ownership</div>
+          <h3 class="prom__t">Three simple <b>promises.</b></h3>
+          <p class="prom__s">You stay because Dominion delivers, not because you&rsquo;re locked in.</p>
         </div>
-        <div class="conf__steps">
-          <div class="conf-step">
-            <span class="conf-step__i"><svg viewBox="0 0 24 24"><path d="M20.2 6.6a5 5 0 01-6.5 6.4L7 19.7a2.1 2.1 0 01-3-3l6.7-6.7a5 5 0 016.4-6.5L14 6.6l.9 2.5 2.5.9 2.8-3.4z"/></svg></span>
-            <div class="conf-step__k">01</div>
-            <div class="conf-step__t">We install Dominion</div>
-            <div class="conf-step__d">On-site. Configured. Ready to go.</div>
+        <div class="prom__cards">
+          <div class="prom-card">
+            <span class="prom-card__n">1</span>
+            <span class="prom-card__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+            <div class="prom-card__t">No lock-in contracts</div>
+            <p class="prom-card__d">You&rsquo;re free to leave whenever you choose.</p>
+            <div class="prom-card__list">
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Leave anytime</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No exit penalties</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>We earn your business every month</div>
+            </div>
           </div>
-          <div class="conf-step">
-            <span class="conf-step__i"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
-            <div class="conf-step__k">02</div>
-            <div class="conf-step__t">You pay monthly</div>
-            <div class="conf-step__d">The appliance, software, support, monitoring and continuous improvements are all included.</div>
+          <div class="prom-card">
+            <span class="prom-card__n">2</span>
+            <span class="prom-card__i"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="1.6"/><path d="M9.5 6.5h5M9.5 9h5M9.5 11.5h5M11 17.5h2"/></svg></span>
+            <div class="prom-card__t">Own the appliance</div>
+            <p class="prom-card__d">If Dominion isn&rsquo;t the right fit, simply purchase the appliance for a fixed price and continue running it yourself.</p>
+            <div class="prom-card__list">
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Fixed purchase option</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Keep running independently</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>No migration required</div>
+            </div>
           </div>
-          <div class="conf-step">
-            <span class="conf-step__i"><svg viewBox="0 0 24 24"><path d="M12 21V9M12 9L7 4M12 9l5-5M7 4h3.2M7 4v3.2M17 4h-3.2M17 4v3.2"/></svg></span>
-            <div class="conf-step__k">03</div>
-            <div class="conf-step__t">Stay because it delivers value</div>
-            <div class="conf-step__d">Or purchase the appliance and continue independently.</div>
-          </div>
-        </div>
-        <div class="conf__own">
-          <div class="conf__own-vis">
-            <picture><source type="image/webp" sizes="280px" srcset="assets/opt/hero-800.webp 800w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="" loading="lazy" decoding="async"></picture>
-            <span class="conf__own-lock" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
-          </div>
-          <div class="conf__own-txt">
-            <div class="conf__own-k">Simple ownership</div>
-            <h4 class="conf__own-t">Your AI remains yours.</h4>
-            <p class="conf__own-d">If Dominion is no longer the right fit for your business, simply purchase the appliance for the fixed ownership price and continue running it independently.</p>
-            <div class="conf__price">
-              <div class="conf__price-lab">Fixed ownership option</div>
-              <div class="conf__price-val">$5,995</div>
-              <div class="conf__price-sub">One-time appliance purchase</div>
+          <div class="prom-card prom-card--violet">
+            <span class="prom-card__n">3</span>
+            <span class="prom-card__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
+            <div class="prom-card__t">Your knowledge stays yours</div>
+            <p class="prom-card__d">Your AI, documents, prompts and business intelligence remain inside your organisation.</p>
+            <div class="prom-card__list">
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Private AI</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Own your IP</div>
+              <div class="prom-li"><span class="prom-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Complete control forever</div>
             </div>
           </div>
         </div>
-        <div class="conf__trust">
-          <div class="conf-tp">
-            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg></span>
-            <div><div class="conf-tp__t">No lock-in contracts</div><div class="conf-tp__d">Stay because it works, not because you&rsquo;re locked in.</div></div>
+        <div class="prom__cta">
+          <div class="prom__cta-vis" aria-hidden="true">
+            <div class="prom__cta-glow"></div>
+            <picture><source type="image/webp" sizes="300px" srcset="assets/opt/hero-800.webp 800w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="" loading="lazy" decoding="async"></picture>
           </div>
-          <div class="conf-tp">
-            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
-            <div><div class="conf-tp__t">Fixed ownership option</div><div class="conf-tp__d">Purchase the appliance and take full control.</div></div>
-          </div>
-          <div class="conf-tp">
-            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
-            <div><div class="conf-tp__t">Your data always stays yours</div><div class="conf-tp__d">Private, sovereign and under your control.</div></div>
+          <div class="prom__cta-txt">
+            <h3 class="prom__cta-t">Ready to see how <b>Dominion works?</b></h3>
+            <p class="prom__cta-d">Discover how private AI infrastructure can transform your business while keeping your data exactly where it belongs.</p>
+            <a href="#contact" class="btn btn--primary">Find out more <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
       </div>
 
-      <p class="dep__foot"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Minimum 12-month term. All prices exclude GST.</p>
+      <p class="dep__foot"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>All prices exclude GST.</p>
     </div>
   </section>
 
@@ -1260,7 +1250,7 @@
       </details>
       <details>
         <summary>What does it cost?</summary>
-        <div class="a">Two managed options: Dominion Core from $6,500 one-time then $2,499 a month, and Dominion Growth from $7,995 then $3,999 a month. Both cover your whole firm with unlimited users and a minimum 12-month term. The deployment section above lists exactly what's included, and your precise scope is confirmed in the consultation.</div>
+        <div class="a">Two managed options: Dominion Core from $3,995 one-time then $2,499 a month, and Dominion Growth from $4,995 then $3,999 a month. Both cover your whole firm with unlimited users on a simple month-to-month basis. The deployment section above lists exactly what's included, and your precise scope is confirmed in the consultation.</div>
       </details>
       <details>
         <summary>What happens after 12 months?</summary>
