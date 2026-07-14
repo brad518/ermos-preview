@@ -232,7 +232,10 @@
   .step{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--glass);padding:34px 32px;
     box-shadow:var(--elev),var(--edge);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s}
   .step:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:var(--elev-hi),var(--edge)}
+  .step__head{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+  .step__head .n{margin-bottom:0}
   .step .t{font-family:var(--f-display);font-weight:500;font-size:1.25rem;line-height:1.3;color:var(--ink-2);margin-bottom:13px}
+  .step__head .t{margin-bottom:0}
   .step .d{font-size:0.97rem;line-height:1.65;color:var(--muted)}
 
   /* founders */
@@ -449,6 +452,8 @@
   .dep__unit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;height:clamp(340px,40vh,440px);display:flex;align-items:center}
   .dep__unit picture{display:contents}
   .dep__unit img{height:100%;width:auto;max-width:none;object-fit:contain;filter:drop-shadow(0 34px 54px rgba(0,0,0,0.7))}
+  .dep__cap{position:absolute;left:50%;top:calc(50% + clamp(178px,21vh,230px));transform:translateX(-50%);width:max-content;
+    text-align:center;font-size:0.95rem;line-height:1.55;color:var(--muted);z-index:1}
   /* cards */
   .dep-card{position:relative;z-index:2;border:1px solid var(--line);border-radius:20px;background:var(--glass);
     box-shadow:var(--elev),var(--edge);padding:30px 30px 32px;display:flex;flex-direction:column;--cr:59,130,246;
@@ -494,6 +499,47 @@
   .dep__panel p{font-size:1rem;line-height:1.7;color:var(--muted);margin:0;max-width:920px}
   .dep__foot{display:flex;align-items:center;justify-content:center;gap:9px;margin:30px 0 0;font-size:0.86rem;color:var(--muted-2)}
   .dep__foot svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+  /* built on confidence — commercial-model panel */
+  .conf{position:relative;z-index:2;max-width:1100px;margin:clamp(40px,5vw,64px) auto 0;border:1px solid var(--line);border-radius:18px;
+    background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);padding:clamp(28px,4vw,52px)}
+  .conf__head{text-align:center;max-width:640px;margin:0 auto}
+  .conf__t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--ink);margin:0}
+  .conf__t b{color:var(--accent-hi)}
+  .conf__s{margin:10px 0 0;color:var(--muted);font-size:1rem}
+  .conf__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:clamp(30px,4vw,46px)}
+  .conf-step{position:relative;padding:0 8px}
+  .conf-step:not(:last-child)::after{content:'';position:absolute;top:24px;right:-15px;width:26px;height:1px;
+    background:linear-gradient(90deg,rgba(var(--accent-rgb),0.55),transparent)}
+  .conf-step__i{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;
+    border:1px solid rgba(var(--accent-rgb),0.35);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.16), rgba(var(--accent-rgb),0.03))}
+  .conf-step__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .conf-step__k{margin-top:14px;font-weight:600;font-size:0.66rem;letter-spacing:0.16em;color:#8fb0ff}
+  .conf-step__t{font-family:var(--f-display);font-weight:600;font-size:1.08rem;color:var(--ink-2);margin-top:6px}
+  .conf-step__d{margin-top:7px;font-size:0.93rem;line-height:1.6;color:var(--muted)}
+  .conf__own{display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:clamp(26px,4vw,54px);align-items:center;
+    margin-top:clamp(32px,4vw,48px);padding-top:clamp(30px,4vw,44px);border-top:1px solid var(--line)}
+  .conf__own-vis{position:relative;display:flex;justify-content:center}
+  .conf__own-vis img{width:min(56vw,240px);height:auto;filter:drop-shadow(0 26px 44px rgba(0,0,0,0.6))}
+  .conf__own-lock{position:absolute;right:12%;bottom:4%;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;
+    border:1px solid rgba(167,139,250,0.45);background:#0c1220;box-shadow:0 0 26px -6px rgba(167,139,250,0.5)}
+  .conf__own-lock svg{width:18px;height:18px;color:#c4b5fd;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .conf__own-k{font-weight:600;font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:#c4b5fd}
+  .conf__own-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.2rem,2.2vw,1.55rem);color:var(--ink);margin:10px 0 0}
+  .conf__own-d{margin:12px 0 0;max-width:560px;font-size:0.97rem;line-height:1.65;color:var(--muted)}
+  .conf__price{display:inline-block;margin-top:20px;border:1px solid rgba(var(--accent-rgb),0.35);border-radius:14px;padding:16px 26px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.08), rgba(167,139,250,0.05))}
+  .conf__price-lab{font-weight:600;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-2)}
+  .conf__price-val{font-family:var(--f-display);font-weight:600;font-size:1.7rem;color:var(--ink);margin-top:4px}
+  .conf__price-sub{font-size:0.82rem;color:var(--muted);margin-top:2px}
+  .conf__trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(32px,4vw,48px);padding-top:clamp(24px,3vw,34px);border-top:1px solid var(--line)}
+  .conf-tp{display:flex;gap:13px;align-items:flex-start;padding:0 22px}
+  .conf-tp+.conf-tp{border-left:1px solid var(--line)}
+  .conf-tp__i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;
+    border:1px solid var(--line);background:var(--glass)}
+  .conf-tp__i svg{width:17px;height:17px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .conf-tp__t{font-weight:600;font-size:0.92rem;color:var(--ink-2)}
+  .conf-tp__d{margin-top:3px;font-size:0.85rem;line-height:1.5;color:var(--muted)}
 
   /* ===== ai delivers value — executive briefing ===== */
   .val{--gr:52,199,120}
@@ -556,7 +602,9 @@
   .vc__i{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin-bottom:18px;
     background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));border:1px solid rgba(var(--accent-rgb),0.3)}
   .vc__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .vc__k{font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:#8fb0ff;margin-bottom:8px}
+  .vc__top{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+  .vc__top .vc__i{margin-bottom:0}
+  .vc__k{font-weight:600;font-size:0.64rem;letter-spacing:0.16em;text-transform:uppercase;color:#8fb0ff}
   .vc__h{font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--ink-2);margin-bottom:9px}
   .vc__d{font-size:0.94rem;line-height:1.6;color:var(--muted)}
   .val__strip{max-width:1040px;margin:clamp(46px,6vw,74px) auto 0;border-radius:16px;padding:clamp(26px,3.4vw,42px);text-align:center;
@@ -641,7 +689,16 @@
     .whofor__grid{grid-template-columns:repeat(2,1fr);gap:12px}
     /* deployment: appliance on top, cards stacked */
     .dep__stage{grid-template-columns:1fr;row-gap:18px;margin-top:36px}
-    .dep__core{grid-column:1;position:relative;display:flex;justify-content:center;padding:6px 0}
+    .dep__core{grid-column:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;order:3}
+    .dep-card--core{order:1}
+    .dep-card--growth{order:2}
+    .dep__cap{position:static;transform:none;margin-top:12px}
+    .conf__steps{grid-template-columns:1fr;gap:22px}
+    .conf-step:not(:last-child)::after{display:none}
+    .conf__own{grid-template-columns:1fr}
+    .conf__trust{grid-template-columns:1fr;row-gap:16px}
+    .conf-tp{padding:0}
+    .conf-tp+.conf-tp{border-left:none;border-top:1px solid var(--line);padding-top:16px}
     .dep__unit{position:static;transform:none;height:auto;margin:0 auto}
     .dep__unit img{height:min(230px,56vw)}
     .dep__glow{width:230px;height:230px;top:50%}
@@ -797,20 +854,17 @@
       <div class="vc">
         <div class="vc__panels">
           <div class="vc__panel">
-            <span class="vc__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
-            <div class="vc__k">01 &mdash; Sovereign by design</div>
+            <div class="vc__top"><span class="vc__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span><div class="vc__k">Sovereign by design</div></div>
             <div class="vc__h">Keep the intelligence in-house.</div>
             <div class="vc__d">Your knowledge, documents and business intelligence never leave your building. Dominion runs entirely on your own infrastructure.</div>
           </div>
           <div class="vc__panel">
-            <span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3L5.6 5.6"/></svg></span>
-            <div class="vc__k">02 &mdash; Always learning</div>
+            <div class="vc__top"><span class="vc__i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3L5.6 5.6"/></svg></span><div class="vc__k">Always learning</div></div>
             <div class="vc__h">Tuned for your business.</div>
             <div class="vc__d">Every prompt, document and workflow improves your organisation&rsquo;s AI. The knowledge compounds over time, becoming uniquely yours.</div>
           </div>
           <div class="vc__panel">
-            <span class="vc__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
-            <div class="vc__k">03 &mdash; Security &amp; control</div>
+            <div class="vc__top"><span class="vc__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span><div class="vc__k">Security &amp; control</div></div>
             <div class="vc__h">Yours, and yours alone.</div>
             <div class="vc__d">Built for organisations handling confidential information. Your files, client data and intellectual property stay under your control at all times.</div>
           </div>
@@ -917,18 +971,15 @@
       <h2 class="h2" style="max-width:680px;margin-bottom:60px">Three steps. <b>Then it's simply there.</b></h2>
       <div class="grid g3">
         <div class="step">
-          <div class="n">1</div>
-          <div class="t">Scope call.</div>
+          <div class="step__head"><div class="n">1</div><div class="t">Scope call.</div></div>
           <div class="d">We map your firm's files, workflows and obligations. One call, no pitch deck.</div>
         </div>
         <div class="step">
-          <div class="n">2</div>
-          <div class="t">Install on site.</div>
+          <div class="step__head"><div class="n">2</div><div class="t">Install on site.</div></div>
           <div class="d">We bring the box to your office and set it up on your network. A single quiet unit; we handle everything.</div>
         </div>
         <div class="step">
-          <div class="n">3</div>
-          <div class="t">Team onboarded.</div>
+          <div class="step__head"><div class="n">3</div><div class="t">Team onboarded.</div></div>
           <div class="d">Your people start using it the same week. You never touch the technical side. That stays with us.</div>
         </div>
       </div>
@@ -957,9 +1008,9 @@
   <section class="section dep" id="deploy" data-reveal>
     <div class="container">
       <div class="dep__intro">
-        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>Simple investment. Total control.</div>
+        <div class="eyebrow" style="justify-content:center;display:inline-flex"><span class="dot"></span>No lock-in contracts</div>
         <h2 class="h2">Choose the Dominion that's <b>right for your business.</b></h2>
-        <p class="dep__sub">We deploy it. We manage it. We continually improve it.</p>
+        <p class="dep__sub">We install it. We manage it. Your business gets smarter every month.</p>
       </div>
 
       <div class="dep__stage">
@@ -967,6 +1018,7 @@
           <div class="dep__glow"></div>
           <div class="dep__base"></div>
           <div class="dep__unit"><picture><source type="image/avif" sizes="420px" srcset="assets/opt/hero-800.avif 800w, assets/opt/hero-1200.avif 1200w, assets/opt/hero-1600.avif 1600w"><source type="image/webp" sizes="420px" srcset="assets/opt/hero-800.webp 800w, assets/opt/hero-1200.webp 1200w, assets/opt/hero-1600.webp 1600w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="The Ermos Dominion appliance" loading="lazy" decoding="async"></picture></div>
+          <p class="dep__cap">Your private AI.<br>Inside your building.</p>
         </div>
 
         <div class="dep-card dep-card--core">
@@ -990,11 +1042,10 @@
             <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Quarterly optimisation</div>
           </div>
           <div class="dep-price">
-            <div class="dep-price__row"><span class="dep-price__lab">One-time implementation</span><span class="dep-price__val">$6,500</span></div>
-            <div class="dep-price__row"><span class="dep-price__lab">Managed AI platform</span><span class="dep-price__val dep-price__val--mo">$2,499 <small>/month</small></span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">One-time setup</span><span class="dep-price__val">$3,995</span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">Everything included</span><span class="dep-price__val dep-price__val--mo">$2,499 <small>/month</small></span></div>
           </div>
-          <p class="dep-note">Minimum 12-month agreement.</p>
-          <a href="#contact" class="dep-card__cta">Book your private AI consultation</a>
+          <a href="#contact" class="dep-card__cta">Book your private AI consultation <span aria-hidden="true">&rarr;</span></a>
         </div>
 
         <div class="dep-card dep-card--growth">
@@ -1018,17 +1069,68 @@
             <div class="dep-li"><span class="dep-li__c"><svg viewBox="0 0 16 16"><path d="M4 8.3l2.6 2.6L12 5.2"/></svg></span>Quarterly optimisation</div>
           </div>
           <div class="dep-price">
-            <div class="dep-price__row"><span class="dep-price__lab">One-time implementation</span><span class="dep-price__val">$7,995</span></div>
-            <div class="dep-price__row"><span class="dep-price__lab">Managed AI platform</span><span class="dep-price__val dep-price__val--mo">$3,999 <small>/month</small></span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">One-time setup</span><span class="dep-price__val">$4,995</span></div>
+            <div class="dep-price__row"><span class="dep-price__lab">Everything included</span><span class="dep-price__val dep-price__val--mo">$3,999 <small>/month</small></span></div>
           </div>
-          <p class="dep-note">Minimum 12-month agreement.</p>
-          <a href="#contact" class="dep-card__cta">Book your private AI consultation</a>
+          <a href="#contact" class="dep-card__cta">Book your private AI consultation <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
 
-      <div class="dep__panel">
-        <h3>You're buying a managed AI capability that makes your business smarter.</h3>
-        <p>Every Dominion deployment includes secure installation, AI configuration, knowledge ingestion, onboarding, support, monitoring and continuous optimisation. We deploy it, manage it and continually improve it while your team focuses on running the business.</p>
+      <div class="conf">
+        <div class="conf__head">
+          <h3 class="conf__t">Built on confidence. <b>Not contracts.</b></h3>
+          <p class="conf__s">Simple, fair and flexible.</p>
+        </div>
+        <div class="conf__steps">
+          <div class="conf-step">
+            <span class="conf-step__i"><svg viewBox="0 0 24 24"><path d="M20.2 6.6a5 5 0 01-6.5 6.4L7 19.7a2.1 2.1 0 01-3-3l6.7-6.7a5 5 0 016.4-6.5L14 6.6l.9 2.5 2.5.9 2.8-3.4z"/></svg></span>
+            <div class="conf-step__k">01</div>
+            <div class="conf-step__t">We install Dominion</div>
+            <div class="conf-step__d">On-site. Configured. Ready to go.</div>
+          </div>
+          <div class="conf-step">
+            <span class="conf-step__i"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+            <div class="conf-step__k">02</div>
+            <div class="conf-step__t">You pay monthly</div>
+            <div class="conf-step__d">The appliance, software, support, monitoring and continuous improvements are all included.</div>
+          </div>
+          <div class="conf-step">
+            <span class="conf-step__i"><svg viewBox="0 0 24 24"><path d="M12 21V9M12 9L7 4M12 9l5-5M7 4h3.2M7 4v3.2M17 4h-3.2M17 4v3.2"/></svg></span>
+            <div class="conf-step__k">03</div>
+            <div class="conf-step__t">Stay because it delivers value</div>
+            <div class="conf-step__d">Or purchase the appliance and continue independently.</div>
+          </div>
+        </div>
+        <div class="conf__own">
+          <div class="conf__own-vis">
+            <picture><source type="image/webp" sizes="280px" srcset="assets/opt/hero-800.webp 800w"><img src="assets/opt/hero-1200.png" width="1200" height="1200" alt="" loading="lazy" decoding="async"></picture>
+            <span class="conf__own-lock" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
+          </div>
+          <div class="conf__own-txt">
+            <div class="conf__own-k">Simple ownership</div>
+            <h4 class="conf__own-t">Your AI remains yours.</h4>
+            <p class="conf__own-d">If Dominion is no longer the right fit for your business, simply purchase the appliance for the fixed ownership price and continue running it independently.</p>
+            <div class="conf__price">
+              <div class="conf__price-lab">Fixed ownership option</div>
+              <div class="conf__price-val">$5,995</div>
+              <div class="conf__price-sub">One-time appliance purchase</div>
+            </div>
+          </div>
+        </div>
+        <div class="conf__trust">
+          <div class="conf-tp">
+            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg></span>
+            <div><div class="conf-tp__t">No lock-in contracts</div><div class="conf-tp__d">Stay because it works, not because you&rsquo;re locked in.</div></div>
+          </div>
+          <div class="conf-tp">
+            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span>
+            <div><div class="conf-tp__t">Fixed ownership option</div><div class="conf-tp__d">Purchase the appliance and take full control.</div></div>
+          </div>
+          <div class="conf-tp">
+            <span class="conf-tp__i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+            <div><div class="conf-tp__t">Your data always stays yours</div><div class="conf-tp__d">Private, sovereign and under your control.</div></div>
+          </div>
+        </div>
       </div>
 
       <p class="dep__foot"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Minimum 12-month term. All prices exclude GST.</p>
@@ -1199,7 +1301,7 @@
         <h2 class="h2">Ready to put AI <b>inside your business?</b></h2>
         <p class="lead">Book a private consultation and discover how Dominion can securely transform the way your team works. We'll answer your questions plainly. No pitch deck, no hype, no obligation.</p>
         <div class="hero__cta" style="margin-top:32px">
-          <a href="#contact-form" class="btn btn--primary">Book your private AI consultation</a>
+          <a href="#contact-form" class="btn btn--primary">Book your private AI consultation <span aria-hidden="true">&rarr;</span></a>
           <a href="security-brief.html" class="btn btn--ghost">Get the security brief</a>
         </div>
       </div>
