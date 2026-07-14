@@ -261,28 +261,26 @@
     background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
     padding:28px 26px;box-shadow:var(--elev),var(--edge)}
   .opt--grey{opacity:0.48;filter:saturate(0.35) grayscale(0.5)}
-  /* on reveal: option 1 glows grey and blacks out, option 2 follows, then Dominion lights up blue and stays */
-  @keyframes optIntro{
-    0%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
-    35%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
-    60%{opacity:0.9;filter:saturate(0.55) grayscale(0.25);border-color:rgba(255,255,255,0.3);box-shadow:0 0 38px -12px rgba(255,255,255,0.22),var(--elev),var(--edge)}
-    100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+  /* continuous roll-through: 2s on option 1, 2s on option 2, ~5s on Dominion, repeat (9s cycle) */
+  @keyframes bindCycle1{
+    0%,24%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+    2.5%,19%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
   }
-  .tways.in .opt--cloud.opt--grey{animation:optIntro 1.6s ease both .2s}
-  .tways.in .opt--ban.opt--grey{animation:optIntro 1.6s ease both 1.6s}
-  @keyframes domIntro{
-    0%{opacity:0.5;filter:saturate(0.4) grayscale(0.4);border-color:var(--line);box-shadow:var(--elev),var(--edge);
+  @keyframes bindCycle2{
+    0%,22.5%,46.5%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+    25%,41.5%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
+  }
+  @keyframes bindCycle3{
+    0%,44.5%,100%{opacity:0.5;filter:saturate(0.4) grayscale(0.4);border-color:var(--line);box-shadow:var(--elev),var(--edge);
       background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008))}
-    100%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.55);box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge);
+    49%,95%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.55);box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge);
       background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.04))}
   }
-  .tways.in .opt--dom.is-active{animation:domIntro .9s ease 3.2s both,domPulse 3.2s ease-in-out 4.1s infinite}
+  .tways.in .opt--cloud.opt--grey{animation:bindCycle1 9s ease-in-out infinite}
+  .tways.in .opt--ban.opt--grey{animation:bindCycle2 9s ease-in-out infinite}
+  .tways.in .opt--dom.is-active{animation:bindCycle3 9s ease-in-out infinite}
   @media(prefers-reduced-motion:reduce){.tways.in .opt--grey,.tways.in .opt--dom.is-active{animation:none}}
   .opt.is-active{opacity:1;filter:none}
-  @keyframes domPulse{
-    0%,100%{border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 44px -16px rgba(var(--accent-rgb),0.35),var(--edge)}
-    50%{border-color:rgba(var(--accent-rgb),0.85);box-shadow:0 0 84px -10px rgba(var(--accent-rgb),0.7),var(--edge)}
-  }
   @media(prefers-reduced-motion:reduce){.opt--dom.is-active{animation:none}}
   .opt__head{display:flex;align-items:center;gap:13px}
   .opt__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:3px;
