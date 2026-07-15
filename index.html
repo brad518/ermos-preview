@@ -642,6 +642,10 @@
     .dep__stage{grid-template-columns:1fr minmax(140px,200px) 1fr;column-gap:10px}
     .gains__grid{grid-template-columns:1fr 1fr}
     .sup__grid{grid-template-columns:1fr 1fr;gap:20px}
+    .lib__hero{grid-template-columns:1fr}
+    .lib__grid{grid-template-columns:1fr 1fr}
+    .lib__body{grid-template-columns:1fr}
+    .lib__topics{grid-template-columns:1fr 1fr}
     .sup-card:not(:last-child)::after{display:none}
     .dep-card{padding:26px 24px 28px}
     .g3{grid-template-columns:1fr}
@@ -672,6 +676,12 @@
     .dep__cap{position:static;transform:none;margin-top:12px}
     .gains__grid{grid-template-columns:1fr;gap:14px}
     .sup__grid{grid-template-columns:1fr}
+    .lib__grid{grid-template-columns:1fr}
+    .lib__topics{grid-template-columns:1fr}
+    .lib__hero-vis{grid-template-columns:1fr;justify-items:center;text-align:left}
+    .lib__bar{flex-direction:column;align-items:stretch}
+    .lib__cta{flex-direction:column;text-align:center}
+    .lib__cta .btn{margin-left:0}
     .sup__panel{grid-template-columns:1fr;text-align:center}
     .sup__panel-act{align-items:center}
     .sup__assure{align-items:center}
@@ -819,6 +829,79 @@
   .sup__assure span{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;color:#cfd8e6}
   .sup__assure svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   @media(prefers-reduced-motion:reduce){.sup-card{opacity:1;transform:none;transition:none}}
+
+  /* ===== resource library ===== */
+  .lib__hero{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;padding-bottom:clamp(34px,4vw,50px);border-bottom:1px solid var(--line)}
+  .lib__hero-vis{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,40px);align-items:center;justify-content:center}
+  .lib__bookwrap{position:relative;display:flex;justify-content:center;perspective:900px}
+  .lib__bookglow{position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);width:220px;height:70px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(var(--accent-rgb),0.4), transparent 70%);filter:blur(22px)}
+  .lib__book{width:170px;height:226px;padding:18px 16px}
+  .lib__book .sup__book-brand{font-size:0.66rem}
+  .lib__book .sup__book-title{margin-top:20px;font-size:1rem;letter-spacing:0.04em}
+  .lib__book-shield{margin-top:auto;align-self:flex-end;width:56px;height:56px;color:rgba(126,166,255,0.22);stroke:currentColor;fill:none;stroke-width:1.4}
+  .lib__trust{display:grid;gap:16px}
+  .lib__trust-item{display:flex;gap:11px;align-items:flex-start}
+  .lib__trust-i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(var(--accent-rgb),0.4);background:rgba(var(--accent-rgb),0.07)}
+  .lib__trust-i svg{width:16px;height:16px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .lib__trust-item b{display:block;font-size:0.88rem;color:var(--ink-2);font-weight:600}
+  .lib__trust-item span span,.lib__trust-item div span{display:block;font-size:0.8rem;line-height:1.5;color:var(--muted)}
+  .lib__body{display:grid;grid-template-columns:minmax(200px,22%) 1fr;gap:clamp(24px,3vw,44px);margin-top:clamp(30px,4vw,46px)}
+  .lib__side-h{font-weight:600;font-size:0.66rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent-hi);margin-bottom:14px}
+  .lib__topics{display:grid;gap:8px}
+  .lib-topic{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-family:inherit;font-size:0.88rem;font-weight:500;color:var(--muted);
+    background:var(--glass);border:1px solid var(--line);border-radius:10px;padding:11px 13px;cursor:pointer;transition:border-color .25s,color .25s,transform .25s}
+  .lib-topic:hover{color:var(--ink);transform:translateX(2px)}
+  .lib-topic svg{flex:none;width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .lib-topic__n{margin-left:auto;font-size:0.74rem;color:var(--muted-2);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+  .lib-topic.is-active{color:var(--ink);border-color:rgba(var(--accent-rgb),0.5);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.04))}
+  .lib-topic.is-active .lib-topic__n{color:var(--accent-hi);border-color:rgba(var(--accent-rgb),0.4)}
+  .lib__help{margin-top:22px;border:1px solid var(--line);border-radius:12px;background:var(--glass);padding:18px 16px}
+  .lib__help-t{font-family:var(--f-display);font-weight:600;font-size:0.95rem;color:var(--ink-2)}
+  .lib__help-d{margin:7px 0 12px;font-size:0.82rem;line-height:1.55;color:var(--muted)}
+  .lib__help-btn{font-size:0.82rem;padding:9px 14px}
+  .lib__bar{display:flex;gap:14px;align-items:center}
+  .lib__search{flex:1;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;background:#0a1120;padding:0 14px}
+  .lib__search svg{flex:none;width:15px;height:15px;color:var(--muted-2);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round}
+  .lib__search input{flex:1;background:none;border:none;outline:none;color:var(--ink);font-family:inherit;font-size:0.9rem;padding:12px 0}
+  .lib__search input::placeholder{color:var(--muted-2)}
+  .lib__sort{display:flex;align-items:center;gap:9px;font-size:0.8rem;color:var(--muted-2);white-space:nowrap}
+  .lib__sort select{background:#0a1120;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-family:inherit;font-size:0.85rem;padding:10px 12px;outline:none}
+  .lib__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px;align-items:stretch}
+  .lib-card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--glass);box-shadow:var(--edge);
+    padding:20px 18px;transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .35s}
+  .lib-card:hover{transform:translateY(-4px);border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 40px -16px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .lib-card__i{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;margin-bottom:12px;
+    border:1px solid rgba(var(--accent-rgb),0.3);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.03))}
+  .lib-card__i svg{width:17px;height:17px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .lib-card__code{font-weight:600;font-size:0.64rem;letter-spacing:0.14em;color:var(--accent-hi);margin-bottom:7px}
+  .lib-card__t{font-family:var(--f-display);font-weight:600;font-size:0.99rem;line-height:1.3;color:var(--ink);margin:0 0 8px}
+  .lib-card__d{margin:0 0 14px;font-size:0.82rem;line-height:1.55;color:var(--muted)}
+  .lib-card__foot{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+  .lib-card__meta{font-size:0.7rem;color:var(--muted-2)}
+  .lib-card__meta:first-child{border:1px solid var(--line);border-radius:5px;padding:2px 6px;color:#cfd8e6}
+  .lib-card__dl{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;
+    border:1px solid rgba(var(--accent-rgb),0.35);transition:background .25s,border-color .25s}
+  .lib-card__dl:hover{background:rgba(var(--accent-rgb),0.14);border-color:rgba(var(--accent-rgb),0.6)}
+  .lib-card__dl svg{width:14px;height:14px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .lib-card--soon{opacity:0.6}
+  .lib-card--soon:hover{transform:none;border-color:var(--line);box-shadow:var(--edge)}
+  .lib-card__soon{margin-left:auto;font-size:0.62rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted-2);
+    border:1px solid var(--line);border-radius:5px;padding:3px 7px}
+  .lib__pages{display:flex;gap:8px;justify-content:center;margin-top:26px}
+  .lib__page{min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:9px;
+    background:var(--glass);color:var(--muted);font-family:inherit;font-size:0.85rem;cursor:pointer;transition:border-color .25s,color .25s}
+  .lib__page:hover{color:var(--ink)}
+  .lib__page.is-active{color:var(--accent-hi);border-color:rgba(var(--accent-rgb),0.5);background:rgba(var(--accent-rgb),0.1)}
+  .lib__cta{display:flex;align-items:center;gap:18px;margin-top:clamp(34px,4vw,50px);border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);padding:clamp(20px,2.6vw,28px) clamp(22px,3vw,36px)}
+  .lib__cta-i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;
+    border:1px solid rgba(var(--accent-rgb),0.4);background:rgba(var(--accent-rgb),0.08)}
+  .lib__cta-i svg{width:20px;height:20px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .lib__cta-t{font-family:var(--f-display);font-weight:600;font-size:1.08rem;color:var(--ink)}
+  .lib__cta-d{margin:3px 0 0;font-size:0.88rem;color:var(--muted)}
+  .lib__cta .btn{margin-left:auto;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -831,6 +914,7 @@
       <a href="#bind">The bind</a>
       <a href="#how">How it works</a>
       <a href="#value">Security</a>
+      <a href="#library">Documentation</a>
       <a href="#deploy">Plans</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -1366,6 +1450,161 @@
     </div>
   </section>
 
+  <!-- ================= RESOURCE LIBRARY ================= -->
+  <section class="section section--alt lib" id="library" data-reveal>
+    <div class="container">
+      <div class="lib__hero">
+        <div class="lib__hero-txt">
+          <div class="eyebrow"><span class="tick"></span>Resource library</div>
+          <h2 class="h2">Everything you need to evaluate <b>private AI</b> infrastructure.</h2>
+          <p class="lead">In-depth guides, technical documentation and security information to help you make the right decision with confidence.</p>
+        </div>
+        <div class="lib__hero-vis" aria-hidden="true">
+          <div class="lib__bookwrap">
+            <div class="lib__bookglow"></div>
+            <div class="sup__book lib__book">
+              <div class="sup__book-brand">ERMOS</div>
+              <div class="sup__book-title">DOMINION<br>RESOURCE<br>LIBRARY</div>
+              <svg class="lib__book-shield" viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>
+            </div>
+          </div>
+          <div class="lib__trust">
+            <div class="lib__trust-item"><span class="lib__trust-i"><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg></span><div><b>Private by design</b><span>All documentation. Zero access to your data.</span></div></div>
+            <div class="lib__trust-item"><span class="lib__trust-i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span><div><b>Technical &amp; transparent</b><span>Built for IT, compliance and security teams.</span></div></div>
+            <div class="lib__trust-item"><span class="lib__trust-i"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></span><div><b>Download or share</b><span>PDF versions available for every document.</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lib__body">
+        <aside class="lib__side">
+          <div class="lib__side-h">Filter by topic</div>
+          <div class="lib__topics">
+            <button class="lib-topic is-active" data-topic="all" type="button"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>All Resources<span class="lib-topic__n"></span></button>
+            <button class="lib-topic" data-topic="executive" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-3.2 2.9-5.4 6.5-5.4s6.5 2.2 6.5 5.4"/></svg>Executive<span class="lib-topic__n"></span></button>
+            <button class="lib-topic" data-topic="security" type="button"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/></svg>Security<span class="lib-topic__n"></span></button>
+            <button class="lib-topic" data-topic="technical" type="button"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg>Technical<span class="lib-topic__n"></span></button>
+            <button class="lib-topic" data-topic="partners" type="button"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.8"/><circle cx="16" cy="9" r="2.8"/><path d="M2.8 19c0-2.6 2.3-4.3 5.2-4.3 1.2 0 2.3.3 3.2.8.9-.5 2-.8 3.2-.8 2.9 0 5.2 1.7 5.2 4.3"/></svg>Partners<span class="lib-topic__n"></span></button>
+          </div>
+          <div class="lib__help">
+            <div class="lib__help-t">Need something specific?</div>
+            <p class="lib__help-d">Can&rsquo;t find what you&rsquo;re looking for? Our team can help.</p>
+            <a href="#contact" class="btn btn--ghost lib__help-btn" data-enquire="default">Contact us <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </aside>
+        <div class="lib__main">
+          <div class="lib__bar">
+            <div class="lib__search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><input type="search" id="libSearch" placeholder="Search resources..." aria-label="Search resources"></div>
+            <label class="lib__sort">Sort by
+              <select id="libSort"><option value="relevant">Most relevant</option><option value="az">A&ndash;Z</option></select>
+            </label>
+          </div>
+          <div class="lib__grid" id="libGrid">
+        <article class="lib-card" data-topic="executive">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-001</div>
+          <h3 class="lib-card__t">Dominion Overview</h3>
+          <p class="lib-card__d">A complete overview of Dominion, deployment, features and what&rsquo;s included.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.2 &middot; Jul 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Dominion Overview"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="executive">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-002</div>
+          <h3 class="lib-card__t">Business Case for Private AI</h3>
+          <p class="lib-card__d">ROI, productivity, cost comparison and the commercial model.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.1 &middot; Jul 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Business Case for Private AI"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="security">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-003</div>
+          <h3 class="lib-card__t">Security &amp; Sovereignty</h3>
+          <p class="lib-card__d">Air-gapped deployment, encryption, Australian data sovereignty and the remote management model.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.2 &middot; Jul 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Security &amp; Sovereignty"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="security">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-004</div>
+          <h3 class="lib-card__t">Remote Management &amp; Security Model</h3>
+          <p class="lib-card__d">Exactly how ERMOS remotely maintains a sealed appliance without accessing customer data.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.1 &middot; Jul 2026</span><a class="lib-card__dl" href="assets/docs/dominion-support-maintenance-guide.pdf" download aria-label="Download Remote Management &amp; Security Model"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-005</div>
+          <h3 class="lib-card__t">Support &amp; Maintenance Guide</h3>
+          <p class="lib-card__d">Patch schedule, health monitoring, software lifecycle and the support process.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.1 &middot; Jul 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Support &amp; Maintenance Guide"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-006</div>
+          <h3 class="lib-card__t">Microsoft 365 Integration</h3>
+          <p class="lib-card__d">Document indexing, permissions, SharePoint, Teams, OneDrive and Outlook.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.0 &middot; Jun 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Microsoft 365 Integration"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-007</div>
+          <h3 class="lib-card__t">AI Knowledge Architecture</h3>
+          <p class="lib-card__d">RAG, vector database, knowledge organisation, retrieval and memory.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.0 &middot; Jun 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request AI Knowledge Architecture"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-008</div>
+          <h3 class="lib-card__t">Technical Specifications</h3>
+          <p class="lib-card__d">Hardware, GPU, storage, operating system, power, networking and physical requirements.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">v1.0 &middot; Jun 2026</span><a class="lib-card__dl" href="#contact" data-enquire="default" aria-label="Request Technical Specifications"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5L16.5 11M5 20h14"/></svg></a></div>
+        </article>
+        <article class="lib-card lib-card--soon" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-009</div>
+          <h3 class="lib-card__t">Implementation Guide</h3>
+          <p class="lib-card__d">How a Dominion deployment runs from scope call to go-live.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">In preparation</span><span class="lib-card__soon">Coming soon</span></div>
+        </article>
+        <article class="lib-card lib-card--soon" data-topic="security">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-010</div>
+          <h3 class="lib-card__t">Compliance Guide</h3>
+          <p class="lib-card__d">Mapping Dominion to professional compliance obligations.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">In preparation</span><span class="lib-card__soon">Coming soon</span></div>
+        </article>
+        <article class="lib-card lib-card--soon" data-topic="security">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-011</div>
+          <h3 class="lib-card__t">Disaster Recovery</h3>
+          <p class="lib-card__d">Recovery objectives, backup design and hardware replacement.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">In preparation</span><span class="lib-card__soon">Coming soon</span></div>
+        </article>
+        <article class="lib-card lib-card--soon" data-topic="partners">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-012</div>
+          <h3 class="lib-card__t">Partner Program</h3>
+          <p class="lib-card__d">Working with ERMOS as an integration or referral partner.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">In preparation</span><span class="lib-card__soon">Coming soon</span></div>
+        </article>
+        <article class="lib-card lib-card--soon" data-topic="technical">
+          <span class="lib-card__i"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+          <div class="lib-card__code">ERMOS-013</div>
+          <h3 class="lib-card__t">API Documentation</h3>
+          <p class="lib-card__d">Endpoints and interfaces for connecting internal systems.</p>
+          <div class="lib-card__foot"><span class="lib-card__meta">PDF</span><span class="lib-card__meta">In preparation</span><span class="lib-card__soon">Coming soon</span></div>
+        </article>
+          </div>
+          <div class="lib__pages" id="libPages" role="navigation" aria-label="Library pages"></div>
+        </div>
+      </div>
+      <div class="lib__cta">
+        <span class="lib__cta-i"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg></span>
+        <div class="lib__cta-txt">
+          <div class="lib__cta-t">Still have questions?</div>
+          <p class="lib__cta-d">Our team is here to help you evaluate Dominion with confidence.</p>
+        </div>
+        <a href="#contact" class="btn btn--primary" data-enquire="direct">Book a consultation <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= FINAL CTA / CONTACT ================= -->
   <section class="section contact" id="contact" data-reveal>
     <div class="container contact__grid">
@@ -1401,6 +1640,7 @@
       <div class="foot__links">
         <a href="#how">How it works</a>
         <a href="#value">Security</a>
+        <a href="#library">Documentation</a>
         <a href="#deploy">Plans</a>
         <a href="#faq">FAQ</a>
         <a href="mailto:hello@ermos.com.au">hello@ermos.com.au</a>
@@ -1553,6 +1793,61 @@
   </div>
 
 <script>
+  // resource library: topic filter, search, sort, pagination
+  (function(){
+    var grid = document.getElementById('libGrid'); if (!grid) return;
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.lib-card'));
+    var topics = Array.prototype.slice.call(document.querySelectorAll('.lib-topic'));
+    var search = document.getElementById('libSearch');
+    var sortSel = document.getElementById('libSort');
+    var pages = document.getElementById('libPages');
+    var PER = 8, state = { topic:'all', q:'', sort:'relevant', page:1 };
+    topics.forEach(function(t){
+      var n = t.getAttribute('data-topic');
+      var count = n === 'all' ? cards.length : cards.filter(function(c){ return c.getAttribute('data-topic') === n; }).length;
+      t.querySelector('.lib-topic__n').textContent = count;
+    });
+    function matches(c){
+      if (state.topic !== 'all' && c.getAttribute('data-topic') !== state.topic) return false;
+      if (state.q){
+        var hay = (c.querySelector('.lib-card__t').textContent + ' ' + c.querySelector('.lib-card__d').textContent + ' ' + c.querySelector('.lib-card__code').textContent).toLowerCase();
+        if (hay.indexOf(state.q) === -1) return false;
+      }
+      return true;
+    }
+    function render(){
+      var list = cards.filter(matches);
+      if (state.sort === 'az') list = list.slice().sort(function(a,b){ return a.querySelector('.lib-card__t').textContent.localeCompare(b.querySelector('.lib-card__t').textContent); });
+      var total = Math.max(1, Math.ceil(list.length / PER));
+      if (state.page > total) state.page = total;
+      var start = (state.page - 1) * PER;
+      var visible = list.slice(start, start + PER);
+      cards.forEach(function(c){ c.style.display = 'none'; });
+      visible.forEach(function(c){ c.style.display = ''; grid.appendChild(c); });
+      pages.innerHTML = '';
+      if (total > 1){
+        for (var p = 1; p <= total; p++){
+          (function(p){
+            var b = document.createElement('button');
+            b.type = 'button'; b.className = 'lib__page' + (p === state.page ? ' is-active' : ''); b.textContent = p;
+            b.addEventListener('click', function(){ state.page = p; render(); });
+            pages.appendChild(b);
+          })(p);
+        }
+      }
+    }
+    topics.forEach(function(t){
+      t.addEventListener('click', function(){
+        topics.forEach(function(o){ o.classList.remove('is-active'); });
+        t.classList.add('is-active');
+        state.topic = t.getAttribute('data-topic'); state.page = 1; render();
+      });
+    });
+    if (search) search.addEventListener('input', function(){ state.q = search.value.trim().toLowerCase(); state.page = 1; render(); });
+    if (sortSel) sortSel.addEventListener('change', function(){ state.sort = sortSel.value; state.page = 1; render(); });
+    render();
+  })();
+
   // bind tiles: click a square to jump the cycle to it
   (function(){
     var wrap = document.querySelector('.tways__options'); if (!wrap) return;
