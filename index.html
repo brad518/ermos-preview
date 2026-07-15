@@ -261,32 +261,25 @@
     background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
     padding:28px 26px;box-shadow:var(--elev),var(--edge)}
   .opt--grey{opacity:0.48;filter:saturate(0.35) grayscale(0.5)}
-  /* continuous roll-through: equal pacing, ~4.5s lit per option, 15s cycle */
+  /* continuous roll-through: 7.5s on each grey option, ~4.7s on Dominion, 22s cycle; click a tile to jump to it */
   @keyframes bindCycle1{
-    0%,35.5%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
-    2%,32%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
+    0%,39%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+    2.3%,36.4%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
   }
   @keyframes bindCycle2{
-    0%,33%,69%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
-    36.5%,65.5%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
+    0%,36.4%,76%,100%{opacity:0.48;filter:saturate(0.35) grayscale(0.5);border-color:var(--line);box-shadow:var(--elev),var(--edge)}
+    39%,73.2%{opacity:0.95;filter:saturate(0.6) grayscale(0.2);border-color:rgba(255,255,255,0.38);box-shadow:0 0 46px -12px rgba(255,255,255,0.3),var(--elev),var(--edge)}
   }
   @keyframes bindCycle3{
-    0%,66.5%,100%{opacity:0.5;filter:saturate(0.4) grayscale(0.4);border-color:var(--line);box-shadow:var(--elev),var(--edge);
+    0%,73.2%,100%{opacity:0.5;filter:saturate(0.4) grayscale(0.4);border-color:var(--line);box-shadow:var(--elev),var(--edge);
       background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008))}
-    70%,97.5%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.55);box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge);
+    76%,97.3%{opacity:1;filter:none;border-color:rgba(var(--accent-rgb),0.55);box-shadow:0 0 64px -14px rgba(var(--accent-rgb),0.55),var(--edge);
       background:linear-gradient(180deg, rgba(var(--accent-rgb),0.14), rgba(var(--accent-rgb),0.04))}
   }
-  .tways.in .opt--cloud.opt--grey{animation:bindCycle1 15s ease-in-out infinite}
-  .tways.in .opt--ban.opt--grey{animation:bindCycle2 15s ease-in-out infinite}
-  .tways.in .opt--dom.is-active{animation:bindCycle3 15s ease-in-out infinite}
-  /* hover anywhere over the options to freeze the cycle in place; leave to resume */
-  .tways__options:hover .opt,.tways__options.is-paused .opt{animation-play-state:paused}
-  .tways__hint{margin:22px 0 0;text-align:center;font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#525b6e}
-  .tways__hint .hint-b{display:none;color:#8fb0ff}
-  .tways__options:hover + .tways__hint .hint-a,.tways__options.is-paused + .tways__hint .hint-a{display:none}
-  .tways__options:hover + .tways__hint .hint-b,.tways__options.is-paused + .tways__hint .hint-b{display:inline}
-  @media(prefers-reduced-motion:reduce){.tways__hint{display:none}}
-  @media(hover:none){.tways__hint{display:none}}
+  .tways.in .opt--cloud.opt--grey{animation:bindCycle1 22s ease-in-out infinite}
+  .tways.in .opt--ban.opt--grey{animation:bindCycle2 22s ease-in-out infinite}
+  .tways.in .opt--dom.is-active{animation:bindCycle3 22s ease-in-out infinite}
+  .tways.in .opt{cursor:pointer}
   @media(prefers-reduced-motion:reduce){.tways.in .opt--grey,.tways.in .opt--dom.is-active{animation:none}}
   .opt.is-active{opacity:1;filter:none}
   @media(prefers-reduced-motion:reduce){.opt--dom.is-active{animation:none}}
@@ -869,7 +862,6 @@
           <p class="opt__pos">A new way to deliver AI into your business that protects your clients&rsquo; data and allows your team to stay productive and in control. Data physically stays on your premises and your input is used to train only your AI model, optimised only for your business.</p>
         </div>
       </div>
-      <p class="tways__hint" aria-hidden="true"><span class="hint-a">Hover to pause</span><span class="hint-b">&#10074;&#10074; Paused</span></p>
       <div class="tways__cta">
         <p class="tways__cta-line">Choose the path that gives your team AI capability without giving away your data.</p>
         <a href="#contact" class="btn btn--primary" data-enquire="direct">Book a private AI consultation</a>
@@ -1447,6 +1439,21 @@
   </div>
 
 <script>
+  // bind tiles: click a square to jump the cycle to it
+  (function(){
+    var wrap = document.querySelector('.tways__options'); if (!wrap) return;
+    var tiles = [wrap.querySelector('.opt--cloud'), wrap.querySelector('.opt--ban'), wrap.querySelector('.opt--dom')];
+    if (tiles.some(function(t){ return !t; })) return;
+    var seek = [0, 8.0, 16.1];
+    tiles.forEach(function(t, k){
+      t.addEventListener('click', function(){
+        tiles.forEach(function(o){ o.style.animation = 'none'; });
+        void wrap.offsetWidth;
+        tiles.forEach(function(o){ o.style.animation = ''; o.style.animationDelay = (-seek[k]) + 's'; });
+      });
+    });
+  })();
+
   // enquiry modal
   (function(){
     var modal = document.getElementById('enqModal'); if (!modal) return;
