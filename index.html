@@ -673,6 +673,8 @@
     .gains__grid{grid-template-columns:1fr;gap:14px}
     .sup__grid{grid-template-columns:1fr}
     .sup__panel{grid-template-columns:1fr;text-align:center}
+    .sup__panel-act{align-items:center}
+    .sup__assure{align-items:center}
     .sup__panel-d,.sup__panel-d2{margin-left:auto;margin-right:auto}
     .sup__assure{justify-content:center}
     .sup__book{transform:none}
@@ -793,26 +795,27 @@
   .sup-card__t{font-family:var(--f-display);font-weight:600;font-size:1.02rem;line-height:1.25;color:var(--ink);margin:0}
   .sup-card__lead{margin:0 0 8px;font-size:0.9rem;font-weight:600;color:#cfd8e6}
   .sup-card__d{margin:0;font-size:0.88rem;line-height:1.6;color:var(--muted)}
-  .sup__panel{display:grid;grid-template-columns:170px 1fr;gap:clamp(20px,3vw,34px);align-items:center;margin:28px auto 0;max-width:620px;
+  .sup__panel{display:grid;grid-template-columns:130px 1fr auto;gap:clamp(22px,3.5vw,48px);align-items:center;margin-top:28px;
     border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);
-    padding:clamp(22px,3vw,32px)}
+    padding:clamp(16px,2.2vw,24px) clamp(22px,3vw,40px)}
+  .sup__panel-act{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
   .sup__bookwrap{display:flex;justify-content:center;perspective:900px}
-  .sup__book{width:134px;height:178px;border-radius:5px 12px 12px 5px;position:relative;transform:rotateY(-14deg);
+  .sup__book{width:112px;height:148px;border-radius:5px 12px 12px 5px;position:relative;transform:rotateY(-14deg);
     background:linear-gradient(155deg,#131e33,#0a101d);border:1px solid rgba(126,166,255,0.3);
     box-shadow:14px 22px 44px -12px rgba(0,0,0,0.7),0 0 44px -18px rgba(var(--accent-rgb),0.45);
-    padding:15px 13px;display:flex;flex-direction:column}
+    padding:12px 11px;display:flex;flex-direction:column}
   .sup__book::before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:5px 0 0 5px;
     background:linear-gradient(90deg, rgba(126,166,255,0.35), rgba(126,166,255,0.05))}
-  .sup__book-brand{font-family:var(--f-display);font-weight:700;font-size:0.58rem;letter-spacing:0.28em;color:var(--accent-hi)}
-  .sup__book-title{margin-top:14px;font-family:var(--f-display);font-weight:600;font-size:0.82rem;line-height:1.4;color:var(--ink)}
+  .sup__book-brand{font-family:var(--f-display);font-weight:700;font-size:0.52rem;letter-spacing:0.26em;color:var(--accent-hi)}
+  .sup__book-title{margin-top:10px;font-family:var(--f-display);font-weight:600;font-size:0.7rem;line-height:1.4;color:var(--ink)}
   .sup__book-icons{margin-top:auto;display:flex;gap:8px}
-  .sup__book-icons svg{width:12px;height:12px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+  .sup__book-icons svg{width:10px;height:10px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
   .sup__panel-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.1rem,1.9vw,1.35rem);color:var(--ink);margin:0}
   .sup__panel-t b{color:var(--accent-hi)}
-  .sup__panel-d{margin:10px 0 0;font-size:0.88rem;line-height:1.6;color:var(--muted);max-width:540px}
-  .sup__panel-d2{margin:5px 0 0;font-size:0.82rem;line-height:1.6;color:var(--muted-2);max-width:540px}
-  .sup__panel-btn{margin-top:16px;font-size:0.85rem;padding:12px 20px}
-  .sup__assure{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:14px}
+  .sup__panel-d{margin:8px 0 0;font-size:0.88rem;line-height:1.55;color:var(--muted);max-width:460px}
+  .sup__panel-d2{margin:4px 0 0;font-size:0.8rem;line-height:1.55;color:var(--muted-2);max-width:460px}
+  .sup__panel-btn{font-size:0.85rem;padding:12px 20px;white-space:nowrap}
+  .sup__assure{display:flex;flex-direction:column;gap:7px;margin-top:0}
   .sup__assure span{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;color:#cfd8e6}
   .sup__assure svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   @media(prefers-reduced-motion:reduce){.sup-card{opacity:1;transform:none;transition:none}}
@@ -1086,6 +1089,8 @@
           <h3 class="sup__panel-t">Want the <b>full details?</b></h3>
           <p class="sup__panel-d">We&rsquo;ve documented exactly how Dominion is monitored, supported, updated and protected.</p>
           <p class="sup__panel-d2">Perfect for IT managers, compliance teams and technical stakeholders.</p>
+        </div>
+        <div class="sup__panel-act">
           <a href="assets/docs/dominion-support-maintenance-guide.pdf" class="btn btn--primary sup__panel-btn" download>Download the Support &amp; Maintenance Guide</a>
           <div class="sup__assure">
             <span><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg>No access to your data. Ever.</span>
