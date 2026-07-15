@@ -279,6 +279,14 @@
   .tways.in .opt--cloud.opt--grey{animation:bindCycle1 15s ease-in-out infinite}
   .tways.in .opt--ban.opt--grey{animation:bindCycle2 15s ease-in-out infinite}
   .tways.in .opt--dom.is-active{animation:bindCycle3 15s ease-in-out infinite}
+  /* hover anywhere over the options to freeze the cycle in place; leave to resume */
+  .tways__options:hover .opt,.tways__options.is-paused .opt{animation-play-state:paused}
+  .tways__hint{margin:22px 0 0;text-align:center;font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#525b6e}
+  .tways__hint .hint-b{display:none;color:#8fb0ff}
+  .tways__options:hover + .tways__hint .hint-a,.tways__options.is-paused + .tways__hint .hint-a{display:none}
+  .tways__options:hover + .tways__hint .hint-b,.tways__options.is-paused + .tways__hint .hint-b{display:inline}
+  @media(prefers-reduced-motion:reduce){.tways__hint{display:none}}
+  @media(hover:none){.tways__hint{display:none}}
   @media(prefers-reduced-motion:reduce){.tways.in .opt--grey,.tways.in .opt--dom.is-active{animation:none}}
   .opt.is-active{opacity:1;filter:none}
   @media(prefers-reduced-motion:reduce){.opt--dom.is-active{animation:none}}
@@ -861,6 +869,7 @@
           <p class="opt__pos">A new way to deliver AI into your business that protects your clients&rsquo; data and allows your team to stay productive and in control. Data physically stays on your premises and your input is used to train only your AI model, optimised only for your business.</p>
         </div>
       </div>
+      <p class="tways__hint" aria-hidden="true"><span class="hint-a">Hover to pause</span><span class="hint-b">&#10074;&#10074; Paused</span></p>
       <div class="tways__cta">
         <p class="tways__cta-line">Choose the path that gives your team AI capability without giving away your data.</p>
         <a href="#contact" class="btn btn--primary" data-enquire="direct">Book a private AI consultation</a>
