@@ -641,6 +641,8 @@
     :root{--pad:28px}
     .dep__stage{grid-template-columns:1fr minmax(140px,200px) 1fr;column-gap:10px}
     .gains__grid{grid-template-columns:1fr 1fr}
+    .sup__grid{grid-template-columns:1fr 1fr;gap:20px}
+    .sup-card:not(:last-child)::after{display:none}
     .dep-card{padding:26px 24px 28px}
     .g3{grid-template-columns:1fr}
     .capgrid{grid-template-columns:1fr;gap:40px}
@@ -669,6 +671,11 @@
     .dep-card--growth{order:2}
     .dep__cap{position:static;transform:none;margin-top:12px}
     .gains__grid{grid-template-columns:1fr;gap:14px}
+    .sup__grid{grid-template-columns:1fr}
+    .sup__panel{grid-template-columns:1fr;text-align:center}
+    .sup__panel-d,.sup__panel-d2{margin-left:auto;margin-right:auto}
+    .sup__assure{justify-content:center}
+    .sup__book{transform:none}
     .dep__unit{position:static;transform:none;height:auto;margin:0 auto}
     .dep__unit img{height:min(280px,64vw)}
     .dep__glow{width:230px;height:230px;top:50%}
@@ -766,6 +773,49 @@
     .mpt span{display:none}
     .modal__x{position:fixed;top:16px;right:16px}
   }
+
+  /* ===== the support you get ===== */
+  .sup__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:52px;align-items:stretch}
+  .sup-card{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--glass);box-shadow:var(--elev),var(--edge);
+    padding:26px 24px;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .4s}
+  .sup.in .sup-card{opacity:1;transform:none}
+  .sup.in .sup-card:nth-child(2){transition-delay:.1s,.1s,0s,0s}
+  .sup.in .sup-card:nth-child(3){transition-delay:.2s,.2s,0s,0s}
+  .sup.in .sup-card:nth-child(4){transition-delay:.3s,.3s,0s,0s}
+  .sup-card:hover{border-color:rgba(var(--accent-rgb),0.4);box-shadow:0 0 48px -16px rgba(var(--accent-rgb),0.5),var(--edge)}
+  .sup-card:not(:last-child)::after{content:'\2192';position:absolute;right:-22px;top:44px;color:var(--accent-hi);opacity:.55;font-size:1rem}
+  .sup-card__i{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;margin-bottom:16px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));border:1px solid rgba(var(--accent-rgb),0.3)}
+  .sup-card__i svg{width:22px;height:22px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .sup-card__head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .sup-card__n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
+    border:1px solid rgba(var(--accent-rgb),0.5);font-family:var(--f-display);font-weight:600;font-size:0.76rem;color:var(--accent-hi);background:rgba(var(--accent-rgb),0.08)}
+  .sup-card__t{font-family:var(--f-display);font-weight:600;font-size:1.02rem;line-height:1.25;color:var(--ink);margin:0}
+  .sup-card__lead{margin:0 0 8px;font-size:0.9rem;font-weight:600;color:#cfd8e6}
+  .sup-card__d{margin:0;font-size:0.88rem;line-height:1.6;color:var(--muted)}
+  .sup__panel{display:grid;grid-template-columns:280px 1fr;gap:clamp(26px,4vw,54px);align-items:center;margin-top:28px;
+    border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);
+    padding:clamp(26px,3.6vw,44px)}
+  .sup__bookwrap{display:flex;justify-content:center;perspective:900px}
+  .sup__book{width:198px;height:262px;border-radius:5px 12px 12px 5px;position:relative;transform:rotateY(-14deg);
+    background:linear-gradient(155deg,#131e33,#0a101d);border:1px solid rgba(126,166,255,0.3);
+    box-shadow:14px 22px 44px -12px rgba(0,0,0,0.7),0 0 44px -18px rgba(var(--accent-rgb),0.45);
+    padding:22px 20px;display:flex;flex-direction:column}
+  .sup__book::before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:5px 0 0 5px;
+    background:linear-gradient(90deg, rgba(126,166,255,0.35), rgba(126,166,255,0.05))}
+  .sup__book-brand{font-family:var(--f-display);font-weight:700;font-size:0.78rem;letter-spacing:0.3em;color:var(--accent-hi)}
+  .sup__book-title{margin-top:26px;font-family:var(--f-display);font-weight:600;font-size:1.14rem;line-height:1.35;color:var(--ink)}
+  .sup__book-icons{margin-top:auto;display:flex;gap:12px}
+  .sup__book-icons svg{width:16px;height:16px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+  .sup__panel-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.7rem);color:var(--ink);margin:0}
+  .sup__panel-t b{color:var(--accent-hi)}
+  .sup__panel-d{margin:12px 0 0;font-size:0.97rem;line-height:1.6;color:var(--muted);max-width:540px}
+  .sup__panel-d2{margin:6px 0 0;font-size:0.9rem;line-height:1.6;color:var(--muted-2);max-width:540px}
+  .sup__panel-btn{margin-top:22px}
+  .sup__assure{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:18px}
+  .sup__assure span{display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;color:#cfd8e6}
+  .sup__assure svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  @media(prefers-reduced-motion:reduce){.sup-card{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -987,6 +1037,65 @@
   </section>
 
   <!-- ================= HOW IT WORKS ================= -->
+  <!-- ================= THE SUPPORT YOU GET ================= -->
+  <section class="section sup" id="support" data-reveal>
+    <div class="container">
+      <div class="eyebrow"><span class="tick"></span>The support you get</div>
+      <h2 class="h2" style="max-width:760px">How we manage your sealed unit remotely <b>without compromising one byte of data.</b></h2>
+      <p class="lead" style="max-width:640px">Dominion is sealed, secure and air-gapped. We keep it healthy, secure and continuously improving, without ever accessing your business documents.</p>
+      <div class="sup__grid">
+        <div class="sup-card">
+          <span class="sup-card__i"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4.5 12 2.5-6H21"/></svg></span>
+          <div class="sup-card__head"><span class="sup-card__n">1</span><h3 class="sup-card__t">Health Monitoring</h3></div>
+          <p class="sup-card__lead">We monitor the appliance, not your files.</p>
+          <p class="sup-card__d">Temperature, storage and system health are monitored continuously so issues are detected early.</p>
+        </div>
+        <div class="sup-card">
+          <span class="sup-card__i"><svg viewBox="0 0 24 24"><path d="M4.5 13a7.5 7.5 0 0115 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19.5a4 4 0 01-4 2.5h-2"/></svg></span>
+          <div class="sup-card__head"><span class="sup-card__n">2</span><h3 class="sup-card__t">Secure Live Support</h3></div>
+          <p class="sup-card__lead">Support only when you approve it.</p>
+          <p class="sup-card__d">You initiate every support session. No permanent access. You stay in control.</p>
+        </div>
+        <div class="sup-card">
+          <span class="sup-card__i"><svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0113.7-5.7L20 9.5M20 4.5v5h-5"/><path d="M20 11a8 8 0 01-13.7 5.7L4 14.5M4 19.5v-5h5"/></svg></span>
+          <div class="sup-card__head"><span class="sup-card__n">3</span><h3 class="sup-card__t">Software &amp; AI Updates</h3></div>
+          <p class="sup-card__lead">Your platform keeps improving.</p>
+          <p class="sup-card__d">Secure software updates and newer AI models keep Dominion current over time.</p>
+        </div>
+        <div class="sup-card">
+          <span class="sup-card__i"><svg viewBox="0 0 24 24"><ellipse cx="10" cy="6" rx="6" ry="2.6"/><path d="M4 6v10c0 1.4 2.7 2.6 6 2.6 1 0 1.9-.1 2.8-.3"/><path d="M4 11c0 1.4 2.7 2.6 6 2.6"/><path d="M17.5 11.5l3.5 1.3v2.9c0 2-1.5 3.6-3.5 4.3-2-.7-3.5-2.3-3.5-4.3v-2.9l3.5-1.3z"/></svg></span>
+          <div class="sup-card__head"><span class="sup-card__n">4</span><h3 class="sup-card__t">Protected Recovery</h3></div>
+          <p class="sup-card__lead">Configuration protected.</p>
+          <p class="sup-card__d">Critical system settings are backed up so Dominion can be restored quickly if hardware ever fails. Your documents remain on your premises.</p>
+        </div>
+      </div>
+      <div class="sup__panel">
+        <div class="sup__bookwrap" aria-hidden="true">
+          <div class="sup__book">
+            <div class="sup__book-brand">ERMOS</div>
+            <div class="sup__book-title">DOMINION<br>Support &amp;<br>Maintenance<br>Guide</div>
+            <div class="sup__book-icons">
+              <svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4.5 12 2.5-6H21"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M4.5 13a7.5 7.5 0 0115 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0113.7-5.7L20 9.5M20 4.5v5h-5"/><path d="M20 11a8 8 0 01-13.7 5.7L4 14.5M4 19.5v-5h5"/></svg>
+              <svg viewBox="0 0 24 24"><ellipse cx="10" cy="6" rx="6" ry="2.6"/><path d="M4 6v10c0 1.4 2.7 2.6 6 2.6 1 0 1.9-.1 2.8-.3"/><path d="M17.5 11.5l3.5 1.3v2.9c0 2-1.5 3.6-3.5 4.3-2-.7-3.5-2.3-3.5-4.3v-2.9l3.5-1.3z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="sup__panel-txt">
+          <h3 class="sup__panel-t">Want the <b>full details?</b></h3>
+          <p class="sup__panel-d">We&rsquo;ve documented exactly how Dominion is monitored, supported, updated and protected.</p>
+          <p class="sup__panel-d2">Perfect for IT managers, compliance teams and technical stakeholders.</p>
+          <a href="#contact" class="btn btn--primary sup__panel-btn" data-enquire="default">Download the Support &amp; Maintenance Guide</a>
+          <div class="sup__assure">
+            <span><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg>No access to your data. Ever.</span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg>100% on-premise. Always.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section lit lit--left" id="how" data-reveal>
     <div class="container">
       <div class="eyebrow"><span class="tick"></span>How it works</div>
