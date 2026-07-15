@@ -682,11 +682,8 @@
     .lib__bar{flex-direction:column;align-items:stretch}
     .lib__cta{flex-direction:column;text-align:center}
     .lib__cta .btn{margin-left:0}
-    .sup__panel{grid-template-columns:1fr;text-align:center}
-    .sup__panel-act{align-items:center}
-    .sup__assure{align-items:center}
-    .sup__panel-d,.sup__panel-d2{margin-left:auto;margin-right:auto}
-    .sup__assure{justify-content:center}
+    .sup__lib{grid-template-columns:1fr;text-align:center;justify-items:center}
+    .sup__lib-d{margin-left:auto;margin-right:auto}
     .sup__book{transform:none}
     .dep__unit{position:static;transform:none;height:auto;margin:0 auto}
     .dep__unit img{height:min(280px,64vw)}
@@ -805,11 +802,6 @@
   .sup-card__t{font-family:var(--f-display);font-weight:600;font-size:1.02rem;line-height:1.25;color:var(--ink);margin:0}
   .sup-card__lead{margin:0 0 8px;font-size:0.9rem;font-weight:600;color:#cfd8e6}
   .sup-card__d{margin:0;font-size:0.88rem;line-height:1.6;color:var(--muted)}
-  .sup__panel{display:grid;grid-template-columns:130px 1fr auto;gap:clamp(22px,3.5vw,48px);align-items:center;margin-top:28px;
-    border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);
-    padding:clamp(16px,2.2vw,24px) clamp(22px,3vw,40px)}
-  .sup__panel-act{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-  .sup__bookwrap{display:flex;justify-content:center;perspective:900px}
   .sup__book{width:112px;height:148px;border-radius:5px 12px 12px 5px;position:relative;transform:rotateY(-14deg);
     background:linear-gradient(155deg,#131e33,#0a101d);border:1px solid rgba(126,166,255,0.3);
     box-shadow:14px 22px 44px -12px rgba(0,0,0,0.7),0 0 44px -18px rgba(var(--accent-rgb),0.45);
@@ -820,15 +812,28 @@
   .sup__book-title{margin-top:10px;font-family:var(--f-display);font-weight:600;font-size:0.7rem;line-height:1.4;color:var(--ink)}
   .sup__book-icons{margin-top:auto;display:flex;gap:8px}
   .sup__book-icons svg{width:10px;height:10px;color:#7ea6ff;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
-  .sup__panel-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.1rem,1.9vw,1.35rem);color:var(--ink);margin:0}
-  .sup__panel-t b{color:var(--accent-hi)}
-  .sup__panel-d{margin:8px 0 0;font-size:0.88rem;line-height:1.55;color:var(--muted);max-width:460px}
-  .sup__panel-d2{margin:4px 0 0;font-size:0.8rem;line-height:1.55;color:var(--muted-2);max-width:460px}
-  .sup__panel-btn{font-size:0.85rem;padding:12px 20px;white-space:nowrap}
-  .sup__assure{display:flex;flex-direction:column;gap:7px;margin-top:0}
-  .sup__assure span{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;color:#cfd8e6}
-  .sup__assure svg{width:15px;height:15px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  @media(prefers-reduced-motion:reduce){.sup-card{opacity:1;transform:none;transition:none}}
+  /* step 5 — the resource library conclusion */
+  .sup__divider{position:relative;margin:38px 0 0;border-top:1px dashed rgba(126,166,255,0.25)}
+  .sup__five{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;background:rgb(var(--accent-rgb));color:#fff;
+    font-family:var(--f-display);font-weight:600;font-size:0.95rem;border:5px solid #0a0e15;
+    box-shadow:0 0 26px -4px rgba(var(--accent-rgb),0.7)}
+  .sup__five::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);width:1px;height:22px;
+    background:linear-gradient(180deg, rgba(var(--accent-rgb),0.5), transparent)}
+  .sup__lib{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,52px);align-items:center;margin-top:40px;
+    border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0c1322,#0a0e16);box-shadow:var(--edge);
+    padding:clamp(24px,3vw,38px) clamp(24px,3.4vw,46px)}
+  .sup__lib-i{display:inline-flex;align-items:center;justify-content:center;width:96px;height:96px;border-radius:24px;
+    border:1px solid rgba(var(--accent-rgb),0.35);background:linear-gradient(180deg, rgba(var(--accent-rgb),0.18), rgba(var(--accent-rgb),0.04));
+    box-shadow:0 0 48px -10px rgba(var(--accent-rgb),0.5)}
+  .sup__lib-i svg{width:40px;height:40px;color:var(--accent-hi);stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .sup__lib-t{font-family:var(--f-display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.3;color:var(--ink);margin:0}
+  .sup__lib-t b{color:var(--accent-hi)}
+  .sup__lib-d{margin:10px 0 16px;font-size:0.92rem;line-height:1.65;color:var(--muted);max-width:660px}
+  .sup__lib-cta{display:inline-flex;align-items:center;gap:9px;color:var(--accent-hi);font-weight:600;font-size:0.95rem;transition:transform .25s ease}
+  .sup__lib-cta:hover{text-decoration:underline;transform:translateY(2px)}
+  .sup__lib-cta svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  @media(prefers-reduced-motion:reduce){.sup-card{opacity:1;transform:none;transition:none}.sup__lib-cta{transition:none}}
 
   /* ===== resource library ===== */
   .lib__hero{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;padding-bottom:clamp(34px,4vw,50px);border-bottom:1px solid var(--line)}
@@ -914,7 +919,7 @@
       <a href="#bind">The bind</a>
       <a href="#how">How it works</a>
       <a href="#value">Security</a>
-      <a href="#library">Documentation</a>
+      <a href="#resource-library">Documentation</a>
       <a href="#deploy">Plans</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -1156,30 +1161,13 @@
           <p class="sup-card__d">Critical system settings are backed up so Dominion can be restored quickly if hardware ever fails. Your documents remain on your premises.</p>
         </div>
       </div>
-      <div class="sup__panel">
-        <div class="sup__bookwrap" aria-hidden="true">
-          <div class="sup__book">
-            <div class="sup__book-brand">ERMOS</div>
-            <div class="sup__book-title">Remote<br>Management<br>&amp; Security<br>Model</div>
-            <div class="sup__book-icons">
-              <svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4.5 12 2.5-6H21"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M4.5 13a7.5 7.5 0 0115 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>
-              <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0113.7-5.7L20 9.5M20 4.5v5h-5"/><path d="M20 11a8 8 0 01-13.7 5.7L4 14.5M4 19.5v-5h5"/></svg>
-              <svg viewBox="0 0 24 24"><ellipse cx="10" cy="6" rx="6" ry="2.6"/><path d="M4 6v10c0 1.4 2.7 2.6 6 2.6 1 0 1.9-.1 2.8-.3"/><path d="M17.5 11.5l3.5 1.3v2.9c0 2-1.5 3.6-3.5 4.3-2-.7-3.5-2.3-3.5-4.3v-2.9l3.5-1.3z"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="sup__panel-txt">
-          <h3 class="sup__panel-t">Want the <b>full details?</b></h3>
-          <p class="sup__panel-d">We&rsquo;ve documented exactly how Dominion is monitored, supported, updated and protected.</p>
-          <p class="sup__panel-d2">Perfect for IT managers, compliance teams and technical stakeholders.</p>
-        </div>
-        <div class="sup__panel-act">
-          <a href="#library" class="btn btn--primary sup__panel-btn">Explore the Resource Library <span aria-hidden="true">&rarr;</span></a>
-          <div class="sup__assure">
-            <span><svg viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9" rx="1.5"/><path d="M8.5 10.5V7.5a3.5 3.5 0 017 0v3"/></svg>No access to your data. Ever.</span>
-            <span><svg viewBox="0 0 24 24"><path d="M12 3l7 2.5V11c0 4-3 7-7 8.5C8 18 5 15 5 11V5.5L12 3z"/><path d="M9.2 11.9l2 2 3.6-4"/></svg>100% on-premise. Always.</span>
-          </div>
+      <div class="sup__divider" aria-hidden="true"><span class="sup__five">5</span></div>
+      <div class="sup__lib">
+        <span class="sup__lib-i" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6.5C10.2 5 7.8 4.5 4.5 4.5v13c3.3 0 5.7.5 7.5 2 1.8-1.5 4.2-2 7.5-2v-13c-3.3 0-5.7.5-7.5 2z"/><path d="M12 6.5v13"/></svg></span>
+        <div class="sup__lib-txt">
+          <h3 class="sup__lib-t">Explore the complete <b>ERMOS Dominion</b> Resource Library</h3>
+          <p class="sup__lib-d">Every aspect of Dominion, from architecture and deployment to security, support and updates, is documented in one comprehensive resource library. Explore the technical detail behind every claim we make.</p>
+          <a class="sup__lib-cta" href="#resource-library"><svg viewBox="0 0 24 24"><path d="M12 4v13M6.5 12.5L12 18l5.5-5.5"/></svg>Explore the Resource Library</a>
         </div>
       </div>
     </div>
@@ -1451,7 +1439,7 @@
   </section>
 
   <!-- ================= RESOURCE LIBRARY ================= -->
-  <section class="section section--alt lib" id="library" data-reveal>
+  <section class="section section--alt lib" id="resource-library" data-reveal>
     <div class="container">
       <div class="lib__hero">
         <div class="lib__hero-txt">
@@ -1640,7 +1628,7 @@
       <div class="foot__links">
         <a href="#how">How it works</a>
         <a href="#value">Security</a>
-        <a href="#library">Documentation</a>
+        <a href="#resource-library">Documentation</a>
         <a href="#deploy">Plans</a>
         <a href="#faq">FAQ</a>
         <a href="mailto:hello@ermos.com.au">hello@ermos.com.au</a>
